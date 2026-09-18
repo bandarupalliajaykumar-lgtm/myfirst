@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Buyer Dashboard | FarmConnect</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .buyer-page {
+            min-height: 100vh;
+            background: #f7f8f3;
+            padding-bottom: 60px;
+        }
+
+        .buyer-nav {
+            background: white;
+            border-bottom: 1px solid #e5eae2;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .buyer-logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #183b25;
+        }
+
+        .buyer-logo span {
+            color: #6b9e45;
+        }
+
+        .buyer-nav a {
+            text-decoration: none;
+            color: #304335;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .buyer-container {
+            width: 88%;
+            max-width: 1150px;
+            margin: auto;
+            padding-top: 50px;
+        }
+
+        .buyer-container h1 {
+            font-family: "Playfair Display", serif;
+            color: #183b25;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .buyer-container p {
+            color: #687268;
+        }
+
+        .buyer-card {
+            margin-top: 35px;
+            background: white;
+            border: 1px solid #e5eae2;
+            border-radius: 22px;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .buyer-icon {
+            font-size: 60px;
+        }
+
+        .market-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 25px;
+            border-radius: 11px;
+            background: #183b25;
+            color: white !important;
+            text-decoration: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="buyer-page">
+
+    <nav class="buyer-nav">
+
+        <div class="buyer-logo">
+            Farm<span>Connect</span> 🌱
+        </div>
+
+        <div>
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+        </div>
+
+    </nav>
+
+
+    <main class="buyer-container">
+
+        <h1>
+            Welcome, {{ user.name }}! 🛒
+        </h1>
+
+        <p>
+            Discover fresh products directly from farmers.
+        </p>
+
+
+        <div class="buyer-card">
+
+            <div class="buyer-icon">
+                🥬
+            </div>
+
+            <h2>
+                Fresh Products Marketplace
+            </h2>
+
+            <p>
+                Browse vegetables, fruits, grains and more
+                directly from farmers.
+            </p>
+
+            <a href="{{ url_for('marketplace') }}"
+               class="market-btn">
+
+                🛍️ Explore Marketplace
+
+            </a>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

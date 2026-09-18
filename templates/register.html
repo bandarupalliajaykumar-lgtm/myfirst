@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account | FarmConnect</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-box">
+
+        <div class="auth-logo">🌱</div>
+
+        <h1>Join FarmConnect</h1>
+
+        <p>Create your farmer or buyer account</p>
+
+        <!-- Connected to Flask Backend -->
+        <form method="POST" action="{{ url_for('register') }}">
+
+            <label>Full Name</label>
+            <input type="text"
+                   name="name"
+                   placeholder="Your name"
+                   required>
+
+            <label>Email</label>
+            <input type="email"
+                   name="email"
+                   placeholder="you@example.com"
+                   required>
+
+            <label>Phone</label>
+            <input type="text"
+                   name="phone"
+                   placeholder="Phone number">
+
+            <label>Location</label>
+            <input type="text"
+                   name="location"
+                   placeholder="Village / City">
+
+            <label>I am a</label>
+
+            <select name="role" required>
+
+                <option value="farmer">
+                    👨‍🌾 Farmer
+                </option>
+
+                <option value="buyer">
+                    🛒 Buyer
+                </option>
+
+            </select>
+
+            <label>Password</label>
+
+            <input type="password"
+                   name="password"
+                   placeholder="Create password"
+                   required>
+
+            <button type="submit">
+                Create Account →
+            </button>
+
+        </form>
+
+        <p class="auth-bottom">
+            Already have an account?
+            <a href="{{ url_for('login') }}">Login</a>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

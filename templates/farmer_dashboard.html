@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Dashboard | FarmConnect</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        .farmer-dashboard-page {
+            min-height: 100vh;
+            background: #f7f8f3;
+            padding-bottom: 50px;
+        }
+
+        .dashboard-nav {
+            background: white;
+            border-bottom: 1px solid #e8ebe3;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-logo {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: #183b25;
+        }
+
+        .dashboard-logo span {
+            color: #6b9e45;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .welcome-name {
+            color: #4d5d50;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            text-decoration: none;
+            border: 1px solid #dce2d8;
+            color: #304335;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #183b25;
+            color: white;
+        }
+
+        .dashboard-container {
+            width: 88%;
+            max-width: 1250px;
+            margin: 0 auto;
+            padding-top: 42px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-family: "Playfair Display", serif;
+            font-size: 38px;
+            color: #183b25;
+        }
+
+        .dashboard-header p {
+            margin-top: 8px;
+            color: #687268;
+        }
+
+        .add-product-btn {
+            text-decoration: none;
+            background: #183b25;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .add-product-btn:hover {
+            background: #285d39;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e7ebe4;
+            border-radius: 18px;
+            padding: 23px;
+            box-shadow: 0 8px 25px rgba(30, 50, 35, 0.05);
+        }
+
+        .stat-icon {
+            font-size: 25px;
+            margin-bottom: 14px;
+        }
+
+        .stat-title {
+            color: #727b73;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 27px;
+            font-weight: 800;
+            color: #183b25;
+            margin-top: 5px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 22px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border: 1px solid #e7ebe4;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(30, 50, 35, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            color: #183b25;
+            font-size: 20px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .product-item {
+            border: 1px solid #edf0eb;
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 0;
+        }
+
+        .product-image {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: #edf4e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-name {
+            color: #203c29;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .product-category {
+            color: #7b847c;
+            font-size: 12px;
+        }
+
+        .product-price {
+            color: #285d39;
+            font-weight: 800;
+        }
+
+        .product-quantity {
+            color: #6d766e;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: flex-end;
+        }
+
+        .edit-btn {
+            text-decoration: none;
+            background: #eef5e9;
+            color: #285d39;
+            border: 1px solid #d8e7d2;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .edit-btn:hover {
+            background: #dfeeda;
+        }
+
+        .delete-btn {
+            background: #fff1ef;
+            color: #b64032;
+            border: 1px solid #f1d4d0;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #ffe2de;
+        }
+
+        .empty-products {
+            text-align: center;
+            padding: 40px 15px;
+            color: #7b847c;
+        }
+
+        .empty-icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .empty-products h3 {
+            color: #304335;
+            margin-bottom: 7px;
+        }
+
+        .ai-card {
+            background: linear-gradient(145deg, #183b25, #285d39);
+            color: white;
+            border: none;
+        }
+
+        .ai-card h2 {
+            color: white;
+        }
+
+        .ai-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .ai-card p {
+            color: #d8e6da;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .ai-status {
+            margin-top: 22px;
+            padding: 13px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .status-ready {
+            font-weight: 700;
+            color: #dff3df;
+        }
+
+        .quick-actions {
+            margin-top: 22px;
+        }
+
+        .quick-actions h2 {
+            color: #183b25;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .quick-action {
+            text-decoration: none;
+            background: white;
+            border: 1px solid #e7ebe4;
+            border-radius: 15px;
+            padding: 20px;
+            color: #304335;
+            font-weight: 700;
+        }
+
+        .quick-action-icon {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .flash-message {
+            background: #eaf5e8;
+            border: 1px solid #cfe3cc;
+            color: #285d39;
+            padding: 13px 17px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .welcome-name {
+                display: none;
+            }
+
+            .dashboard-container {
+                width: 92%;
+                padding-top: 30px;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dashboard-header h1 {
+                font-size: 30px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .product-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .product-actions {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="farmer-dashboard-page">
+
+    <!-- NAVBAR -->
+    <nav class="dashboard-nav">
+
+        <div class="dashboard-logo">
+            Farm<span>Connect</span> 🌱
+        </div>
+
+        <div class="nav-right">
+
+            <span class="welcome-name">
+                Welcome, {{ user.name }}
+            </span>
+
+            <a href="{{ url_for('logout') }}"
+               class="logout-btn">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="dashboard-container">
+
+        <!-- FLASH MESSAGES -->
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash-message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- HEADER -->
+        <div class="dashboard-header">
+
+            <div>
+
+                <h1>Farmer Dashboard</h1>
+
+                <p>
+                    Welcome back, {{ user.name }}!
+                    Manage your farm products and grow your business.
+                </p>
+
+            </div>
+
+            <a href="{{ url_for('add_product') }}"
+               class="add-product-btn">
+
+                + Add Product
+
+            </a>
+
+        </div>
+
+
+        <!-- STATS -->
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">🌱</div>
+
+                <div class="stat-title">
+                    My Products
+                </div>
+
+                <div class="stat-value">
+                    {{ products|length }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">📦</div>
+
+                <div class="stat-title">
+                    Total Stock
+                </div>
+
+                <div class="stat-value">
+                    {{ products|sum(attribute='quantity')|round(1) }} kg
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">🛒</div>
+
+                <div class="stat-title">
+                    Orders
+                </div>
+
+                <div class="stat-value">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">🤖</div>
+
+                <div class="stat-title">
+                    AI Demand
+                </div>
+
+                <div class="stat-value">
+                    Ready
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCTS + AI -->
+        <div class="main-grid">
+
+
+            <!-- MY PRODUCTS -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h2>My Products</h2>
+
+                    <a href="{{ url_for('add_product') }}"
+                       style="text-decoration:none;color:#285d39;font-size:14px;font-weight:700;">
+
+                        + Add
+
+                    </a>
+
+                </div>
+
+
+                {% if products %}
+
+                    <div class="product-list">
+
+                        {% for product in products %}
+
+                            <div class="product-item">
+
+
+                                <!-- PRODUCT INFO -->
+                                <div class="product-info">
+
+                                    <div class="product-image">
+
+                                        {% if product.image %}
+
+                                            <img src="{{ product.image }}"
+                                                 alt="{{ product.name }}">
+
+                                        {% else %}
+
+                                            {% if product.category == "Vegetables" %}
+                                                🥬
+                                            {% elif product.category == "Fruits" %}
+                                                🍎
+                                            {% elif product.category == "Grains" %}
+                                                🌾
+                                            {% elif product.category == "Pulses" %}
+                                                🫘
+                                            {% else %}
+                                                📦
+                                            {% endif %}
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <div class="product-name">
+                                            {{ product.name }}
+                                        </div>
+
+                                        <div class="product-category">
+                                            {{ product.category }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- PRICE + ACTIONS -->
+                                <div style="text-align:right;">
+
+                                    <div class="product-price">
+                                        ₹{{ "%.2f"|format(product.price) }}/kg
+                                    </div>
+
+                                    <div class="product-quantity">
+                                        {{ product.quantity }} kg available
+                                    </div>
+
+
+                                    <div class="product-actions">
+
+                                        <!-- EDIT -->
+                                        <a href="{{ url_for('edit_product', product_id=product.id) }}"
+                                           class="edit-btn">
+
+                                            ✏️ Edit
+
+                                        </a>
+
+
+                                        <!-- DELETE -->
+                                        <form method="POST"
+                                              action="{{ url_for('delete_product', product_id=product.id) }}"
+                                              onsubmit="return confirm('Are you sure you want to delete this product?');">
+
+                                            <button type="submit"
+                                                    class="delete-btn">
+
+                                                🗑️ Delete
+
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+
+                    <!-- EMPTY STATE -->
+                    <div class="empty-products">
+
+                        <div class="empty-icon">
+                            🌾
+                        </div>
+
+                        <h3>
+                            No products yet
+                        </h3>
+
+                        <p>
+                            Add your first farm product and start
+                            selling directly to buyers.
+                        </p>
+
+                        <br>
+
+                        <a href="{{ url_for('add_product') }}"
+                           class="add-product-btn">
+
+                            + Add Your First Product
+
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- AI -->
+            <div class="dashboard-card ai-card">
+
+                <div class="ai-icon">
+                    🤖
+                </div>
+
+                <h2>
+                    FarmConnect AI
+                </h2>
+
+                <p>
+                    Our smart system will analyze demand,
+                    market trends and your inventory to help
+                    you make better selling decisions.
+                </p>
+
+
+                <div class="ai-status">
+
+                    <span>
+                        AI Demand Prediction
+                    </span>
+
+                    <span class="status-ready">
+                        Ready ✓
+                    </span>
+
+                </div>
+
+
+                <div class="ai-status">
+
+                    <span>
+                        Price Recommendation
+                    </span>
+
+                    <span class="status-ready">
+                        Coming Soon
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+        <div class="quick-actions">
+
+            <h2>
+                Quick Actions
+            </h2>
+
+            <div class="actions-grid">
+
+
+                <a href="{{ url_for('add_product') }}"
+                   class="quick-action">
+
+                    <div class="quick-action-icon">
+                        ➕
+                    </div>
+
+                    Add New Product
+
+                </a>
+
+
+                <a href="#"
+                   class="quick-action">
+
+                    <div class="quick-action-icon">
+                        📊
+                    </div>
+
+                    View Sales Analytics
+
+                </a>
+
+
+                <a href="#"
+                   class="quick-action">
+
+                    <div class="quick-action-icon">
+                        🌦️
+                    </div>
+
+                    Check Weather
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

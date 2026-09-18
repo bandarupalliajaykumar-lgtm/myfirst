@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Marketplace | FarmConnect</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        .market-page {
+            min-height: 100vh;
+            background: #f7f8f3;
+            padding-bottom: 60px;
+        }
+
+        .market-nav {
+            background: white;
+            border-bottom: 1px solid #e6ebe3;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .market-logo {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: #183b25;
+        }
+
+        .market-logo span {
+            color: #6b9e45;
+        }
+
+        .market-nav a {
+            text-decoration: none;
+            color: #304335;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .market-container {
+            width: 88%;
+            max-width: 1250px;
+            margin: auto;
+            padding-top: 42px;
+        }
+
+        .market-heading h1 {
+            margin: 0;
+            font-family: "Playfair Display", serif;
+            color: #183b25;
+            font-size: 40px;
+        }
+
+        .market-heading p {
+            color: #687268;
+            margin-top: 8px;
+        }
+
+        .search-area {
+            background: white;
+            border: 1px solid #e6ebe3;
+            border-radius: 18px;
+            padding: 18px;
+            margin: 28px 0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .search-area input,
+        .search-area select {
+            border: 1px solid #dfe5dc;
+            border-radius: 10px;
+            padding: 13px 14px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        .search-area input {
+            flex: 1;
+        }
+
+        .search-area select {
+            min-width: 180px;
+        }
+
+        .search-btn {
+            border: none;
+            background: #183b25;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .market-product {
+            background: white;
+            border: 1px solid #e5eae2;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(30, 50, 35, 0.05);
+            transition: 0.2s;
+        }
+
+        .market-product:hover {
+            transform: translateY(-4px);
+        }
+
+        .product-photo {
+            height: 190px;
+            background: #edf4e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 65px;
+            overflow: hidden;
+        }
+
+        .product-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .category-label {
+            display: inline-block;
+            background: #edf4e9;
+            color: #285d39;
+            padding: 5px 9px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .market-product h2 {
+            margin: 12px 0 5px;
+            color: #203c29;
+            font-size: 20px;
+        }
+
+        .farmer-name {
+            color: #737d74;
+            font-size: 13px;
+        }
+
+        .description {
+            color: #737d74;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 12px 0;
+        }
+
+        .product-bottom {
+            border-top: 1px solid #edf0eb;
+            margin-top: 15px;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            color: #183b25;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .stock {
+            color: #737d74;
+            font-size: 12px;
+        }
+
+        .cart-btn {
+            margin-top: 15px;
+            width: 100%;
+            border: none;
+            background: #183b25;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .empty-market {
+            background: white;
+            border: 1px solid #e5eae2;
+            border-radius: 20px;
+            text-align: center;
+            padding: 70px 20px;
+            color: #737d74;
+        }
+
+        .empty-market div {
+            font-size: 55px;
+        }
+
+        .empty-market h2 {
+            color: #304335;
+        }
+
+        @media (max-width: 900px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .search-area {
+                flex-direction: column;
+            }
+
+            .search-area select {
+                width: 100%;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .market-heading h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="market-page">
+
+    <!-- NAVBAR -->
+    <nav class="market-nav">
+
+        <div class="market-logo">
+            Farm<span>Connect</span> 🌱
+        </div>
+
+        <div>
+            <a href="{{ url_for('dashboard') }}">
+                ← Dashboard
+            </a>
+
+            &nbsp;&nbsp;
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+        </div>
+
+    </nav>
+
+
+    <main class="market-container">
+
+        <!-- HEADING -->
+        <div class="market-heading">
+
+            <h1>Fresh From Farmers 🥬</h1>
+
+            <p>
+                Buy fresh farm products directly from local farmers.
+            </p>
+
+        </div>
+
+
+        <!-- SEARCH -->
+        <form method="GET"
+              action="{{ url_for('marketplace') }}"
+              class="search-area">
+
+            <input type="text"
+                   name="search"
+                   value="{{ search }}"
+                   placeholder="Search tomatoes, mangoes, rice...">
+
+            <select name="category">
+
+                <option value="">
+                    All Categories
+                </option>
+
+                <option value="Vegetables"
+                    {% if category == "Vegetables" %}selected{% endif %}>
+                    🥬 Vegetables
+                </option>
+
+                <option value="Fruits"
+                    {% if category == "Fruits" %}selected{% endif %}>
+                    🍎 Fruits
+                </option>
+
+                <option value="Grains"
+                    {% if category == "Grains" %}selected{% endif %}>
+                    🌾 Grains
+                </option>
+
+                <option value="Pulses"
+                    {% if category == "Pulses" %}selected{% endif %}>
+                    🫘 Pulses
+                </option>
+
+                <option value="Other"
+                    {% if category == "Other" %}selected{% endif %}>
+                    📦 Other
+                </option>
+
+            </select>
+
+            <button type="submit"
+                    class="search-btn">
+                🔎 Search
+            </button>
+
+        </form>
+
+
+        <!-- PRODUCTS -->
+
+        {% if products %}
+
+            <div class="products-grid">
+
+                {% for product in products %}
+
+                    <div class="market-product">
+
+                        <!-- IMAGE -->
+
+                        <div class="product-photo">
+
+                            {% if product.image %}
+
+                                <img src="{{ product.image }}"
+                                     alt="{{ product.name }}">
+
+                            {% else %}
+
+                                {% if product.category == "Vegetables" %}
+                                    🥬
+                                {% elif product.category == "Fruits" %}
+                                    🍎
+                                {% elif product.category == "Grains" %}
+                                    🌾
+                                {% elif product.category == "Pulses" %}
+                                    🫘
+                                {% else %}
+                                    📦
+                                {% endif %}
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- CONTENT -->
+
+                        <div class="product-content">
+
+                            <span class="category-label">
+                                {{ product.category }}
+                            </span>
+
+                            <h2>
+                                {{ product.name }}
+                            </h2>
+
+                            <div class="farmer-name">
+
+                                👨‍🌾
+                                {% if farmers[product.farmer_id] %}
+                                    {{ farmers[product.farmer_id].name }}
+                                {% else %}
+                                    Local Farmer
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if product.description %}
+
+                                <div class="description">
+                                    {{ product.description }}
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="product-bottom">
+
+                                <div>
+
+                                    <div class="price">
+                                        ₹{{ "%.2f"|format(product.price) }}/kg
+                                    </div>
+
+                                    <div class="stock">
+                                        {{ product.quantity }} kg available
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <button class="cart-btn"
+                                    type="button"
+                                    onclick="alert('Cart feature coming next! 🛒')">
+
+                                🛒 Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-market">
+
+                <div>🌾</div>
+
+                <h2>
+                    No products found
+                </h2>
+
+                <p>
+                    Try another search or category.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Product | FarmConnect</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-box">
+
+        <div class="auth-logo">✏️</div>
+
+        <h1>Edit Product</h1>
+
+        <p>Update your product details</p>
+
+        <form method="POST"
+              action="{{ url_for('edit_product', product_id=product.id) }}">
+
+            <label>Product Name</label>
+
+            <input type="text"
+                   name="name"
+                   value="{{ product.name }}"
+                   required>
+
+
+            <label>Category</label>
+
+            <select name="category" required>
+
+                <option value="Vegetables"
+                    {% if product.category == "Vegetables" %}selected{% endif %}>
+                    🥬 Vegetables
+                </option>
+
+                <option value="Fruits"
+                    {% if product.category == "Fruits" %}selected{% endif %}>
+                    🍎 Fruits
+                </option>
+
+                <option value="Grains"
+                    {% if product.category == "Grains" %}selected{% endif %}>
+                    🌾 Grains
+                </option>
+
+                <option value="Pulses"
+                    {% if product.category == "Pulses" %}selected{% endif %}>
+                    🫘 Pulses
+                </option>
+
+                <option value="Other"
+                    {% if product.category == "Other" %}selected{% endif %}>
+                    📦 Other
+                </option>
+
+            </select>
+
+
+            <label>Price (₹ per kg)</label>
+
+            <input type="number"
+                   name="price"
+                   value="{{ product.price }}"
+                   step="0.01"
+                   min="0"
+                   required>
+
+
+            <label>Available Quantity (kg)</label>
+
+            <input type="number"
+                   name="quantity"
+                   value="{{ product.quantity }}"
+                   step="0.1"
+                   min="0"
+                   required>
+
+
+            <label>Product Image URL</label>
+
+            <input type="text"
+                   name="image"
+                   value="{{ product.image or '' }}"
+                   placeholder="Optional image URL">
+
+
+            <label>Description</label>
+
+            <textarea name="description"
+                      rows="4"
+                      placeholder="Tell buyers about your product...">{{ product.description or '' }}</textarea>
+
+
+            <button type="submit">
+                Save Changes ✓
+            </button>
+
+        </form>
+
+
+        <p class="auth-bottom">
+
+            <a href="{{ url_for('dashboard') }}">
+                ← Back to Dashboard
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
