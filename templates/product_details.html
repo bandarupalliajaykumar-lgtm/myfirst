@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ product.name }} | FarmConnect</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: #f7f8f3;
+            color: #26382b;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 75px;
+            background: white;
+            border-bottom: 1px solid #e7ebe4;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: #183b25;
+        }
+
+        .logo span {
+            color: #6b9e45;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 9px 15px;
+            border-radius: 9px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            border: 1px solid #dce3d9;
+            color: #304335;
+            background: white;
+        }
+
+        .nav-btn:hover {
+            background: #183b25;
+            color: white;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            width: 88%;
+            max-width: 1150px;
+            margin: 0 auto;
+            padding-top: 38px;
+        }
+
+        /* BACK */
+
+        .back-link {
+            display: inline-block;
+            text-decoration: none;
+
+            color: #58715d;
+            font-size: 14px;
+            font-weight: 600;
+
+            margin-bottom: 22px;
+        }
+
+        .back-link:hover {
+            color: #183b25;
+        }
+
+        /* PRODUCT */
+
+        .product-card {
+            background: white;
+
+            border: 1px solid #e7ebe4;
+
+            border-radius: 22px;
+
+            padding: 28px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 38px;
+
+            box-shadow:
+                0 10px 30px rgba(30, 50, 35, 0.06);
+        }
+
+        .product-image-wrapper {
+            width: 100%;
+            height: 440px;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            background: #eef4e9;
+        }
+
+        .product-image-wrapper img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 10px 5px;
+        }
+
+        .category {
+            display: inline-block;
+
+            background: #eef5e9;
+
+            color: #285d39;
+
+            border: 1px solid #d8e7d2;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 14px;
+        }
+
+        .product-title {
+            font-family: "Playfair Display", serif;
+
+            font-size: 40px;
+
+            line-height: 1.15;
+
+            color: #183b25;
+
+            margin: 0 0 12px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            color: #e9a52f;
+            font-size: 19px;
+            letter-spacing: 1px;
+        }
+
+        .rating-text {
+            color: #707a71;
+            font-size: 13px;
+        }
+
+        .description {
+            color: #626e65;
+
+            font-size: 15px;
+
+            line-height: 1.75;
+
+            margin-bottom: 22px;
+        }
+
+        .price {
+            font-size: 31px;
+            font-weight: 800;
+
+            color: #285d39;
+
+            margin-bottom: 6px;
+        }
+
+        .price-unit {
+            color: #7a837b;
+            font-size: 13px;
+        }
+
+        .stock {
+            margin-top: 15px;
+
+            color: #58655b;
+
+            font-size: 14px;
+        }
+
+        .stock strong {
+            color: #285d39;
+        }
+
+        .farmer-box {
+            margin-top: 22px;
+
+            padding: 16px;
+
+            background: #fafcf8;
+
+            border: 1px solid #e5ebe1;
+
+            border-radius: 13px;
+        }
+
+        .farmer-title {
+            color: #7a837b;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .6px;
+
+            font-weight: 700;
+
+            margin-bottom: 6px;
+        }
+
+        .farmer-name {
+            color: #203c29;
+
+            font-weight: 700;
+
+            font-size: 15px;
+        }
+
+        .add-cart-form {
+            margin-top: 22px;
+        }
+
+        .add-cart-btn {
+            width: 100%;
+
+            border: none;
+
+            background: #183b25;
+
+            color: white;
+
+            padding: 15px 20px;
+
+            border-radius: 11px;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .add-cart-btn:hover {
+            background: #285d39;
+        }
+
+        .out-stock {
+            width: 100%;
+
+            padding: 15px;
+
+            border-radius: 11px;
+
+            background: #fff1ef;
+
+            color: #b64032;
+
+            border: 1px solid #f1d4d0;
+
+            text-align: center;
+
+            font-weight: 700;
+        }
+
+        /* REVIEWS */
+
+        .reviews-section {
+            margin-top: 28px;
+
+            background: white;
+
+            border: 1px solid #e7ebe4;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 8px 25px rgba(30, 50, 35, 0.04);
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .reviews-header h2 {
+            margin: 0;
+
+            font-family: "Playfair Display", serif;
+
+            color: #183b25;
+
+            font-size: 27px;
+        }
+
+        .review-summary {
+            color: #707a71;
+            font-size: 14px;
+        }
+
+        .review {
+            padding: 18px 0;
+
+            border-top: 1px solid #edf0eb;
+        }
+
+        .review:first-child {
+            border-top: none;
+        }
+
+        .review-top {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+        .reviewer {
+            color: #203c29;
+
+            font-weight: 700;
+        }
+
+        .review-date {
+            color: #8a928b;
+
+            font-size: 12px;
+        }
+
+        .review-stars {
+            color: #e9a52f;
+
+            margin-top: 5px;
+        }
+
+        .review-comment {
+            color: #626e65;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-top: 9px;
+        }
+
+        /* REVIEW FORM */
+
+        .review-form {
+            margin-top: 25px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid #edf0eb;
+        }
+
+        .review-form h3 {
+            color: #183b25;
+
+            margin-top: 0;
+
+            margin-bottom: 15px;
+        }
+
+        .review-form select,
+        .review-form textarea {
+            width: 100%;
+
+            border: 1px solid #dce3d9;
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+
+            margin-bottom: 12px;
+        }
+
+        .review-form textarea {
+            min-height: 110px;
+
+            resize: vertical;
+        }
+
+        .review-form select:focus,
+        .review-form textarea:focus {
+            border-color: #6b9e45;
+        }
+
+        .review-btn {
+            border: none;
+
+            background: #183b25;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            font-family: inherit;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .review-btn:hover {
+            background: #285d39;
+        }
+
+        .login-message {
+            margin-top: 20px;
+
+            background: #f4f7f1;
+
+            border: 1px solid #e0e7dc;
+
+            border-radius: 11px;
+
+            padding: 14px;
+
+            color: #667168;
+
+            font-size: 14px;
+        }
+
+        .login-message a {
+            color: #285d39;
+            font-weight: 700;
+        }
+
+        .empty-reviews {
+            color: #7a837b;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+        /* FLASH */
+
+        .flash {
+            background: #eaf5e8;
+
+            border: 1px solid #cfe3cc;
+
+            color: #285d39;
+
+            padding: 13px 16px;
+
+            border-radius: 11px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .product-card {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image-wrapper {
+                height: 330px;
+            }
+
+            .product-title {
+                font-size: 32px;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .container {
+                width: 92%;
+                padding-top: 25px;
+            }
+
+            .product-card,
+            .reviews-section {
+                padding: 18px;
+            }
+
+            .product-image-wrapper {
+                height: 270px;
+            }
+
+            .product-title {
+                font-size: 28px;
+            }
+
+            .reviews-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 7px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+
+        <div class="logo">
+            Farm<span>Connect</span> 🌱
+        </div>
+
+
+        <div class="nav-actions">
+
+
+            {% if session.get('role') == 'buyer' %}
+
+                <a
+                    href="{{ url_for('cart') }}"
+                    class="nav-btn"
+                >
+                    🛒 Cart
+                </a>
+
+                <a
+                    href="{{ url_for('my_orders') }}"
+                    class="nav-btn"
+                >
+                    📦 Orders
+                </a>
+
+            {% endif %}
+
+
+            <a
+                href="{{ url_for('marketplace') }}"
+                class="nav-btn"
+            >
+                Marketplace
+            </a>
+
+
+        </div>
+
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <!-- FLASH -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- BACK -->
+
+        <a
+            href="{{ url_for('marketplace') }}"
+            class="back-link"
+        >
+            ← Back to Marketplace
+        </a>
+
+
+        <!-- PRODUCT -->
+
+        <section class="product-card">
+
+
+            <!-- IMAGE -->
+
+            <div class="product-image-wrapper">
+
+                {% if product.image %}
+
+                    <img
+                        src="{{ product.image }}"
+                        alt="{{ product.name }}"
+                        onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=900&q=90';"
+                    >
+
+                {% else %}
+
+                    <img
+                        src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=900&q=90"
+                        alt="{{ product.name }}"
+                    >
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- INFO -->
+
+            <div class="product-info">
+
+
+                <span class="category">
+                    {{ product.category }}
+                </span>
+
+
+                <h1 class="product-title">
+                    {{ product.name }}
+                </h1>
+
+
+                <!-- RATING -->
+
+                {% set review_count = product.reviews|length %}
+
+                {% if review_count > 0 %}
+
+                    {% set average_rating =
+                        (product.reviews|sum(attribute='rating') / review_count)
+                    %}
+
+                {% else %}
+
+                    {% set average_rating = 0 %}
+
+                {% endif %}
+
+
+                <div class="rating">
+
+
+                    <span class="stars">
+
+                        {% if average_rating >= 4.5 %}
+                            ★★★★★
+                        {% elif average_rating >= 3.5 %}
+                            ★★★★☆
+                        {% elif average_rating >= 2.5 %}
+                            ★★★☆☆
+                        {% elif average_rating >= 1.5 %}
+                            ★★☆☆☆
+                        {% elif average_rating >= 0.5 %}
+                            ★☆☆☆☆
+                        {% else %}
+                            ☆☆☆☆☆
+                        {% endif %}
+
+                    </span>
+
+
+                    <span class="rating-text">
+
+                        {% if review_count > 0 %}
+
+                            {{ "%.1f"|format(average_rating) }}
+                            / 5
+                            ·
+                            {{ review_count }}
+                            review{% if review_count != 1 %}s{% endif %}
+
+                        {% else %}
+
+                            No reviews yet
+
+                        {% endif %}
+
+                    </span>
+
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="description">
+
+                    {% if product.description %}
+
+                        {{ product.description }}
+
+                    {% else %}
+
+                        Fresh quality farm product directly from
+                        the farmer.
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="price">
+
+                    ₹{{ "%.2f"|format(product.price) }}
+
+                </div>
+
+
+                <div class="price-unit">
+                    per kg
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="stock">
+
+                    Available stock:
+
+                    <strong>
+                        {{ product.quantity:g }} kg
+                    </strong>
+
+                </div>
+
+
+                <!-- FARMER -->
+
+                <div class="farmer-box">
+
+                    <div class="farmer-title">
+                        Sold By
+                    </div>
+
+                    <div class="farmer-name">
+                        Farmer #{{ product.farmer_id }}
+                    </div>
+
+                </div>
+
+
+                <!-- ADD TO CART -->
+
+                {% if session.get('role') == 'buyer' %}
+
+
+                    {% if product.quantity > 0 %}
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('add_to_cart', product_id=product.id) }}"
+                            class="add-cart-form"
+                        >
+
+                            <button
+                                type="submit"
+                                class="add-cart-btn"
+                            >
+                                🛒 Add to Cart
+                            </button>
+
+                        </form>
+
+
+                    {% else %}
+
+
+                        <div class="out-stock">
+                            Out of Stock
+                        </div>
+
+
+                    {% endif %}
+
+
+                {% elif not session.get('user_id') %}
+
+
+                    <div class="login-message">
+
+                        Please
+
+                        <a href="{{ url_for('login') }}">
+                            login as a buyer
+                        </a>
+
+                        to add this product to your cart.
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- REVIEWS -->
+
+        <section class="reviews-section">
+
+
+            <div class="reviews-header">
+
+                <h2>
+                    Customer Reviews
+                </h2>
+
+                <div class="review-summary">
+
+                    {% if review_count > 0 %}
+
+                        {{ "%.1f"|format(average_rating) }}
+                        / 5 average rating
+
+                    {% else %}
+
+                        Be the first to review
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- REVIEW LIST -->
+
+            {% if product.reviews %}
+
+
+                {% for review in product.reviews|sort(attribute='created_at', reverse=true) %}
+
+
+                    <div class="review">
+
+
+                        <div class="review-top">
+
+
+                            <div>
+
+                                <div class="reviewer">
+                                    {{ review.buyer.name }}
+                                </div>
+
+
+                                <div class="review-stars">
+
+                                    {% for i in range(1, 6) %}
+
+                                        {% if i <= review.rating %}
+                                            ★
+                                        {% else %}
+                                            ☆
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="review-date">
+
+                                {{ review.created_at.strftime('%d %b %Y') }}
+
+                            </div>
+
+
+                        </div>
+
+
+                        {% if review.comment %}
+
+                            <div class="review-comment">
+                                {{ review.comment }}
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <div class="empty-reviews">
+                    No customer reviews yet.
+                </div>
+
+
+            {% endif %}
+
+
+            <!-- REVIEW FORM -->
+
+            {% if session.get('role') == 'buyer' %}
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('add_review', product_id=product.id) }}"
+                    class="review-form"
+                >
+
+
+                    <h3>
+                        Write a Review
+                    </h3>
+
+
+                    <select
+                        name="rating"
+                        required
+                    >
+
+                        <option value="">
+                            Select Rating
+                        </option>
+
+                        <option value="5">
+                            5 - Excellent
+                        </option>
+
+                        <option value="4">
+                            4 - Very Good
+                        </option>
+
+                        <option value="3">
+                            3 - Good
+                        </option>
+
+                        <option value="2">
+                            2 - Average
+                        </option>
+
+                        <option value="1">
+                            1 - Poor
+                        </option>
+
+                    </select>
+
+
+                    <textarea
+                        name="comment"
+                        placeholder="Share your experience with this product..."
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        class="review-btn"
+                    >
+                        Submit Review
+                    </button>
+
+
+                </form>
+
+
+            {% elif not session.get('user_id') %}
+
+
+                <div class="login-message">
+
+                    Login as a buyer to write a review.
+
+                    <a href="{{ url_for('login') }}">
+                        Login
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+</body>
+
+</html>

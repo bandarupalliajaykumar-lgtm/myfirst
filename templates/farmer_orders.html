@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Farmer Orders | FarmConnect</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: #f7f8f3;
+            color: #26382b;
+        }
+
+        .page {
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 75px;
+            background: #ffffff;
+            border-bottom: 1px solid #e7ebe4;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: #183b25;
+        }
+
+        .logo span {
+            color: #6b9e45;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 9px 15px;
+            border-radius: 9px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            border: 1px solid #dce3d9;
+
+            color: #304335;
+            background: white;
+        }
+
+        .nav-btn:hover {
+            background: #183b25;
+            color: white;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            width: 88%;
+            max-width: 1250px;
+
+            margin: 0 auto;
+            padding-top: 40px;
+        }
+
+        /* HEADER */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 38px;
+            color: #183b25;
+        }
+
+        .page-header p {
+            margin: 8px 0 0;
+
+            color: #6f786f;
+
+            font-size: 14px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+
+            background: #183b25;
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .back-btn:hover {
+            background: #285d39;
+        }
+
+        /* FLASH MESSAGE */
+
+        .flash {
+            background: #eaf5e8;
+
+            border: 1px solid #cfe3cc;
+
+            color: #285d39;
+
+            padding: 13px 16px;
+
+            border-radius: 11px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ORDERS CARD */
+
+        .orders-card {
+            background: white;
+
+            border: 1px solid #e7ebe4;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px rgba(30, 50, 35, 0.05);
+        }
+
+        .card-top {
+            padding: 22px 24px;
+
+            border-bottom: 1px solid #edf0eb;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-top h2 {
+            margin: 0;
+
+            color: #183b25;
+
+            font-size: 20px;
+        }
+
+        .order-count {
+            background: #eef5e9;
+
+            color: #285d39;
+
+            border: 1px solid #d8e7d2;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            min-width: 900px;
+        }
+
+        th {
+            text-align: left;
+
+            padding: 15px 18px;
+
+            background: #fafbf8;
+
+            color: #69736b;
+
+            font-size: 12px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+            border-bottom: 1px solid #e8ece6;
+        }
+
+        td {
+            padding: 18px;
+
+            border-bottom: 1px solid #edf0eb;
+
+            color: #405044;
+
+            font-size: 14px;
+
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #fcfdfb;
+        }
+
+        /* ORDER ID */
+
+        .order-id {
+            color: #183b25;
+            font-weight: 800;
+        }
+
+        .order-date {
+            color: #7a837b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* PRODUCT */
+
+        .product-name {
+            color: #203c29;
+            font-weight: 700;
+        }
+
+        .product-category {
+            color: #7a837b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* BUYER */
+
+        .buyer-name {
+            color: #304335;
+            font-weight: 700;
+        }
+
+        /* QUANTITY */
+
+        .quantity {
+            font-weight: 700;
+            color: #304335;
+        }
+
+        /* AMOUNT */
+
+        .amount {
+            color: #285d39;
+            font-weight: 800;
+        }
+
+        /* STATUS */
+
+        .status-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-select {
+            border: 1px solid #dce3d9;
+
+            background: white;
+
+            color: #304335;
+
+            padding: 9px 10px;
+
+            border-radius: 8px;
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            outline: none;
+        }
+
+        .status-select:focus {
+            border-color: #6b9e45;
+        }
+
+        .update-btn {
+            border: none;
+
+            background: #183b25;
+
+            color: white;
+
+            padding: 9px 12px;
+
+            border-radius: 8px;
+
+            font-family: inherit;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+            background: #285d39;
+        }
+
+        /* STATUS COLORS */
+
+        .status-note {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            background: #eef5e9;
+
+            color: #285d39;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+        /* EMPTY STATE */
+
+        .empty-state {
+            text-align: center;
+
+            padding: 70px 25px;
+        }
+
+        .empty-icon {
+            font-size: 55px;
+
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 8px;
+
+            color: #304335;
+
+            font-size: 20px;
+        }
+
+        .empty-state p {
+            margin: 0 auto 22px;
+
+            max-width: 480px;
+
+            color: #7a837b;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+        .dashboard-btn {
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #183b25;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .dashboard-btn:hover {
+            background: #285d39;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .container {
+                width: 92%;
+                padding-top: 28px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .page-header h1 {
+                font-size: 31px;
+            }
+
+            .card-top {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+
+        <div class="logo">
+            Farm<span>Connect</span> 🌱
+        </div>
+
+
+        <div class="nav-right">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="nav-btn"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="nav-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <!-- FLASH MESSAGE -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- HEADER -->
+
+        <div class="page-header">
+
+
+            <div>
+
+                <h1>
+                    Farmer Orders
+                </h1>
+
+                <p>
+                    Manage orders received for your farm products.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="back-btn"
+            >
+                ← Back to Dashboard
+            </a>
+
+
+        </div>
+
+
+        <!-- ORDERS -->
+
+        <div class="orders-card">
+
+
+            <div class="card-top">
+
+                <h2>
+                    Received Orders
+                </h2>
+
+                <span class="order-count">
+                    {{ orders|length }} Orders
+                </span>
+
+            </div>
+
+
+            {% if orders %}
+
+
+                <div class="table-wrapper">
+
+
+                    <table>
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Order
+                                </th>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Buyer
+                                </th>
+
+                                <th>
+                                    Quantity
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Update
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            {% for order in orders %}
+
+
+                                <tr>
+
+
+                                    <!-- ORDER -->
+
+                                    <td>
+
+                                        <div class="order-id">
+                                            #{{ order.id }}
+                                        </div>
+
+                                        <div class="order-date">
+
+                                            {{ order.created_at.strftime('%d %b %Y, %I:%M %p') }}
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- PRODUCT -->
+
+                                    <td>
+
+                                        <div class="product-name">
+                                            {{ order.product.name }}
+                                        </div>
+
+                                        <div class="product-category">
+                                            {{ order.product.category }}
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- BUYER -->
+
+                                    <td>
+
+                                        <div class="buyer-name">
+                                            {{ order.buyer.name }}
+                                        </div>
+
+                                        {% if order.buyer.phone %}
+
+                                            <div class="product-category">
+                                                {{ order.buyer.phone }}
+                                            </div>
+
+                                        {% endif %}
+
+                                    </td>
+
+
+                                    <!-- QUANTITY -->
+
+                                    <td>
+
+                                        <span class="quantity">
+                                         {{ order.quantity }} kg 
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- AMOUNT -->
+
+                                    <td>
+
+                                        <span class="amount">
+                                            ₹{{ "%.2f"|format(order.total_price) }}
+                                        </span>
+
+                                    </td>
+
+
+                                    <!-- STATUS -->
+
+                                    <td>
+
+                                        <span class="status-note">
+                                            {{ order.status }}
+                                        </span>
+
+
+                                        <form
+                                            method="POST"
+                                            action="{{ url_for('update_order_status', order_id=order.id) }}"
+                                            class="status-form"
+                                        >
+
+                                            <select
+                                                name="status"
+                                                class="status-select"
+                                            >
+
+                                                <option
+                                                    value="Order Placed"
+                                                    {% if order.status == "Order Placed" %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    Order Placed
+                                                </option>
+
+
+                                                <option
+                                                    value="Confirmed"
+                                                    {% if order.status == "Confirmed" %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    Confirmed
+                                                </option>
+
+
+                                                <option
+                                                    value="Packed"
+                                                    {% if order.status == "Packed" %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    Packed
+                                                </option>
+
+
+                                                <option
+                                                    value="Shipped"
+                                                    {% if order.status == "Shipped" %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    Shipped
+                                                </option>
+
+
+                                                <option
+                                                    value="Delivered"
+                                                    {% if order.status == "Delivered" %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    Delivered
+                                                </option>
+
+                                            </select>
+
+
+                                            <button
+                                                type="submit"
+                                                class="update-btn"
+                                            >
+                                                Update
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+
+                                    <!-- UPDATE COLUMN -->
+
+                                    <td>
+
+                                        <strong
+                                            style="
+                                                color:#285d39;
+                                                font-size:12px;
+                                            "
+                                        >
+                                            Live
+                                        </strong>
+
+                                    </td>
+
+
+                                </tr>
+
+
+                            {% endfor %}
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="empty-state">
+
+
+                    <div class="empty-icon">
+                        📦
+                    </div>
+
+
+                    <h3>
+                        No Orders Yet
+                    </h3>
+
+
+                    <p>
+                        You haven't received any orders yet.
+                        Once buyers purchase your products,
+                        their orders will appear here.
+                    </p>
+
+
+                    <a
+                        href="{{ url_for('dashboard') }}"
+                        class="dashboard-btn"
+                    >
+                        Go to Dashboard
+                    </a>
+
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+</body>
+
+</html>

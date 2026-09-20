@@ -24,7 +24,6 @@
 
 <body>
 
-
 <!-- ================= NAVBAR ================= -->
 
 <header class="navbar">
@@ -74,28 +73,19 @@
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
 
-
-        <!-- LOGIN CONNECTED -->
         <a href="{{ url_for('login') }}"
            class="login-btn">
-
             Login
-
         </a>
 
-
-        <!-- REGISTER CONNECTED -->
         <a href="{{ url_for('register') }}"
            class="signup-btn">
-
             Get Started
-
         </a>
 
     </div>
 
 </header>
-
 
 
 <!-- ================= HERO ================= -->
@@ -134,9 +124,6 @@
 
         <div class="hero-buttons">
 
-
-            <!-- MARKETPLACE CONNECTED -->
-
             <a href="{{ url_for('marketplace') }}"
                class="primary-btn">
 
@@ -146,8 +133,6 @@
 
             </a>
 
-
-            <!-- REGISTER CONNECTED -->
 
             <a href="{{ url_for('register') }}"
                class="secondary-btn">
@@ -190,11 +175,9 @@
     </div>
 
 
-
     <!-- HERO VISUAL -->
 
     <div class="hero-visual">
-
 
         <div class="floating-card weather-card">
 
@@ -221,7 +204,6 @@
         </div>
 
 
-
         <div class="farm-image">
 
             <div class="image-overlay"></div>
@@ -235,7 +217,6 @@
             </div>
 
         </div>
-
 
 
         <div class="floating-card ai-card">
@@ -268,7 +249,6 @@
     </div>
 
 </section>
-
 
 
 <!-- ================= STATS ================= -->
@@ -353,7 +333,6 @@
 </section>
 
 
-
 <!-- ================= MARKETPLACE ================= -->
 
 <section class="market-section"
@@ -420,15 +399,20 @@
     <div class="products">
 
 
+        <!-- TOMATOES -->
+
         <div class="product-card">
 
             <div class="product-image tomato">
 
+                <img
+                    src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=900&q=85"
+                    alt="Fresh Tomatoes"
+                >
+
                 <span>
                     Organic
                 </span>
-
-                🍅
 
             </div>
 
@@ -480,16 +464,20 @@
         </div>
 
 
+        <!-- ALPHONSO MANGO -->
 
         <div class="product-card">
 
             <div class="product-image mango">
 
+                <img
+                    src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=900&q=85"
+                    alt="Alphonso Mango"
+                >
+
                 <span>
                     Popular
                 </span>
-
-                🥭
 
             </div>
 
@@ -539,18 +527,20 @@
             </div>
 
         </div>
-
-
+                <!-- PREMIUM RICE -->
 
         <div class="product-card">
 
             <div class="product-image rice">
 
+                <img
+                    src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=900&q=85"
+                    alt="Premium Rice"
+                >
+
                 <span>
                     Best Seller
                 </span>
-
-                🌾
 
             </div>
 
@@ -602,16 +592,20 @@
         </div>
 
 
+        <!-- RED ONIONS -->
 
         <div class="product-card">
 
             <div class="product-image onion">
 
+                <img
+                    src="https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&w=900&q=85"
+                    alt="Red Onions"
+                >
+
                 <span>
                     Fresh
                 </span>
-
-                🧅
 
             </div>
 
@@ -1189,6 +1183,34 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+
+    }
+
+
+    /* REAL PRODUCT IMAGE FIX */
+
+    .product-image {
+        overflow: hidden;
+    }
+
+
+    .product-image img {
+
+        width: 100%;
+        height: 100%;
+
+        display: block;
+
+        object-fit: cover;
+
+        transition: transform 0.4s ease;
+
+    }
+
+
+    .product-card:hover .product-image img {
+
+        transform: scale(1.07);
 
     }
 

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FarmConnect | Checkout</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #f5f8f5;
+            color: #17201a;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+
+            background: #ffffff;
+
+            border-bottom: 1px solid #e4ebe5;
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: auto;
+
+            min-height: 76px;
+
+            padding: 0 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: #16a34a;
+
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .link {
+            padding: 11px 16px;
+
+            border-radius: 12px;
+
+            color: #526057;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .link:hover,
+        .active {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+
+        /* PAGE */
+
+        .page {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 35px 25px 70px;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            margin-bottom: 7px;
+        }
+
+        .header p {
+            color: #68756d;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+
+        /* GRID */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                380px;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* CARD */
+
+        .card {
+            background: #ffffff;
+
+            border: 1px solid #e4ebe5;
+
+            border-radius: 22px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 10px 35px rgba(20,70,35,.08);
+        }
+
+        h2 {
+            font-size: 21px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* FORM */
+
+        label {
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            margin: 16px 0 7px;
+        }
+
+        textarea,
+        select {
+            width: 100%;
+
+            border: 1px solid #dbe5dd;
+
+            border-radius: 12px;
+
+            padding: 13px;
+
+            font: inherit;
+
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+
+            resize: vertical;
+        }
+
+        textarea:focus,
+        select:focus {
+            border-color: #86efac;
+
+            box-shadow:
+                0 0 0 3px #dcfce7;
+        }
+
+
+        /* PAYMENT */
+
+        .payment {
+            display: grid;
+
+            gap: 10px;
+        }
+
+        .payment label {
+            margin: 0;
+
+            border: 1px solid #e4ebe5;
+
+            border-radius: 12px;
+
+            padding: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .payment input {
+            margin-right: 8px;
+        }
+
+
+        /* SUMMARY */
+
+        .row {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+
+            font-size: 14px;
+        }
+
+        .muted {
+            color: #68756d;
+        }
+
+        .divider {
+            height: 1px;
+
+            background: #e4ebe5;
+
+            margin: 20px 0;
+        }
+
+        .total {
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 17px;
+
+            font-weight: 900;
+        }
+
+        .price {
+            font-size: 27px;
+
+            color: #15803d;
+        }
+
+
+        /* ITEMS */
+
+        .item {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #e4ebe5;
+
+            font-size: 13px;
+        }
+
+        .item:last-child {
+            border-bottom: 0;
+        }
+
+        .item strong {
+            font-size: 14px;
+        }
+
+
+        /* BUTTON */
+
+        .place {
+            width: 100%;
+
+            margin-top: 20px;
+
+            border: 0;
+
+            border-radius: 13px;
+
+            padding: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22c55e,
+                    #15803d
+                );
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+        }
+
+        .place:hover {
+            transform: translateY(-1px);
+        }
+
+        .back {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 12px;
+
+            padding: 13px;
+
+            border: 1px solid #e4ebe5;
+
+            border-radius: 12px;
+
+            color: #15803d;
+
+            font-weight: 800;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #102318;
+
+            color: #ffffff;
+
+            padding: 28px 25px;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media(max-width:850px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+
+                padding: 14px 18px;
+            }
+
+            .links {
+                width: 100%;
+
+                overflow: auto;
+            }
+
+            .page {
+                padding:
+                    25px
+                    15px
+                    50px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav">
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="logo"
+        >
+            🌱 FarmConnect
+        </a>
+
+
+        <div class="links">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="{{ url_for('marketplace') }}"
+                class="link"
+            >
+                Marketplace
+            </a>
+
+
+            <a
+                href="{{ url_for('cart') }}"
+                class="link"
+            >
+                🛒 Cart
+            </a>
+
+
+            <a
+                href="{{ url_for('my_orders') }}"
+                class="link active"
+            >
+                📦 My Orders
+            </a>
+
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="link"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- PAGE -->
+
+<main class="page">
+
+
+    <div class="header">
+
+        <h1>
+            Checkout 🚚
+        </h1>
+
+        <p>
+            Enter your delivery details and confirm
+            your FarmConnect order.
+        </p>
+
+    </div>
+
+
+    <div class="grid">
+
+
+        <!-- DELIVERY + PAYMENT -->
+
+        <section class="card">
+
+            <h2>
+                Delivery & Payment
+            </h2>
+
+
+            <form method="POST">
+
+
+                <label for="address">
+                    Delivery Address
+                </label>
+
+                <textarea
+                    id="address"
+                    name="address"
+                    required
+                    placeholder="House / Hostel, Street, Village / City, District, PIN code"
+                ></textarea>
+
+
+                <label>
+                    Payment Method
+                </label>
+
+
+                <div class="payment">
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="payment_method"
+                            value="Cash on Delivery"
+                            checked
+                        >
+
+                        Cash on Delivery
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="payment_method"
+                            value="UPI"
+                        >
+
+                        UPI — Demo Payment
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="payment_method"
+                            value="Demo Card"
+                        >
+
+                        Card — Demo Payment
+
+                    </label>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="place"
+                >
+                    ✓ Place Order
+                </button>
+
+            </form>
+
+
+            <a
+                href="{{ url_for('cart') }}"
+                class="back"
+            >
+                ← Back to Cart
+            </a>
+
+        </section>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <aside class="card">
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            {% for item in cart_items %}
+
+
+            <div class="item">
+
+                <div>
+
+                    <strong>
+                        {{ item.product.name }}
+                    </strong>
+
+                    <br>
+
+                    <span class="muted">
+
+                        {{ item.quantity|int }}
+
+                        ×
+
+                        ₹{{ "%.2f"|format(item.product.price) }}
+
+                    </span>
+
+                </div>
+
+
+                <strong>
+
+                    ₹{{
+                        "%.2f"|format(
+                            item.product.price *
+                            item.quantity
+                        )
+                    }}
+
+                </strong>
+
+            </div>
+
+
+            {% endfor %}
+
+
+            <div class="divider"></div>
+
+
+            <div class="row">
+
+                <span class="muted">
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹{{ "%.2f"|format(subtotal) }}
+                </strong>
+
+            </div>
+
+
+            <div class="row">
+
+                <span class="muted">
+                    Delivery
+                </span>
+
+                <strong>
+
+                    {% if delivery == 0 %}
+
+                        FREE
+
+                    {% else %}
+
+                        ₹{{ "%.2f"|format(delivery) }}
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <div class="total">
+
+                <span>
+                    Total
+                </span>
+
+                <span class="price">
+                    ₹{{ "%.2f"|format(total) }}
+                </span>
+
+            </div>
+
+        </aside>
+
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    🌱 FarmConnect — Fresh products directly from farmers.
+
+</footer>
+
+
+</body>
+
+</html>
