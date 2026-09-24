@@ -1,50 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FarmConnect AI | From Farm to Family</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <title>FarmConnect | From Farm to Family</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
-          rel="stylesheet">
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7faf6;
+            color: #183b25;
+        }
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        a {
+            text-decoration: none;
+        }
+
+        .navbar {
+            min-height: 75px;
+            background: white;
+            border-bottom: 1px solid #e4ebe5;
+            padding: 0 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #16a34a;
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav a {
+            color: #526057;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .nav a:hover {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .login,
+        .signup {
+            padding: 11px 17px;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+
+        .login {
+            color: #183b25;
+            border: 1px solid #dbe5dd;
+        }
+
+        .signup {
+            color: white;
+            background: #16a34a;
+        }
+
+        .hero {
+            width: 90%;
+            max-width: 1300px;
+            margin: 35px auto;
+            min-height: 520px;
+            border-radius: 30px;
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(8,45,20,.92),
+                    rgba(8,45,20,.48)
+                ),
+                url("{{ url_for('static', filename='images/Fresh Tomatoes.jpg') }}")
+                center/cover;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 9px 14px;
+            background: rgba(255,255,255,.14);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 30px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(42px,6vw,72px);
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(255,255,255,.9);
+            margin-bottom: 28px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .primary,
+        .secondary {
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 900;
+        }
+
+        .primary {
+            background: white;
+            color: #166534;
+        }
+
+        .secondary {
+            border: 1px solid rgba(255,255,255,.4);
+            color: white;
+        }
+
+        .section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .section h2 {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .section p {
+            color: #68756d;
+            line-height: 1.7;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .feature {
+            background: white;
+            border: 1px solid #e4ebe5;
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background: #102318;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 70px;
+        }
+
+        @media(max-width:800px) {
+
+            .nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 35px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-
 <header class="navbar">
 
-    <div class="logo">
+    <a
+        href="{{ url_for('home') }}"
+        class="logo"
+    >
+        🌱 FarmConnect
+    </a>
 
-        <div class="logo-icon">
-            <i class="fa-solid fa-seedling"></i>
-        </div>
+    <nav class="nav">
 
-        <div>
-            <h2>FarmConnect</h2>
-            <span>AI • FARM • MARKET</span>
-        </div>
-
-    </div>
-
-
-    <nav>
-
-        <a class="active" href="{{ url_for('home') }}">
+        <a href="{{ url_for('home') }}">
             Home
         </a>
 
@@ -52,34 +246,21 @@
             Marketplace
         </a>
 
-        <a href="#how">
-            How it Works
-        </a>
-
-        <a href="#ai">
-            Farm AI
-        </a>
-
-        <a href="#about">
-            About
-        </a>
-
     </nav>
 
+    <div class="actions">
 
-    <div class="nav-actions">
-
-        <button class="icon-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-
-        <a href="{{ url_for('login') }}"
-           class="login-btn">
+        <a
+            href="{{ url_for('login') }}"
+            class="login"
+        >
             Login
         </a>
 
-        <a href="{{ url_for('register') }}"
-           class="signup-btn">
+        <a
+            href="{{ url_for('register') }}"
+            class="signup"
+        >
             Get Started
         </a>
 
@@ -87,890 +268,102 @@
 
 </header>
 
-
-<!-- ================= HERO ================= -->
-
 <section class="hero">
 
     <div class="hero-content">
 
         <div class="tag">
-
-            <i class="fa-solid fa-leaf"></i>
-
-            India's Smarter Farmer Marketplace
-
+            🌾 India's Smarter Farmer Marketplace
         </div>
 
-
         <h1>
-
-            From the
-            <span>farm</span>
-            directly to your
-            <span>family.</span>
-
+            From the farm directly to your family.
         </h1>
 
-
         <p>
-
             Buy fresh agricultural products directly from farmers,
-            discover fair prices and support the people who grow
-            your food.
-
+            discover fresh products and support the people who grow your food.
         </p>
-
 
         <div class="hero-buttons">
 
-            <a href="{{ url_for('marketplace') }}"
-               class="primary-btn">
-
-                Explore Marketplace
-
-                <i class="fa-solid fa-arrow-right"></i>
-
+            <a
+                href="{{ url_for('marketplace') }}"
+                class="primary"
+            >
+                Explore Marketplace →
             </a>
 
-
-            <a href="{{ url_for('register') }}"
-               class="secondary-btn">
-
-                <i class="fa-solid fa-store"></i>
-
-                Sell Your Products
-
+            <a
+                href="{{ url_for('register') }}"
+                class="secondary"
+            >
+                👨‍🌾 Sell Your Products
             </a>
 
         </div>
 
-
-        <div class="hero-trust">
-
-            <div class="avatars">
-
-                <div>👨🏽‍🌾</div>
-                <div>👩🏽‍🌾</div>
-                <div>👨🏾‍🌾</div>
-                <div>👩🏾‍🌾</div>
-
-            </div>
-
-
-            <div>
-
-                <strong>
-                    2,500+ Farmers
-                </strong>
-
-                <small>
-                    Growing with FarmConnect
-                </small>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- HERO VISUAL -->
-
-    <div class="hero-visual">
-
-        <div class="floating-card weather-card">
-
-            <div class="weather-top">
-
-                <span>
-                    Today's Weather
-                </span>
-
-                <i class="fa-solid fa-cloud-sun"></i>
-
-            </div>
-
-
-            <strong>
-                28°C
-            </strong>
-
-
-            <p>
-                Hyderabad • Good farming conditions
-            </p>
-
-        </div>
-
-
-        <div class="farm-image">
-
-            <div class="image-overlay"></div>
-
-            <div class="farm-label">
-
-                <i class="fa-solid fa-location-dot"></i>
-
-                Fresh from local farms
-
-            </div>
-
-        </div>
-
-
-        <div class="floating-card ai-card">
-
-            <div class="ai-icon">
-
-                <i class="fa-solid fa-robot"></i>
-
-            </div>
-
-
-            <div>
-
-                <small>
-                    Farm AI
-                </small>
-
-                <strong>
-                    Tomato demand ↑ 24%
-                </strong>
-
-                <span>
-                    High demand expected
-                </span>
-
-            </div>
-
-        </div>
-
     </div>
 
 </section>
 
+<section class="section">
 
-<!-- ================= STATS ================= -->
+    <h2>
+        Why FarmConnect?
+    </h2>
 
-<section class="stats">
+    <p>
+        A direct farmer-to-consumer marketplace with intelligent
+        demand forecasting for better production planning.
+    </p>
 
-    <div class="stat">
+    <div class="features">
 
-        <i class="fa-solid fa-tractor"></i>
+        <div class="feature">
 
-        <div>
-
-            <strong>
-                2,500+
-            </strong>
-
-            <span>
-                Verified Farmers
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <i class="fa-solid fa-box-open"></i>
-
-        <div>
-
-            <strong>
-                8,900+
-            </strong>
-
-            <span>
-                Fresh Products
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <i class="fa-solid fa-users"></i>
-
-        <div>
-
-            <strong>
-                12K+
-            </strong>
-
-            <span>
-                Happy Buyers
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <div class="stat">
-
-        <i class="fa-solid fa-star"></i>
-
-        <div>
-
-            <strong>
-                4.8/5
-            </strong>
-
-            <span>
-                Customer Rating
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= MARKETPLACE ================= -->
-
-<section class="market-section"
-         id="market">
-
-    <div class="section-heading">
-
-        <div>
-
-            <span class="section-tag">
-                FRESH MARKETPLACE
-            </span>
-
-            <h2>
-
-                What's fresh
-                <span>today?</span>
-
-            </h2>
-
-        </div>
-
-
-        <a href="{{ url_for('marketplace') }}">
-
-            View all products
-
-            <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-
-    <div class="category-row">
-
-        <button class="category active">
-            🌾 All Products
-        </button>
-
-        <button class="category">
-            🥬 Vegetables
-        </button>
-
-        <button class="category">
-            🍎 Fruits
-        </button>
-
-        <button class="category">
-            🌾 Grains
-        </button>
-
-        <button class="category">
-            🌶️ Spices
-        </button>
-
-        <button class="category">
-            🥛 Dairy
-        </button>
-
-    </div>
-
-
-    <div class="products">
-
-
-        <!-- TOMATOES -->
-
-        <div class="product-card">
-
-            <div class="product-image tomato">
-
-                <img
-                    src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=900&q=85"
-                    alt="Fresh Tomatoes"
-                >
-
-                <span>
-                    Organic
-                </span>
-
+            <div class="icon">
+                👨‍🌾
             </div>
-
-
-            <div class="product-info">
-
-                <small>
-                    Vegetables
-                </small>
-
-                <h3>
-                    Fresh Tomatoes
-                </h3>
-
-                <div class="rating">
-
-                    ⭐ 4.9
-
-                    <span>
-                        (124)
-                    </span>
-
-                </div>
-
-
-                <div class="product-bottom">
-
-                    <strong>
-
-                        ₹30
-
-                        <small>
-                            / kg
-                        </small>
-
-                    </strong>
-
-
-                    <button>
-
-                        <i class="fa-solid fa-cart-plus"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ALPHONSO MANGO -->
-
-        <div class="product-card">
-
-            <div class="product-image mango">
-
-                <img
-                    src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=900&q=85"
-                    alt="Alphonso Mango"
-                >
-
-                <span>
-                    Popular
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-                <small>
-                    Fruits
-                </small>
-
-                <h3>
-                    Alphonso Mango
-                </h3>
-
-                <div class="rating">
-
-                    ⭐ 4.8
-
-                    <span>
-                        (98)
-                    </span>
-
-                </div>
-
-
-                <div class="product-bottom">
-
-                    <strong>
-
-                        ₹90
-
-                        <small>
-                            / kg
-                        </small>
-
-                    </strong>
-
-
-                    <button>
-
-                        <i class="fa-solid fa-cart-plus"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-                <!-- PREMIUM RICE -->
-
-        <div class="product-card">
-
-            <div class="product-image rice">
-
-                <img
-                    src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=900&q=85"
-                    alt="Premium Rice"
-                >
-
-                <span>
-                    Best Seller
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-                <small>
-                    Grains
-                </small>
-
-                <h3>
-                    Premium Rice
-                </h3>
-
-                <div class="rating">
-
-                    ⭐ 4.7
-
-                    <span>
-                        (211)
-                    </span>
-
-                </div>
-
-
-                <div class="product-bottom">
-
-                    <strong>
-
-                        ₹55
-
-                        <small>
-                            / kg
-                        </small>
-
-                    </strong>
-
-
-                    <button>
-
-                        <i class="fa-solid fa-cart-plus"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- RED ONIONS -->
-
-        <div class="product-card">
-
-            <div class="product-image onion">
-
-                <img
-                    src="https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&w=900&q=85"
-                    alt="Red Onions"
-                >
-
-                <span>
-                    Fresh
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-                <small>
-                    Vegetables
-                </small>
-
-                <h3>
-                    Red Onions
-                </h3>
-
-                <div class="rating">
-
-                    ⭐ 4.6
-
-                    <span>
-                        (87)
-                    </span>
-
-                </div>
-
-
-                <div class="product-bottom">
-
-                    <strong>
-
-                        ₹35
-
-                        <small>
-                            / kg
-                        </small>
-
-                    </strong>
-
-
-                    <button>
-
-                        <i class="fa-solid fa-cart-plus"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= AI SECTION ================= -->
-
-<section class="ai-section"
-         id="ai">
-
-    <div class="ai-content">
-
-        <span class="section-tag">
-            SMART FARMING
-        </span>
-
-
-        <h2>
-
-            Your farm.
-            <br>
-
-            <span>
-                Powered by AI.
-            </span>
-
-        </h2>
-
-
-        <p>
-
-            FarmConnect helps farmers make smarter decisions using
-            demand prediction, price insights and weather information.
-
-        </p>
-
-
-        <div class="ai-features">
-
-            <div>
-
-                <i class="fa-solid fa-chart-line"></i>
-
-                <strong>
-                    Demand Prediction
-                </strong>
-
-                <span>
-                    Know what buyers will need.
-                </span>
-
-            </div>
-
-
-            <div>
-
-                <i class="fa-solid fa-indian-rupee-sign"></i>
-
-                <strong>
-                    Price Insights
-                </strong>
-
-                <span>
-                    Find better selling prices.
-                </span>
-
-            </div>
-
-
-            <div>
-
-                <i class="fa-solid fa-cloud-sun"></i>
-
-                <strong>
-                    Weather Alerts
-                </strong>
-
-                <span>
-                    Plan farming with confidence.
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <a href="{{ url_for('login') }}"
-           class="primary-btn">
-
-            Explore Farm AI
-
-            <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-
-
-    <div class="ai-dashboard">
-
-        <div class="dashboard-header">
-
-            <div>
-
-                <small>
-                    AI DEMAND FORECAST
-                </small>
-
-                <h3>
-                    Market Insights
-                </h3>
-
-            </div>
-
-            <span>
-                Live
-            </span>
-
-        </div>
-
-
-        <div class="chart">
-
-            <div class="chart-labels">
-
-                <span>
-                    120kg
-                </span>
-
-                <span>
-                    80kg
-                </span>
-
-                <span>
-                    40kg
-                </span>
-
-                <span>
-                    0kg
-                </span>
-
-            </div>
-
-
-            <div class="bars">
-
-                <div style="height:35%"></div>
-                <div style="height:48%"></div>
-                <div style="height:42%"></div>
-                <div style="height:62%"></div>
-                <div style="height:58%"></div>
-                <div style="height:78%"></div>
-                <div style="height:92%"></div>
-
-            </div>
-
-        </div>
-
-
-        <div class="forecast">
-
-            <div>
-
-                <span>
-                    Tomatoes
-                </span>
-
-                <strong>
-                    105 kg ↑
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <span>
-                    Onions
-                </span>
-
-                <strong>
-                    82 kg ↑
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <span>
-                    Rice
-                </span>
-
-                <strong>
-                    64 kg
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- ================= HOW IT WORKS ================= -->
-
-<section class="how"
-         id="how">
-
-    <div class="center-heading">
-
-        <span class="section-tag">
-            SIMPLE PROCESS
-        </span>
-
-
-        <h2>
-
-            From farm to
-            <span>
-                doorstep.
-            </span>
-
-        </h2>
-
-
-        <p>
-            A simple marketplace designed for farmers and buyers.
-        </p>
-
-    </div>
-
-
-    <div class="steps">
-
-
-        <div class="step">
-
-            <div class="step-number">
-                01
-            </div>
-
-            <i class="fa-solid fa-user-plus"></i>
 
             <h3>
-                Farmers Join
+                Direct from Farmers
             </h3>
 
             <p>
-                Farmers create their profile and list fresh products.
+                Connect farmers directly with buyers.
             </p>
 
         </div>
 
+        <div class="feature">
 
-
-        <div class="step">
-
-            <div class="step-number">
-                02
+            <div class="icon">
+                🛒
             </div>
 
-            <i class="fa-solid fa-store"></i>
-
             <h3>
-                Buyers Shop
+                Easy Shopping
             </h3>
 
             <p>
-                Customers discover products directly from farmers.
+                Browse fresh products, add them to your cart and order easily.
             </p>
 
         </div>
 
+        <div class="feature">
 
-
-        <div class="step">
-
-            <div class="step-number">
-                03
+            <div class="icon">
+                🤖
             </div>
 
-            <i class="fa-solid fa-cart-shopping"></i>
-
             <h3>
-                Order & Pay
+                AI Demand Forecast
             </h3>
 
             <p>
-                Place an order and choose a convenient payment method.
-            </p>
-
-        </div>
-
-
-
-        <div class="step">
-
-            <div class="step-number">
-                04
-            </div>
-
-            <i class="fa-solid fa-truck-fast"></i>
-
-            <h3>
-                Delivered Fresh
-            </h3>
-
-            <p>
-                Track your order from the farm to your doorstep.
+                Estimate upcoming demand using historical FarmConnect sales.
             </p>
 
         </div>
@@ -979,243 +372,11 @@
 
 </section>
 
+<footer>
 
-
-<!-- ================= CTA ================= -->
-
-<section class="cta">
-
-    <div>
-
-        <span>
-            READY TO MAKE A DIFFERENCE?
-        </span>
-
-
-        <h2>
-
-            Let's build a fairer
-            <br>
-
-            food system together.
-
-        </h2>
-
-
-        <p>
-
-            Better prices for farmers.
-            Fresher food for families.
-
-        </p>
-
-
-        <a href="{{ url_for('register') }}"
-           class="white-btn">
-
-            Join FarmConnect
-
-            <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
-    </div>
-
-
-    <div class="cta-icon">
-        🌾
-    </div>
-
-</section>
-
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer id="about">
-
-    <div class="footer-main">
-
-
-        <div class="footer-brand">
-
-            <div class="logo">
-
-                <div class="logo-icon">
-
-                    <i class="fa-solid fa-seedling"></i>
-
-                </div>
-
-
-                <div>
-
-                    <h2>
-                        FarmConnect
-                    </h2>
-
-                    <span>
-                        AI • FARM • MARKET
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <p>
-
-                Connecting farmers directly with people who value
-                fresh food and fair prices.
-
-            </p>
-
-        </div>
-
-
-
-        <div class="footer-column">
-
-            <h4>
-                Marketplace
-            </h4>
-
-            <a href="{{ url_for('marketplace') }}">
-                Browse Products
-            </a>
-
-            <a href="{{ url_for('marketplace') }}">
-                Farmers
-            </a>
-
-            <a href="{{ url_for('marketplace') }}">
-                Categories
-            </a>
-
-            <a href="{{ url_for('login') }}">
-                Orders
-            </a>
-
-        </div>
-
-
-
-        <div class="footer-column">
-
-            <h4>
-                For Farmers
-            </h4>
-
-            <a href="{{ url_for('register') }}">
-                Sell Products
-            </a>
-
-            <a href="#ai">
-                Farm AI
-            </a>
-
-            <a href="#ai">
-                Price Insights
-            </a>
-
-            <a href="#how">
-                Farmer Guide
-            </a>
-
-        </div>
-
-
-
-        <div class="footer-column">
-
-            <h4>
-                Company
-            </h4>
-
-            <a href="#about">
-                About Us
-            </a>
-
-            <a href="#about">
-                Contact
-            </a>
-
-            <a href="#about">
-                Help Center
-            </a>
-
-            <a href="#about">
-                Privacy
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        <span>
-            © 2026 FarmConnect AI
-        </span>
-
-        <span>
-            Built for farmers ❤️
-        </span>
-
-    </div>
+    🌱 FarmConnect — Fresh products directly from farmers.
 
 </footer>
-
-
-
-<!-- ================= BUTTON LINK STYLING ================= -->
-
-<style>
-
-    .login-btn,
-    .signup-btn,
-    .primary-btn,
-    .secondary-btn,
-    .white-btn {
-
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-    }
-
-
-    /* REAL PRODUCT IMAGE FIX */
-
-    .product-image {
-        overflow: hidden;
-    }
-
-
-    .product-image img {
-
-        width: 100%;
-        height: 100%;
-
-        display: block;
-
-        object-fit: cover;
-
-        transition: transform 0.4s ease;
-
-    }
-
-
-    .product-card:hover .product-image img {
-
-        transform: scale(1.07);
-
-    }
-
-</style>
-
 
 </body>
 </html>

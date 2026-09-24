@@ -5,674 +5,511 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>FarmConnect | Marketplace</title>
+    <title>Marketplace | FarmConnect</title>
+
 
     <style>
 
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --green: #16a34a;
-            --dark-green: #15803d;
-            --light-green: #dcfce7;
-            --bg: #f5f8f5;
-            --dark: #17201a;
-            --muted: #68756d;
-            --white: #ffffff;
-            --border: #e4ebe5;
-        }
 
         body {
-            font-family: Inter, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--dark);
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        button,
-        input,
-        select {
-            font-family: inherit;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0fdf4;
+            color: #17201a;
         }
 
 
         /* ================= NAVBAR ================= */
 
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255,255,255,.97);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-inner {
-            max-width: 1400px;
-            min-height: 76px;
-            margin: auto;
-            padding: 0 25px;
-
+        nav {
+            background: white;
+            min-height: 72px;
+            padding: 0 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+            border-bottom: 1px solid #dcfce7;
         }
+
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            color: var(--green);
-            font-size: 24px;
+            color: #15803d;
+            text-decoration: none;
+            font-size: 25px;
             font-weight: 900;
+            white-space: nowrap;
         }
 
-        .logo-icon {
-            width: 44px;
-            height: 44px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 14px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #22c55e,
-                    #15803d
-                );
-
-            color: white;
-            font-size: 22px;
-
-            box-shadow:
-                0 8px 20px
-                rgba(22,163,74,.22);
-        }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
-        .nav-link {
-            padding: 11px 15px;
-            border-radius: 11px;
 
-            color: #526057;
-            font-size: 14px;
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
             font-weight: 700;
-
-            transition: .2s;
+            padding: 9px 12px;
+            border-radius: 9px;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            background: var(--light-green);
-            color: var(--dark-green);
-        }
 
-        .cart-link {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .cart-count {
-            min-width: 23px;
-            height: 23px;
-
-            padding: 0 6px;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50px;
-
-            background: var(--green);
-            color: white;
-
-            font-size: 11px;
-            font-weight: 900;
+        .nav-links a:hover {
+            background: #dcfce7;
+            color: #15803d;
         }
 
 
         /* ================= HERO ================= */
 
         .hero {
-            max-width: 1400px;
-            margin: 28px auto 0;
-            padding: 0 25px;
-        }
-
-        .hero-box {
-            min-height: 270px;
-
-            padding: 50px;
-
-            display: flex;
-            align-items: center;
-
-            border-radius: 30px;
+            width: 92%;
+            max-width: 1200px;
+            margin: 28px auto 25px;
+            padding: 42px;
+            border-radius: 22px;
 
             background:
                 linear-gradient(
                     135deg,
-                    #123b20,
-                    #176b35
+                    #166534,
+                    #16a34a
                 );
 
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-box::after {
-            content: "🌱";
-
-            position: absolute;
-            right: 70px;
-            bottom: -35px;
-
-            font-size: 190px;
-            opacity: .10;
-        }
-
-        .hero-content {
-            max-width: 700px;
             color: white;
-            position: relative;
-            z-index: 2;
         }
 
-        .hero-badge {
-            display: inline-flex;
-
-            padding: 8px 14px;
-
-            border-radius: 50px;
-
-            background:
-                rgba(255,255,255,.13);
-
-            border:
-                1px solid
-                rgba(255,255,255,.22);
-
-            font-size: 12px;
-            font-weight: 900;
-
-            margin-bottom: 17px;
-        }
 
         .hero h1 {
-            font-size: clamp(35px, 5vw, 58px);
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 16px;
+            margin: 0 0 10px;
+            font-size: 38px;
         }
 
+
         .hero p {
-            max-width: 620px;
-
-            color:
-                rgba(255,255,255,.88);
-
+            margin: 0;
+            max-width: 720px;
+            line-height: 1.6;
             font-size: 16px;
-            line-height: 1.7;
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: auto;
+            padding-bottom: 60px;
         }
 
 
         /* ================= SEARCH ================= */
 
-        .toolbar {
-            max-width: 1400px;
-            margin: 25px auto;
-            padding: 0 25px;
-        }
-
-        .toolbar-inner {
+        .search-box {
             background: white;
-
-            border: 1px solid var(--border);
-            border-radius: 20px;
-
             padding: 15px;
+            border-radius: 15px;
+            box-shadow:
+                0 6px 20px
+                rgba(0,0,0,.05);
 
             display: flex;
-            align-items: center;
-            gap: 12px;
-
-            box-shadow:
-                0 10px 35px
-                rgba(20,70,35,.06);
+            gap: 10px;
+            margin-bottom: 28px;
         }
 
-        .search-box {
+
+        .search-input {
             flex: 1;
-            position: relative;
-        }
+            min-width: 0;
+            padding: 13px 15px;
 
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
 
-            transform: translateY(-50%);
-
-            font-size: 17px;
-        }
-
-        .search-box input {
-            width: 100%;
-            height: 50px;
-
-            padding:
-                0 15px 0 44px;
-
-            border:
-                1px solid
-                var(--border);
-
-            border-radius: 12px;
-
+            font-size: 15px;
             outline: none;
-
-            background: #fbfdfb;
-
-            font-size: 14px;
         }
 
-        .search-box input:focus {
-            border-color: #86efac;
+
+        .search-input:focus {
+            border-color: #22c55e;
 
             box-shadow:
-                0 0 0 4px
-                #dcfce7;
+                0 0 0 3px
+                rgba(34,197,94,.12);
         }
+
 
         .category-select {
-            width: 200px;
-            height: 50px;
+            width: 210px;
+            padding: 13px;
 
-            padding: 0 14px;
-
-            border:
-                1px solid
-                var(--border);
-
-            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
 
             background: white;
-
-            color: #526057;
-
-            font-size: 13px;
-            font-weight: 700;
-
+            font-size: 15px;
             outline: none;
         }
 
 
-        /* ================= MAIN ================= */
+        .search-btn {
+            padding: 13px 22px;
+            border: 0;
+            border-radius: 10px;
 
-        .main {
-            max-width: 1400px;
-            margin: auto;
-            padding: 0 25px 60px;
+            background: #16a34a;
+            color: white;
+
+            font-weight: 900;
+            cursor: pointer;
         }
 
-        .section-header {
+
+        .search-btn:hover {
+            background: #15803d;
+        }
+
+
+        /* ================= HEADING ================= */
+
+        .heading {
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            margin: 28px 0 18px;
+            margin-bottom: 20px;
         }
 
-        .section-header h2 {
+
+        .heading h2 {
+            margin: 0;
+            color: #166534;
             font-size: 28px;
-            letter-spacing: -.5px;
         }
 
-        .product-count {
-            color: var(--muted);
-            font-size: 13px;
+
+        .count {
+            color: #64748b;
             font-weight: 700;
         }
 
 
         /* ================= PRODUCTS ================= */
 
-        .product-grid {
+        .products {
             display: grid;
 
             grid-template-columns:
                 repeat(4, minmax(0, 1fr));
 
-            gap: 20px;
+            gap: 22px;
         }
 
-        .product-card {
+
+        .product {
             background: white;
-
-            border:
-                1px solid
-                var(--border);
-
-            border-radius: 22px;
-
+            border-radius: 18px;
             overflow: hidden;
 
             box-shadow:
-                0 7px 25px
-                rgba(20,70,35,.055);
+                0 8px 25px
+                rgba(0,0,0,.07);
 
             transition:
-                transform .25s ease,
-                box-shadow .25s ease;
+                transform .2s ease,
+                box-shadow .2s ease;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
+
+        .product:hover {
+            transform: translateY(-4px);
 
             box-shadow:
-                0 18px 40px
-                rgba(20,70,35,.13);
+                0 13px 30px
+                rgba(0,0,0,.11);
         }
+
+
+        /* ================= IMAGE ================= */
 
         .product-image {
+            width: 100%;
             height: 210px;
+            background: #dcfce7;
 
-            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             overflow: hidden;
-
-            background: #edf4ee;
         }
+
 
         .product-image img {
             width: 100%;
             height: 100%;
 
-            display: block;
-
             object-fit: cover;
 
-            transition:
-                transform .45s ease;
+            display: block;
         }
 
-        .product-card:hover
-        .product-image img {
-            transform: scale(1.05);
+
+        .image-fallback {
+            font-size: 65px;
         }
 
-        .category-badge {
-            position: absolute;
 
-            top: 13px;
-            left: 13px;
+        /* ================= CONTENT ================= */
 
-            padding: 7px 10px;
+        .content {
+            padding: 18px;
+        }
 
-            border-radius: 50px;
 
-            background:
-                rgba(255,255,255,.94);
-
-            color:
-                var(--dark-green);
-
-            font-size: 10px;
+        .category {
+            color: #15803d;
+            font-size: 13px;
             font-weight: 900;
-        }
-
-        .fresh-badge {
-            position: absolute;
-
-            top: 13px;
-            right: 13px;
-
-            padding: 7px 10px;
-
-            border-radius: 50px;
-
-            background: #166534;
-            color: white;
-
-            font-size: 9px;
-            font-weight: 900;
-        }
-
-        .product-body {
-            padding: 17px;
-        }
-
-        .product-name {
-            font-size: 18px;
-            font-weight: 850;
 
             margin-bottom: 7px;
         }
 
-        .product-description {
-            min-height: 40px;
 
-            color: var(--muted);
+        .name {
+            color: #172554;
+            font-size: 21px;
+            font-weight: 900;
 
-            font-size: 12px;
-            line-height: 1.55;
+            margin: 0 0 10px;
         }
 
-        .product-bottom {
-            margin-top: 16px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 8px;
-        }
 
         .price {
-            color: var(--dark-green);
-
+            color: #15803d;
             font-size: 20px;
             font-weight: 900;
 
-            white-space: nowrap;
-        }
-
-        .price small {
-            color: #7b877e;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .product-actions {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .details-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 10px 11px;
-
-            border:
-                1px solid
-                #d8e7d2;
-
-            border-radius: 10px;
-
-            background: #eef5e9;
-
-            color: #285d39;
-
-            font-size: 10px;
-            font-weight: 800;
-
-            transition: .2s;
-        }
-
-        .details-btn:hover {
-            background: #dcebd6;
-            transform: translateY(-1px);
-        }
-
-        .add-form {
-            margin: 0;
-        }
-
-        .add-btn {
-            border: 0;
-
-            padding: 10px 12px;
-
-            border-radius: 10px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #22c55e,
-                    #15803d
-                );
-
-            color: white;
-
-            font-size: 11px;
-            font-weight: 800;
-
-            cursor: pointer;
-
-            transition: .2s;
-        }
-
-        .add-btn:hover {
-            transform: translateY(-2px);
-        }
-
-
-        /* ================= NO RESULTS ================= */
-
-        .no-results {
-            display: none;
-
-            text-align: center;
-
-            background: white;
-
-            border:
-                1px solid
-                var(--border);
-
-            border-radius: 20px;
-
-            padding: 60px 20px;
-        }
-
-        .no-results-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
-
-        .no-results h3 {
             margin-bottom: 7px;
         }
 
-        .no-results p {
-            color: var(--muted);
+
+        .unit {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        .stock {
+            color: #64748b;
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .btn {
+            display: block;
+            width: 100%;
+
+            text-align: center;
+
+            padding: 12px;
+
+            border: 0;
+            border-radius: 10px;
+
+            font-size: 14px;
+            font-weight: 900;
+
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+
+        .view-btn {
+            background: #166534;
+            color: white;
+        }
+
+
+        .view-btn:hover {
+            background: #14532d;
+        }
+
+
+        .cart-btn {
+            background: #16a34a;
+            color: white;
+
+            margin-top: 9px;
+        }
+
+
+        .cart-btn:hover {
+            background: #15803d;
+        }
+
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            background: white;
+            border-radius: 20px;
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,.05);
+        }
+
+
+        .empty-icon {
+            font-size: 55px;
+            margin-bottom: 12px;
+        }
+
+
+        .empty h2 {
+            margin: 0 0 8px;
+            color: #166534;
+        }
+
+
+        .empty p {
+            color: #64748b;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #102318;
+            color: white;
+
+            text-align: center;
+
+            padding: 28px;
+
+            margin-top: 20px;
+        }
+
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+
+        .footer-text {
+            color: #cbd5e1;
             font-size: 13px;
         }
 
 
         /* ================= RESPONSIVE ================= */
 
-        @media (max-width: 1100px) {
+        @media(max-width:1000px) {
 
-            .product-grid {
+            .products {
                 grid-template-columns:
-                    repeat(3, 1fr);
+                    repeat(3, minmax(0, 1fr));
             }
 
         }
 
-        @media (max-width: 850px) {
 
-            .nav-inner {
-                flex-wrap: wrap;
-                padding: 14px 20px;
+        @media(max-width:750px) {
+
+            nav {
+                padding: 15px 4%;
+                flex-direction: column;
             }
+
 
             .nav-links {
-                width: 100%;
-                overflow-x: auto;
+                justify-content: center;
             }
 
-            .hero-box {
-                padding: 38px 30px;
+
+            .hero {
+                padding: 30px;
             }
 
-            .toolbar-inner {
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+
+            .search-box {
                 flex-direction: column;
-                align-items: stretch;
             }
+
 
             .category-select {
                 width: 100%;
             }
 
-            .product-grid {
+
+            .search-btn {
+                width: 100%;
+            }
+
+
+            .products {
                 grid-template-columns:
-                    repeat(2, 1fr);
+                    repeat(2, minmax(0, 1fr));
             }
 
         }
 
-        @media (max-width: 550px) {
 
-            .hero,
-            .toolbar,
-            .main {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
+        @media(max-width:500px) {
 
-            .hero-box {
-                min-height: 300px;
-                padding: 30px 22px;
-            }
-
-            .product-grid {
+            .products {
                 grid-template-columns: 1fr;
             }
 
-            .section-header {
-                align-items: flex-start;
+
+            .heading {
                 flex-direction: column;
-                gap: 6px;
+                align-items: flex-start;
+                gap: 8px;
             }
 
-            .product-actions {
-                flex-wrap: wrap;
+
+            .hero {
+                width: 94%;
+            }
+
+
+            .container {
+                width: 94%;
             }
 
         }
@@ -685,2492 +522,424 @@
 <body>
 
 
-<!-- ================= NAVBAR ================= -->
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
 
-<nav class="navbar">
+<nav>
 
-    <div class="nav-inner">
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="logo"
+    >
+        🌱 FarmConnect
+    </a>
+
+
+    <div class="nav-links">
+
 
         <a
             href="{{ url_for('dashboard') }}"
-            class="logo"
         >
-
-            <span class="logo-icon">
-                🌱
-            </span>
-
-            FarmConnect
-
+            Dashboard
         </a>
 
 
-        <div class="nav-links">
-
-            <a
-                href="{{ url_for('dashboard') }}"
-                class="nav-link"
-            >
-                Dashboard
-            </a>
+        <a
+            href="{{ url_for('marketplace') }}"
+        >
+            Marketplace
+        </a>
 
 
-            <a
-                href="{{ url_for('marketplace') }}"
-                class="nav-link active"
-            >
-                Marketplace
-            </a>
+        <a
+            href="{{ url_for('cart') }}"
+        >
+            🛒 Cart
+            ({{ cart_count }})
+        </a>
 
 
-            <a
-                href="{{ url_for('cart') }}"
-                class="nav-link cart-link"
-            >
-                🛒 Cart
-
-                <span class="cart-count">
-                    {{ cart_count }}
-                </span>
-
-            </a>
+        <a
+            href="{{ url_for('my_orders') }}"
+        >
+            📦 Orders
+        </a>
 
 
-            <a
-                href="{{ url_for('my_orders') }}"
-                class="nav-link"
-            >
-                📦 Orders
-            </a>
+        <a
+            href="{{ url_for('logout') }}"
+        >
+            Logout
+        </a>
 
-
-            <a
-                href="{{ url_for('logout') }}"
-                class="nav-link"
-            >
-                Logout
-            </a>
-
-        </div>
 
     </div>
+
 
 </nav>
 
 
-<!-- ================= HERO ================= -->
+<!-- =====================================================
+     HERO
+====================================================== -->
 
 <section class="hero">
 
-    <div class="hero-box">
 
-        <div class="hero-content">
+    <h1>
+        🌾 Farm Marketplace
+    </h1>
 
-            <div class="hero-badge">
-                🌾 DIRECT FROM FARMERS
-            </div>
 
-            <h1>
-                Fresh from the farm,
-                straight to you.
-            </h1>
+    <p>
+        Fresh vegetables, fruits, grains, spices
+        and dairy products directly from FarmConnect
+        farmers.
+    </p>
 
-            <p>
-                Discover fresh vegetables, fruits,
-                grains, spices and dairy products
-                directly from trusted farmers
-                through FarmConnect.
-            </p>
-
-        </div>
-
-    </div>
 
 </section>
 
 
-<!-- ================= SEARCH ================= -->
+<!-- =====================================================
+     MAIN
+====================================================== -->
 
-<section class="toolbar">
+<main class="container">
 
-    <div class="toolbar-inner">
 
-        <div class="search-box">
+    <!-- SEARCH -->
 
-            <span class="search-icon">
-                🔎
-            </span>
+    <form
+        class="search-box"
+        method="GET"
+        action="{{ url_for('marketplace') }}"
+    >
 
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search products..."
-                autocomplete="off"
-            >
 
-        </div>
+        <input
+            class="search-input"
+            type="text"
+            name="search"
+            value="{{ search or '' }}"
+            placeholder="🔎 Search products..."
+        >
 
 
         <select
-            id="categoryFilter"
             class="category-select"
+            name="category"
         >
 
-            <option value="all">
+
+            <option value="">
                 All Categories
             </option>
 
-            <option value="Vegetables">
+
+            <option
+                value="Vegetables"
+                {% if category == "Vegetables" %}
+                    selected
+                {% endif %}
+            >
                 🥕 Vegetables
             </option>
 
-            <option value="Fruits">
+
+            <option
+                value="Fruits"
+                {% if category == "Fruits" %}
+                    selected
+                {% endif %}
+            >
                 🍎 Fruits
             </option>
 
-            <option value="Grains">
+
+            <option
+                value="Grains"
+                {% if category == "Grains" %}
+                    selected
+                {% endif %}
+            >
                 🌾 Grains
             </option>
 
-            <option value="Spices">
+
+            <option
+                value="Spices"
+                {% if category == "Spices" %}
+                    selected
+                {% endif %}
+            >
                 🌶️ Spices
             </option>
 
-            <option value="Dairy">
+
+            <option
+                value="Dairy"
+                {% if category == "Dairy" %}
+                    selected
+                {% endif %}
+            >
                 🥛 Dairy
             </option>
 
+
         </select>
 
-    </div>
 
-</section>
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
 
 
-<!-- ================= MAIN ================= -->
-
-<main class="main">
+    </form>
 
 
-    <div class="section-header">
+    <!-- HEADING -->
+
+    <div class="heading">
+
 
         <h2>
             Fresh Products
         </h2>
 
-        <span class="product-count">
 
-            <span id="visibleCount">
-                25
-            </span>
+        <div class="count">
 
-            products available
+            {{ products|length }}
 
-        </span>
+            product{% if products|length != 1 %}s{% endif %}
 
-    </div>
+            available
 
-
-    <div
-        class="product-grid"
-        id="productGrid"
-    >
-
-
-        <!-- ==================================================
-             1. FRESH TOMATOES
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh tomatoes"
-            data-category="Vegetables"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Tomatoes'].image }}"
-                    alt="Fresh Tomatoes"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Vegetables
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Tomatoes
-                </h3>
-
-                <p class="product-description">
-                    Farm-fresh red tomatoes,
-                    naturally grown and harvested
-                    with care.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹45
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Tomatoes'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Tomatoes'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             2. FRESH POTATOES
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh potatoes"
-            data-category="Vegetables"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Potatoes'].image }}"
-                    alt="Fresh Potatoes"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Vegetables
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Potatoes
-                </h3>
-
-                <p class="product-description">
-                    Quality farm potatoes suitable
-                    for everyday cooking.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹35
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Potatoes'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Potatoes'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             3. FRESH CARROTS
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh carrots"
-            data-category="Vegetables"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Carrots'].image }}"
-                    alt="Fresh Carrots"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Vegetables
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Carrots
-                </h3>
-
-                <p class="product-description">
-                    Crunchy, naturally sweet carrots
-                    sourced from local farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹55
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Carrots'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Carrots'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             4. FRESH BROCCOLI
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh broccoli"
-            data-category="Vegetables"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Broccoli'].image }}"
-                    alt="Fresh Broccoli"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Vegetables
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Broccoli
-                </h3>
-
-                <p class="product-description">
-                    Fresh green broccoli packed
-                    with natural nutrients.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹80
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Broccoli'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Broccoli'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             5. RED ONIONS
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="red onions"
-            data-category="Vegetables"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Red Onions'].image }}"
-                    alt="Red Onions"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Vegetables
-                </span>
-
-                <span class="fresh-badge">
-                    FARM FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Red Onions
-                </h3>
-
-                <p class="product-description">
-                    Fresh red onions with excellent
-                    natural flavour and quality.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹40
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Red Onions'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Red Onions'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             6. ALPHONSO MANGO
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="alphonso mango"
-            data-category="Fruits"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Alphonso Mango'].image }}"
-                    alt="Alphonso Mango"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Fruits
-                </span>
-
-                <span class="fresh-badge">
-                    PREMIUM
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Alphonso Mango
-                </h3>
-
-                <p class="product-description">
-                    Sweet seasonal Alphonso mangoes
-                    sourced directly from farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹140
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Alphonso Mango'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Alphonso Mango'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             7. FRESH APPLES
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh apples"
-            data-category="Fruits"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Apples'].image }}"
-                    alt="Fresh Apples"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Fruits
-                </span>
-
-                <span class="fresh-badge">
-                    PREMIUM
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Apples
-                </h3>
-
-                <p class="product-description">
-                    Crisp and juicy apples selected
-                    from quality farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹160
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Apples'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Apples'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             8. FRESH BANANAS
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh bananas"
-            data-category="Fruits"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Bananas'].image }}"
-                    alt="Fresh Bananas"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Fruits
-                </span>
-
-                <span class="fresh-badge">
-                    NATURAL
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Bananas
-                </h3>
-
-                <p class="product-description">
-                    Naturally fresh bananas with
-                    natural sweetness and flavour.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹55
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Bananas'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Bananas'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             9. FRESH ORANGES
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh oranges"
-            data-category="Fruits"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Oranges'].image }}"
-                    alt="Fresh Oranges"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Fruits
-                </span>
-
-                <span class="fresh-badge">
-                    JUICY
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Oranges
-                </h3>
-
-                <p class="product-description">
-                    Juicy oranges with refreshing
-                    natural flavour and freshness.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹90
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Oranges'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Oranges'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             10. POMEGRANATE
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="pomegranate"
-            data-category="Fruits"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Pomegranate'].image }}"
-                    alt="Pomegranate"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Fruits
-                </span>
-
-                <span class="fresh-badge">
-                    PREMIUM
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Pomegranate
-                </h3>
-
-                <p class="product-description">
-                    Fresh pomegranates with juicy
-                    natural ruby-red seeds.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹180
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Pomegranate'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Pomegranate'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             11. PREMIUM RICE
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="premium rice"
-            data-category="Grains"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Premium Rice'].image }}"
-                    alt="Premium Rice"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Grains
-                </span>
-
-                <span class="fresh-badge">
-                    PREMIUM
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Premium Rice
-                </h3>
-
-                <p class="product-description">
-                    Quality rice grains sourced
-                    directly from trusted farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹75
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Premium Rice'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Premium Rice'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             12. WHOLE WHEAT
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="whole wheat"
-            data-category="Grains"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Whole Wheat'].image }}"
-                    alt="Whole Wheat"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Grains
-                </span>
-
-                <span class="fresh-badge">
-                    NATURAL
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Whole Wheat
-                </h3>
-
-                <p class="product-description">
-                    Natural whole wheat grains
-                    directly sourced from farmers.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹42
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Whole Wheat'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Whole Wheat'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             13. YELLOW MAIZE
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="yellow maize"
-            data-category="Grains"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Yellow Maize'].image }}"
-                    alt="Yellow Maize"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Grains
-                </span>
-
-                <span class="fresh-badge">
-                    FARM FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Yellow Maize
-                </h3>
-
-                <p class="product-description">
-                    Natural yellow maize kernels
-                    sourced directly from farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹38
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Yellow Maize'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Yellow Maize'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             14. RAGI MILLET
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="ragi millet"
-            data-category="Grains"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Ragi Millet'].image or 'https://commons.wikimedia.org/wiki/Special:FilePath/RAGI%20MILLET.jpg?width=1000' }}"
-                    alt="Ragi Millet"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Grains
-                </span>
-
-                <span class="fresh-badge">
-                    HEALTHY
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Ragi Millet
-                </h3>
-
-                <p class="product-description">
-                    Nutritious finger millet sourced
-                    from quality agricultural farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹85
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Ragi Millet'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Ragi Millet'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-                <!-- ==================================================
-             15. NATURAL OATS
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="natural oats"
-            data-category="Grains"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Natural Oats'].image }}"
-                    alt="Natural Oats"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Grains
-                </span>
-
-                <span class="fresh-badge">
-                    HEALTHY
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Natural Oats
-                </h3>
-
-                <p class="product-description">
-                    Natural rolled oats suitable
-                    for a healthy daily diet.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹120
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Natural Oats'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Natural Oats'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             16. GREEN CHILLI
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="green chilli"
-            data-category="Spices"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Green Chilli'].image }}"
-                    alt="Green Chilli"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Spices
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Green Chilli
-                </h3>
-
-                <p class="product-description">
-                    Fresh green chillies with
-                    natural colour and spicy flavour.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹120
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Green Chilli'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Green Chilli'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             17. RED CHILLI
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="red chilli"
-            data-category="Spices"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Red Chilli'].image }}"
-                    alt="Red Chilli"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Spices
-                </span>
-
-                <span class="fresh-badge">
-                    PREMIUM
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Red Chilli
-                </h3>
-
-                <p class="product-description">
-                    Quality red chillies with
-                    rich colour and natural spice.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹240
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Red Chilli'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Red Chilli'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             18. BLACK PEPPER
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="black pepper"
-            data-category="Spices"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Black Pepper'].image }}"
-                    alt="Black Pepper"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Spices
-                </span>
-
-                <span class="fresh-badge">
-                    PREMIUM
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Black Pepper
-                </h3>
-
-                <p class="product-description">
-                    Strong aromatic black pepper
-                    sourced directly from farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹520
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Black Pepper'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Black Pepper'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             19. GREEN CARDAMOM
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="green cardamom"
-            data-category="Spices"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Green Cardamom'].image }}"
-                    alt="Green Cardamom"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Spices
-                </span>
-
-                <span class="fresh-badge">
-                    PREMIUM
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Green Cardamom
-                </h3>
-
-                <p class="product-description">
-                    Premium aromatic cardamom with
-                    rich natural fragrance.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹1100
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Green Cardamom'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Green Cardamom'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             20. CUMIN SEEDS
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="cumin seeds"
-            data-category="Spices"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Cumin Seeds'].image }}"
-                    alt="Cumin Seeds"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Spices
-                </span>
-
-                <span class="fresh-badge">
-                    NATURAL
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Cumin Seeds
-                </h3>
-
-                <p class="product-description">
-                    Aromatic whole cumin seeds
-                    sourced from quality farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹320
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Cumin Seeds'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Cumin Seeds'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             21. FRESH FARM MILK
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh farm milk"
-            data-category="Dairy"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Farm Milk'].image }}"
-                    alt="Fresh Farm Milk"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Dairy
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Farm Milk
-                </h3>
-
-                <p class="product-description">
-                    Fresh dairy milk collected
-                    from trusted local farms.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹60
-                        <small>/ litre</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Farm Milk'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Farm Milk'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             22. FRESH CURD
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh curd"
-            data-category="Dairy"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Curd'].image }}"
-                    alt="Fresh Curd"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Dairy
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Curd
-                </h3>
-
-                <p class="product-description">
-                    Thick and creamy fresh curd
-                    prepared from quality farm milk.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹70
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Curd'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Curd'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             23. FRESH PANEER
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="fresh paneer"
-            data-category="Dairy"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Fresh Paneer'].image }}"
-                    alt="Fresh Paneer"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Dairy
-                </span>
-
-                <span class="fresh-badge">
-                    FRESH
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Fresh Paneer
-                </h3>
-
-                <p class="product-description">
-                    Soft and fresh paneer made
-                    from quality farm milk.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹320
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Fresh Paneer'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Fresh Paneer'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             24. FARM BUTTER
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="farm butter"
-            data-category="Dairy"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Farm Butter'].image }}"
-                    alt="Farm Butter"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Dairy
-                </span>
-
-                <span class="fresh-badge">
-                    FARM MADE
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Farm Butter
-                </h3>
-
-                <p class="product-description">
-                    Creamy farm butter made with
-                    fresh quality milk.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹540
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Farm Butter'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Farm Butter'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- ==================================================
-             25. PURE FARM GHEE
-        ================================================== -->
-
-        <article
-            class="product-card"
-            data-name="pure farm ghee"
-            data-category="Dairy"
-        >
-
-            <div class="product-image">
-
-                <img
-                    src="{{ demo_products['Pure Farm Ghee'].image }}"
-                    alt="Pure Farm Ghee"
-                    loading="lazy"
-                >
-
-                <span class="category-badge">
-                    Dairy
-                </span>
-
-                <span class="fresh-badge">
-                    PURE
-                </span>
-
-            </div>
-
-
-            <div class="product-body">
-
-                <h3 class="product-name">
-                    Pure Farm Ghee
-                </h3>
-
-                <p class="product-description">
-                    Farm-made ghee with rich
-                    aroma and natural flavour.
-                </p>
-
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        ₹650
-                        <small>/ kg</small>
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <a
-                            href="{{ url_for('product_details', product_id=demo_products['Pure Farm Ghee'].id) }}"
-                            class="details-btn"
-                        >
-                            Details
-                        </a>
-
-
-                        <form
-                            class="add-form"
-                            action="{{ url_for('add_to_cart', product_id=demo_products['Pure Farm Ghee'].id) }}"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="add-btn"
-                            >
-                                🛒 Add
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-    </div>
-
-
-    <!-- ================= NO RESULTS ================= -->
-
-    <div
-        class="no-results"
-        id="noResults"
-    >
-
-        <div class="no-results-icon">
-            🌱
         </div>
 
-        <h3>
-            No products found
-        </h3>
-
-        <p>
-            Try another product name or
-            select a different category.
-        </p>
 
     </div>
+
+
+    <!-- =================================================
+         PRODUCT LIST
+    ================================================== -->
+
+
+    {% if products %}
+
+
+        <div class="products">
+
+
+            {% for product in products %}
+
+
+                <article class="product">
+
+
+                    <!-- IMAGE -->
+
+                    <div class="product-image">
+
+
+                        {% if product.image %}
+
+
+                            <img
+                                src="{{ product.image }}"
+                                alt="{{ product.name }}"
+                                loading="lazy"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                            >
+
+
+                            <div
+                                class="image-fallback"
+                                style="display:none;"
+                            >
+                                🌾
+                            </div>
+
+
+                        {% else %}
+
+
+                            <div class="image-fallback">
+                                🌾
+                            </div>
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="content">
+
+
+                        <div class="category">
+
+                            {{ product.category }}
+
+                        </div>
+
+
+                        <div class="name">
+
+                            {{ product.name }}
+
+                        </div>
+
+
+                        <div class="price">
+
+                            ₹{{ "%.2f"|format(product.price) }}
+
+                            <span class="unit">
+                                / kg
+                            </span>
+
+                        </div>
+
+
+                        <div class="stock">
+
+                            Available:
+
+                            <strong>
+                                {{ product.quantity|int }} kg
+                            </strong>
+
+                        </div>
+
+
+                        <!-- VIEW PRODUCT -->
+
+                        <a
+                            class="btn view-btn"
+                            href="{{ url_for(
+                                'product_details',
+                                product_id=product.id
+                            ) }}"
+                        >
+                            👁️ View Product
+                        </a>
+
+
+                        <!-- ADD TO CART -->
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'add_to_cart',
+                                product_id=product.id
+                            ) }}"
+                        >
+
+
+                            <input
+                                type="hidden"
+                                name="quantity"
+                                value="1"
+                            >
+
+
+                            <button
+                                type="submit"
+                                class="btn cart-btn"
+                            >
+                                🛒 Add to Cart
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </article>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <div class="empty">
+
+
+            <div class="empty-icon">
+                🔎
+            </div>
+
+
+            <h2>
+                No products found
+            </h2>
+
+
+            <p>
+                Try another product name or category.
+            </p>
+
+
+            <a
+                href="{{ url_for('marketplace') }}"
+                class="btn cart-btn"
+                style="max-width:220px;margin:20px auto 0;"
+            >
+                Show All Products
+            </a>
+
+
+        </div>
+
+
+    {% endif %}
 
 
 </main>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =====================================================
+     FOOTER
+====================================================== -->
 
-<footer
-    style="
-        background:#102318;
-        color:white;
-        margin-top:20px;
-    "
->
-
-    <div
-        style="
-            max-width:1400px;
-            margin:auto;
-            padding:30px 25px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            gap:20px;
-        "
-    >
-
-        <div>
-
-            <div
-                style="
-                    font-size:19px;
-                    font-weight:900;
-                "
-            >
-                🌱 FarmConnect
-            </div>
-
-            <div
-                style="
-                    color:#a9b8ae;
-                    font-size:12px;
-                    margin-top:5px;
-                "
-            >
-                Connecting farmers directly
-                with consumers.
-            </div>
-
-        </div>
+<footer>
 
 
-        <div
-            style="
-                color:#a9b8ae;
-                font-size:12px;
-            "
-        >
-            © 2026 FarmConnect.
-            All rights reserved.
-        </div>
-
+    <div class="footer-logo">
+        🌱 FarmConnect
     </div>
 
+
+    <div class="footer-text">
+        Fresh products directly from farmers.
+    </div>
+
+
+    <div class="footer-text">
+        © 2026 FarmConnect
+    </div>
+
+
 </footer>
-
-
-<!-- ================= JAVASCRIPT ================= -->
-
-<script>
-
-    const searchInput =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    const categoryFilter =
-        document.getElementById(
-            "categoryFilter"
-        );
-
-
-    const productGrid =
-        document.getElementById(
-            "productGrid"
-        );
-
-
-    const noResults =
-        document.getElementById(
-            "noResults"
-        );
-
-
-    const visibleCount =
-        document.getElementById(
-            "visibleCount"
-        );
-
-
-    function filterProducts() {
-
-        const search =
-            searchInput.value
-                .toLowerCase()
-                .trim();
-
-
-        const category =
-            categoryFilter.value;
-
-
-        const products =
-            productGrid.querySelectorAll(
-                ".product-card"
-            );
-
-
-        let count = 0;
-
-
-        products.forEach(
-            function(product) {
-
-                const name =
-                    product.dataset.name
-                        .toLowerCase();
-
-
-                const productCategory =
-                    product.dataset.category;
-
-
-                const searchMatch =
-                    name.includes(search);
-
-
-                const categoryMatch =
-                    category === "all" ||
-                    productCategory === category;
-
-
-                if (
-                    searchMatch &&
-                    categoryMatch
-                ) {
-
-                    product.style.display =
-                        "";
-
-                    count++;
-
-                } else {
-
-                    product.style.display =
-                        "none";
-
-                }
-
-            }
-        );
-
-
-        visibleCount.textContent =
-            count;
-
-
-        if (count === 0) {
-
-            noResults.style.display =
-                "block";
-
-        } else {
-
-            noResults.style.display =
-                "none";
-
-        }
-
-    }
-
-
-    searchInput.addEventListener(
-        "input",
-        filterProducts
-    );
-
-
-    categoryFilter.addEventListener(
-        "change",
-        filterProducts
-    );
-
-
-</script>
 
 
 </body>

@@ -1,482 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Farmer Dashboard | FarmConnect</title>
 
+
     <style>
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
+
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7f5;
-            color: #1f2937;
+            font-family: Arial, sans-serif;
+            background: #f5f8f5;
+            color: #17201a;
         }
+
 
         a {
             text-decoration: none;
             color: inherit;
         }
 
+
         .navbar {
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 18px 6%;
+            background: white;
+            border-bottom: 1px solid #e4ebe5;
+            min-height: 75px;
+            padding: 0 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
+
 
         .logo {
-            font-size: 25px;
-            font-weight: 800;
-            color: #16803c;
+            color: #16a34a;
+            font-size: 24px;
+            font-weight: 900;
         }
 
-        .logo span {
-            color: #111827;
-        }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-link {
-            color: #374151;
-            font-weight: 600;
-        }
-
-        .logout {
-            background: #ef4444;
-            color: white;
-            padding: 9px 18px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-
-        .container {
-            width: 88%;
-            max-width: 1400px;
-            margin: auto;
-        }
-
-        .hero {
-            padding: 35px 0 25px;
-        }
-
-        .hero h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-            color: #111827;
-        }
-
-        .hero p {
-            color: #6b7280;
-            font-size: 16px;
-        }
-
-        /* STATS */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 14px;
-            padding: 22px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-        }
-
-        .stat-title {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .stat-value {
-            font-size: 29px;
-            font-weight: 800;
-            color: #111827;
-        }
-
-        /* SECTION */
-
-        .section {
-            margin-bottom: 35px;
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 18px;
-        }
-
-        .section-title h2 {
-            font-size: 23px;
-            color: #111827;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 17px;
-            border-radius: 8px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-green {
-            background: #16803c;
-            color: white;
-        }
-
-        .btn-green:hover {
-            background: #11632f;
-        }
-
-        .btn-blue {
-            background: #2563eb;
-            color: white;
-        }
-
-        .btn-red {
-            background: #ef4444;
-            color: white;
-        }
-
-        /* PRODUCTS */
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .product-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-        }
-
-        .product-card h3 {
-            font-size: 19px;
-            margin-bottom: 10px;
-        }
-
-        .product-category {
-            display: inline-block;
-            background: #ecfdf5;
-            color: #15803d;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .product-info {
-            margin: 8px 0;
-            color: #4b5563;
-        }
-
-        .price {
-            font-size: 23px;
-            font-weight: 800;
-            color: #16803c;
-        }
-
-        .product-actions {
+        .links {
             display: flex;
             gap: 8px;
-            margin-top: 15px;
         }
 
-        /* AI PRICE */
 
-        .ai-price {
+        .links a {
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: #526057;
+            font-weight: 700;
+        }
+
+
+        .links a:hover {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+
+        .container {
+            width: 92%;
+            max-width: 1350px;
+            margin: auto;
+            padding: 40px 0 70px;
+        }
+
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #166534,
+                #15803d
+            );
+
+            color: white;
+
+            border-radius: 25px;
+
+            padding: 35px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+
+        .hero p {
+            color: #dcfce7;
+        }
+
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 22px;
+        }
+
+
+        .card {
             background: white;
-            border: 1px solid #dbeafe;
-            border-radius: 16px;
-            padding: 28px;
-            box-shadow: 0 5px 20px rgba(37,99,235,0.06);
+
+            border: 1px solid #e4ebe5;
+
+            border-radius: 22px;
+
+            padding: 25px;
+
+            margin-bottom: 22px;
         }
 
-        .ai-header {
+
+        .card h2 {
+            color: #183b25;
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+            color: #68756d;
+            font-size: 13px;
             margin-bottom: 20px;
         }
 
-        .ai-header h2 {
-            color: #1d4ed8;
-            margin-bottom: 7px;
-        }
 
-        .ai-header p {
-            color: #6b7280;
-        }
+        .add-btn {
+            display: inline-block;
 
-        .ai-form {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 15px;
-            align-items: end;
-        }
+            background: #16a34a;
 
-        .form-group label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: 700;
-        }
+            color: white;
 
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: white;
-            font-size: 15px;
-        }
+            padding: 11px 15px;
 
-        .recommendation {
-            margin-top: 22px;
-            padding: 20px;
-            border-radius: 12px;
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-        }
+            border-radius: 10px;
 
-        .recommendation h3 {
-            color: #1d4ed8;
-            margin-bottom: 10px;
-        }
-
-        .recommended-price {
-            font-size: 32px;
             font-weight: 800;
+
+            margin-bottom: 15px;
+        }
+
+
+        .product {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 17px 0;
+
+            border-bottom: 1px solid #e4ebe5;
+        }
+
+
+        .product:last-child {
+            border-bottom: 0;
+        }
+
+
+        .product-left {
+            display: flex;
+
+            gap: 13px;
+
+            align-items: center;
+        }
+
+
+        .product-image {
+            width: 65px;
+
+            height: 65px;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            background: #edf4ee;
+        }
+
+
+        .product-image img {
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+
+        .product-name {
+            font-weight: 900;
+        }
+
+
+        .muted {
+            color: #68756d;
+
+            font-size: 12px;
+
+            margin-top: 4px;
+        }
+
+
+        .price {
+            color: #15803d;
+
+            font-weight: 900;
+        }
+
+
+        .actions {
+            display: flex;
+
+            gap: 7px;
+
+            margin-top: 8px;
+        }
+
+
+        .small-btn {
+            padding: 7px 10px;
+
+            border-radius: 8px;
+
+            border: 0;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+
+        .edit {
+            background: #dcfce7;
+
             color: #15803d;
         }
 
-        /* DEMAND FORECAST */
 
-        .forecast-section {
-            background: white;
-            border-radius: 16px;
+        .delete {
+            background: #fee2e2;
+
+            color: #b91c1c;
+        }
+
+
+        .ai-card {
+            background: linear-gradient(
+                135deg,
+                #183b25,
+                #285d39
+            );
+
+            color: white;
+
+            border-radius: 22px;
+
             padding: 28px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+
+            margin-bottom: 22px;
         }
 
-        .forecast-intro {
-            color: #6b7280;
-            margin-top: 5px;
-            margin-bottom: 25px;
+
+        .ai-card h2 {
+            color: white;
         }
+
+
+        .ai-card p {
+            color: #dcebdd;
+
+            line-height: 1.6;
+        }
+
 
         .forecast-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
 
-        .forecast-card {
-            border: 1px solid #e5e7eb;
-            border-radius: 14px;
-            padding: 20px;
-            background: #fafafa;
-        }
+            grid-template-columns: repeat(3,1fr);
 
-        .forecast-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .forecast-top h3 {
-            font-size: 18px;
-        }
-
-        .trend {
-            font-weight: 700;
-            padding: 6px 10px;
-            border-radius: 20px;
-            background: #f3f4f6;
-            font-size: 13px;
-        }
-
-        .forecast-number {
-            font-size: 30px;
-            font-weight: 800;
-            color: #2563eb;
-            margin-bottom: 5px;
-        }
-
-        .forecast-label {
-            color: #6b7280;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-
-        .forecast-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .detail-box {
-            background: white;
-            padding: 12px;
-            border-radius: 9px;
-            border: 1px solid #e5e7eb;
-        }
-
-        .detail-box small {
-            display: block;
-            color: #6b7280;
-            margin-bottom: 4px;
-        }
-
-        .detail-box strong {
-            font-size: 16px;
-        }
-
-        .action-box {
-            margin-top: 15px;
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            padding: 12px;
-            border-radius: 9px;
-            color: #166534;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* QUICK ACTIONS */
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
         }
 
-        .quick-card {
-            background: white;
-            border: 1px solid #e5e7eb;
+
+        .forecast {
+            background: #f8fbf7;
+
+            border: 1px solid #e1ebe0;
+
+            border-radius: 15px;
+
+            padding: 17px;
+        }
+
+
+        .forecast-name {
+            font-size: 16px;
+
+            font-weight: 900;
+
+            color: #183b25;
+        }
+
+
+        .forecast-number {
+            font-size: 25px;
+
+            color: #15803d;
+
+            font-weight: 900;
+
+            margin-top: 10px;
+        }
+
+
+        .trend {
+            margin-top: 10px;
+
+            font-weight: 800;
+
+            color: #166534;
+        }
+
+
+        .meta {
+            margin-top: 12px;
+
+            color: #68756d;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+
+        .insight {
+            margin-top: 20px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            padding: 14px;
+
             border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            font-weight: 700;
-            transition: 0.2s;
+
+            line-height: 1.5;
+
+            font-size: 13px;
         }
 
-        .quick-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(0,0,0,0.08);
+
+        .quick {
+            display: grid;
+
+            grid-template-columns: repeat(2,1fr);
+
+            gap: 12px;
         }
 
-        footer {
-            margin-top: 50px;
-            padding: 25px;
-            text-align: center;
-            color: #6b7280;
-            border-top: 1px solid #e5e7eb;
-            background: white;
+
+        .quick a {
+            padding: 15px;
+
+            background: #f5faf4;
+
+            border: 1px solid #e1ebe0;
+
+            border-radius: 12px;
+
+            font-weight: 800;
+
+            color: #183b25;
         }
 
-        /* RESPONSIVE */
 
-        @media(max-width: 1000px) {
+        .quick a:hover {
+            background: #dcfce7;
+        }
 
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
 
-            .products {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .orders {
+            margin-top: 5px;
+        }
 
-            .forecast-grid {
+
+        .order {
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 13px 0;
+
+            border-bottom: 1px solid #e4ebe5;
+        }
+
+
+        .status {
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+            height: fit-content;
+        }
+
+
+        .empty {
+            color: #68756d;
+
+            padding: 20px 0;
+        }
+
+
+        @media(max-width:1000px) {
+
+            .grid {
                 grid-template-columns: 1fr;
             }
 
-            .quick-actions {
-                grid-template-columns: repeat(2, 1fr);
+
+            .forecast-grid {
+                grid-template-columns: repeat(2,1fr);
             }
+
         }
 
-        @media(max-width: 650px) {
 
-            .navbar {
-                padding: 15px 4%;
-            }
+        @media(max-width:700px) {
 
-            .container {
-                width: 92%;
-            }
-
-            .nav-link {
+            .links {
                 display: none;
             }
 
-            .stats,
-            .products,
-            .quick-actions {
+
+            .forecast-grid,
+            .quick {
                 grid-template-columns: 1fr;
             }
 
-            .ai-form {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 26px;
-            }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<!-- NAVBAR -->
 
 <nav class="navbar">
 
-    <div class="logo">
-        Farm<span>Connect</span>
-    </div>
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="logo"
+    >
+        🌱 FarmConnect
+    </a>
 
-    <div class="nav-right">
 
-        <a href="{{ url_for('marketplace') }}"
-           class="nav-link">
-            Marketplace
+    <div class="links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
         </a>
 
-        <a href="{{ url_for('farmer_orders') }}"
-           class="nav-link">
+
+        <a href="{{ url_for('add_product') }}">
+            + Add Product
+        </a>
+
+
+        <a href="{{ url_for('farmer_orders') }}">
             Orders
         </a>
 
-        <a href="{{ url_for('logout') }}"
-           class="logout">
+
+        <a href="{{ url_for('marketplace') }}">
+            Marketplace
+        </a>
+
+
+        <a href="{{ url_for('logout') }}">
             Logout
         </a>
 
@@ -485,588 +519,448 @@
 </nav>
 
 
-<div class="container">
+<main class="container">
 
-    <!-- HERO -->
 
     <section class="hero">
 
         <h1>
-            Welcome, {{ session.get('user_name', 'Farmer') }} 👋
+            Welcome, {{ user.name }} 👨‍🌾
         </h1>
 
+
         <p>
-            Manage your farm products, understand demand and make smarter pricing decisions.
+            Manage your products, orders and AI-powered demand forecasts.
         </p>
 
     </section>
 
 
-    <!-- STATS -->
-
-    <section class="stats">
-
-        <div class="stat-card">
-
-            <div class="stat-title">
-                Total Products
-            </div>
-
-            <div class="stat-value">
-                {{ products|length }}
-            </div>
-
-        </div>
+    <div class="grid">
 
 
-        <div class="stat-card">
-
-            <div class="stat-title">
-                Total Orders
-            </div>
-
-            <div class="stat-value">
-                {{ orders|length }}
-            </div>
-
-        </div>
+        <section>
 
 
-        <div class="stat-card">
+            <div class="card">
 
-            <div class="stat-title">
-                Available Stock
-            </div>
-
-            <div class="stat-value">
-                {{ products|sum(attribute='quantity') }}
-            </div>
-
-        </div>
+                <h2>
+                    🌱 My Products
+                </h2>
 
 
-        <div class="stat-card">
-
-            <div class="stat-title">
-                Products Listed
-            </div>
-
-            <div class="stat-value">
-                {{ products|length }}
-            </div>
-
-        </div>
-
-    </section>
+                <p class="subtitle">
+                    Products listed by you.
+                </p>
 
 
-    <!-- PRODUCTS -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>
-                My Products
-            </h2>
-
-            <a href="{{ url_for('add_product') }}"
-               class="btn btn-green">
-                + Add Product
-            </a>
-
-        </div>
+                <a
+                    href="{{ url_for('add_product') }}"
+                    class="add-btn"
+                >
+                    + Add Product
+                </a>
 
 
-        {% if products %}
-
-        <div class="products">
-
-            {% for product in products %}
-
-            <div class="product-card">
-
-                <span class="product-category">
-                    {{ product.category }}
-                </span>
-
-                <h3>
-                    {{ product.name }}
-                </h3>
-
-                <div class="product-info">
-
-                    Price:
-
-                    <span class="price">
-                        ₹{{ "%.2f"|format(product.price) }}
-                    </span>
-
-                </div>
+                {% if products %}
 
 
-                <div class="product-info">
-
-                    Available Stock:
-
-                    <strong>
-                        {{ product.quantity }}
-                    </strong>
-
-                </div>
+                    {% for product in products %}
 
 
-                {% if product.description %}
+                        <div class="product">
 
-                <div class="product-info">
 
-                    {{ product.description[:100] }}
+                            <div class="product-left">
 
-                    {% if product.description|length > 100 %}
-                    ...
-                    {% endif %}
 
-                </div>
+                                <div class="product-image">
+
+
+                                    {% if product.image %}
+
+                                        <img
+                                            src="{{ product.image }}"
+                                            alt="{{ product.name }}"
+                                        >
+
+                                    {% else %}
+
+                                        🌾
+
+                                    {% endif %}
+
+
+                                </div>
+
+
+                                <div>
+
+
+                                    <div class="product-name">
+                                        {{ product.name }}
+                                    </div>
+
+
+                                    <div class="muted">
+                                        {{ product.category }}
+                                    </div>
+
+
+                                    <div class="muted">
+                                        {{ product.quantity|int }} kg available
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div style="text-align:right;">
+
+
+                                <div class="price">
+                                    ₹{{ "%.2f"|format(product.price) }}/kg
+                                </div>
+
+
+                                <div class="actions">
+
+
+                                    <a
+                                        href="{{ url_for('edit_product', product_id=product.id) }}"
+                                        class="small-btn edit"
+                                    >
+                                        ✏️ Edit
+                                    </a>
+
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for('delete_product', product_id=product.id) }}"
+                                        onsubmit="return confirm('Delete this product?');"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="small-btn delete"
+                                        >
+                                            🗑️ Delete
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <div class="empty">
+                        No products yet. Add your first product.
+                    </div>
+
 
                 {% endif %}
 
 
-                <div class="product-actions">
-
-                    <a href="{{ url_for('edit_product', product_id=product.id) }}"
-                       class="btn btn-blue">
-                        Edit
-                    </a>
-
-
-                    <a href="{{ url_for('delete_product', product_id=product.id) }}"
-                       class="btn btn-red"
-                       onclick="return confirm('Delete this product?')">
-                        Delete
-                    </a>
-
-                </div>
-
             </div>
 
-            {% endfor %}
 
-        </div>
+            <div class="card">
 
-
-        {% else %}
-
-        <div class="product-card">
-
-            <h3>
-                No products yet
-            </h3>
-
-            <p class="product-info">
-                Add your first product to start selling on FarmConnect.
-            </p>
-
-            <br>
-
-            <a href="{{ url_for('add_product') }}"
-               class="btn btn-green">
-                Add Your First Product
-            </a>
-
-        </div>
-
-        {% endif %}
-
-    </section>
-
-
-    <!-- AI PRICE RECOMMENDATION -->
-
-    <!-- FIX 1: added id="ai-price" -->
-
-    <section class="section" id="ai-price">
-
-        <div class="ai-price">
-
-            <div class="ai-header">
 
                 <h2>
-                    🤖 AI Price Recommendation
+                    📈 AI Demand Forecast
                 </h2>
 
-                <p>
-                    Select a product and FarmConnect will calculate a recommended
-                    price using recent demand trends and current stock coverage.
+
+                <p class="subtitle">
+
+                    Estimated customer demand for the next 7 days using
+                    historical sales data.
+
                 </p>
+
+
+                {% if forecasts %}
+
+
+                    <div class="forecast-grid">
+
+
+                        {% for f in forecasts %}
+
+
+                            <div class="forecast">
+
+
+                                <div class="forecast-name">
+                                    {{ f.product.name }}
+                                </div>
+
+
+                                <div class="muted">
+                                    {{ f.product.category }}
+                                </div>
+
+
+                                <div class="forecast-number">
+                                    {{ f.predicted_7 }} kg
+                                </div>
+
+
+                                <div class="muted">
+                                    Expected demand · next 7 days
+                                </div>
+
+
+                                <div class="trend">
+
+                                    {{ f.trend_icon }}
+
+                                    {{ f.trend }}
+
+                                    ({{ "%+.1f"|format(f.trend_pct) }}%)
+
+                                </div>
+
+
+                                <div class="meta">
+
+
+                                    Recent daily average:
+
+                                    <strong>
+                                        {{ f.recent_avg }} kg
+                                    </strong>
+
+
+                                    <br>
+
+
+                                    Current stock:
+
+                                    <strong>
+                                        {{ f.product.quantity }} kg
+                                    </strong>
+
+
+                                    <br>
+
+
+                                    Stock coverage:
+
+                                    <strong>
+                                        {{ f.coverage }} days
+                                    </strong>
+
+
+                                    <br>
+
+
+                                    <strong>
+                                        {{ f.action }}
+                                    </strong>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+                    <div class="insight">
+
+                        💡
+
+                        <strong>How it helps:</strong>
+
+                        FarmConnect estimates how much customers may buy
+                        next week so farmers can plan production and inventory
+                        using historical sales data.
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <div class="empty">
+                        No forecast data available yet.
+                    </div>
+
+
+                {% endif %}
+
 
             </div>
 
 
-            <form method="POST"
-                  action="{{ url_for('ai_price_recommendation') }}">
-
-                <div class="ai-form">
-
-                    <div class="form-group">
-
-                        <label for="product_id">
-                            Select Product
-                        </label>
+        </section>
 
 
-                        <select name="product_id"
-                                id="product_id"
-                                required>
-
-                            <option value="">
-                                -- Select Product --
-                            </option>
+        <aside>
 
 
-                            {% for product in products %}
-
-                            <option value="{{ product.id }}"
-
-                                {% if ai_result and ai_result.product.id == product.id %}
-                                    selected
-                                {% endif %}>
-
-                                {{ product.name }}
-                                — ₹{{ "%.2f"|format(product.price) }}
-
-                            </option>
-
-                            {% endfor %}
-
-                        </select>
-
-                    </div>
+            <div class="ai-card">
 
 
-                    <button type="submit"
-                            class="btn btn-blue">
-
-                        Calculate AI Price
-
-                    </button>
-
-                </div>
-
-            </form>
+                <h2>
+                    🤖 FarmConnect AI
+                </h2>
 
 
-            {% if ai_result %}
+                <p style="margin-top:10px;">
 
-            <div class="recommendation">
+                    Demand forecasting is calculated automatically from
+                    historical FarmConnect sales data.
 
-                <h3>
-                    AI Recommendation for
-                    {{ ai_result.product.name }}
-                </h3>
+                    <br><br>
 
-
-                <p>
-
-                    Current Price:
-
-                    <strong>
-                        ₹{{ "%.2f"|format(ai_result.current_price) }}
-                    </strong>
+                    You do not need to manually select
+                    Low, Medium or High demand.
 
                 </p>
 
-
-                <p>
-
-                    Demand Trend:
-
-                    <strong>
-                        {{ ai_result.trend }}
-                    </strong>
-
-                </p>
-
-
-                <p>
-
-                    Stock Coverage:
-
-                    <strong>
-                        {{ ai_result.coverage }} days
-                    </strong>
-
-                </p>
-
-
-                <br>
-
-
-                <div>
-                    Recommended Price
-                </div>
-
-
-                <div class="recommended-price">
-
-                    ₹{{ "%.2f"|format(ai_result.recommended_price) }}
-
-                </div>
-
-
-                <br>
-
-
-                <p>
-                    {{ ai_result.message }}
-                </p>
-
-            </div>
-
-            {% endif %}
-
-        </div>
-
-    </section>
-
-
-    <!-- AI DEMAND FORECAST -->
-
-    <section class="section">
-
-        <div class="forecast-section">
-
-            <div class="section-title">
-
-                <div>
-
-                    <h2>
-                        📊 AI Demand Forecast
-                    </h2>
-
-                    <p class="forecast-intro">
-
-                        AI analyses recent sales history to estimate the expected
-                        demand for the next 7 days.
-
-                    </p>
-
-                </div>
 
             </div>
 
 
-            {% if forecasts %}
-
-            <div class="forecast-grid">
-
-                {% for forecast in forecasts %}
-
-                <div class="forecast-card">
-
-                    <div class="forecast-top">
-
-                        <h3>
-                            {{ forecast.product.name }}
-                        </h3>
+            <div class="card">
 
 
-                        <span class="trend">
-
-                            {{ forecast.trend_icon }}
-                            {{ forecast.trend }}
-
-                        </span>
-
-                    </div>
+                <h2>
+                    📦 Recent Orders
+                </h2>
 
 
-                    <div class="forecast-number">
-
-                        {{ forecast.predicted_7 }}
-
-                    </div>
+                <div class="orders">
 
 
-                    <div class="forecast-label">
-
-                        Expected units sold in next 7 days
-
-                    </div>
+                    {% if orders %}
 
 
-                    <div class="forecast-details">
+                        {% for order in orders[:6] %}
 
 
-                        <div class="detail-box">
+                            <div class="order">
 
-                            <small>
-                                Recent Daily Average
-                            </small>
 
-                            <strong>
-                                {{ forecast.recent_avg }}
-                            </strong>
+                                <div>
 
+
+                                    <strong>
+                                        {{ order.product.name }}
+                                    </strong>
+
+
+                                    <div class="muted">
+
+                                        {{ order.quantity }} kg
+
+                                        ·
+
+                                        ₹{{ "%.2f"|format(order.total_price) }}
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="status">
+                                    {{ order.status }}
+                                </div>
+
+
+                            </div>
+
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+
+                        <div class="empty">
+                            No orders yet.
                         </div>
 
 
-                        <div class="detail-box">
+                    {% endif %}
 
-                            <small>
-                                Current Stock
-                            </small>
-
-                            <strong>
-                                {{ forecast.product.quantity }}
-                            </strong>
-
-                        </div>
-
-
-                        <div class="detail-box">
-
-                            <small>
-                                Trend Change
-                            </small>
-
-                            <strong>
-                                {{ forecast.trend_pct }}%
-                            </strong>
-
-                        </div>
-
-
-                        <div class="detail-box">
-
-                            <small>
-                                Stock Coverage
-                            </small>
-
-                            <strong>
-                                {{ forecast.coverage }} days
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="action-box">
-
-                        💡 {{ forecast.action }}
-
-                    </div>
 
                 </div>
 
-                {% endfor %}
 
             </div>
 
 
-            {% else %}
+            <div class="card">
 
-            <div class="product-card">
 
-                <h3>
-                    No forecast available yet
-                </h3>
+                <h2>
+                    ⚡ Quick Actions
+                </h2>
 
-                <p class="product-info">
 
-                    Add products and sales history to generate AI demand forecasts.
+                <div class="quick">
 
-                </p>
+
+                    <a href="{{ url_for('add_product') }}">
+                        🌱 Add Product
+                    </a>
+
+
+                    <a href="{{ url_for('farmer_orders') }}">
+                        📦 Manage Orders
+                    </a>
+
+
+                    <a href="{{ url_for('route_optimization') }}">
+                        🚚 AI Route Optimization
+                    </a>
+
+
+                    <a href="{{ url_for('marketplace') }}">
+                        🛒 Marketplace
+                    </a>
+
+
+                </div>
+
 
             </div>
 
-            {% endif %}
 
-        </div>
-
-    </section>
+        </aside>
 
 
-    <!-- QUICK ACTIONS -->
-
-    <section class="section">
-
-        <div class="section-title">
-
-            <h2>
-                Quick Actions
-            </h2>
-
-        </div>
+    </div>
 
 
-        <div class="quick-actions">
-
-
-            <a href="{{ url_for('add_product') }}"
-               class="quick-card">
-
-                ➕
-
-                <br><br>
-
-                Add Product
-
-            </a>
-
-
-            <a href="{{ url_for('farmer_orders') }}"
-               class="quick-card">
-
-                📦
-
-                <br><br>
-
-                Manage Orders
-
-            </a>
-
-
-            <a href="{{ url_for('marketplace') }}"
-               class="quick-card">
-
-                🛒
-
-                <br><br>
-
-                View Marketplace
-
-            </a>
-
-
-            <!-- FIX 2: changed POST route link to section anchor -->
-
-            <a href="#ai-price"
-               class="quick-card">
-
-                🤖
-
-                <br><br>
-
-                AI Price Analysis
-
-            </a>
-
-
-        </div>
-
-    </section>
-
-</div>
-
-
-<footer>
-
-    © 2026 FarmConnect — Connecting Farmers Directly With Buyers
-
-</footer>
+</main>
 
 
 </body>
+
 </html>

@@ -10,370 +10,154 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>FarmConnect | Checkout</title>
-
+    <title>Checkout | FarmConnect</title>
 
     <style>
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: Inter, Arial, sans-serif;
-            background: #f5f8f5;
-            color: #17201a;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0fdf4;
+            color: #1e293b;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-
-        /* NAVBAR */
-
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-
-            background: #ffffff;
-
-            border-bottom: 1px solid #e4ebe5;
-        }
-
-        .nav {
-            max-width: 1400px;
-            margin: auto;
-
-            min-height: 76px;
-
-            padding: 0 25px;
-
+        nav {
+            background: white;
+            padding: 18px 6%;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #dcfce7;
         }
 
         .logo {
-            color: #16a34a;
-
+            color: #15803d;
             font-size: 24px;
             font-weight: 900;
+            text-decoration: none;
         }
 
-        .links {
-            display: flex;
-            gap: 8px;
-        }
-
-        .link {
-            padding: 11px 16px;
-
-            border-radius: 12px;
-
-            color: #526057;
-
-            font-size: 14px;
+        nav a {
+            text-decoration: none;
+            color: #475569;
             font-weight: 700;
+            margin-left: 15px;
         }
 
-        .link:hover,
-        .active {
-            background: #dcfce7;
-            color: #15803d;
+        .container {
+            width: 92%;
+            max-width: 1050px;
+            margin: 35px auto;
         }
 
-
-        /* PAGE */
-
-        .page {
-            max-width: 1200px;
-
-            margin: auto;
-
-            padding: 35px 25px 70px;
+        h1 {
+            color: #166534;
         }
-
-        .header h1 {
-            font-size: 38px;
-            margin-bottom: 7px;
-        }
-
-        .header p {
-            color: #68756d;
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
-
-
-        /* GRID */
 
         .grid {
             display: grid;
-
-            grid-template-columns:
-                1fr
-                380px;
-
+            grid-template-columns: 1fr 380px;
             gap: 25px;
-
-            align-items: start;
         }
-
-
-        /* CARD */
 
         .card {
-            background: #ffffff;
-
-            border: 1px solid #e4ebe5;
-
-            border-radius: 22px;
-
+            background: white;
             padding: 25px;
-
-            box-shadow:
-                0 10px 35px rgba(20,70,35,.08);
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
         }
-
-        h2 {
-            font-size: 21px;
-
-            margin-bottom: 20px;
-        }
-
-
-        /* FORM */
 
         label {
             display: block;
-
-            font-size: 13px;
-
             font-weight: 800;
-
-            margin: 16px 0 7px;
-        }
-
-        textarea,
-        select {
-            width: 100%;
-
-            border: 1px solid #dbe5dd;
-
-            border-radius: 12px;
-
-            padding: 13px;
-
-            font: inherit;
-
-            outline: none;
+            margin: 18px 0 7px;
         }
 
         textarea {
-            min-height: 120px;
-
+            width: 100%;
+            min-height: 130px;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
             resize: vertical;
         }
 
-        textarea:focus,
-        select:focus {
-            border-color: #86efac;
-
-            box-shadow:
-                0 0 0 3px #dcfce7;
-        }
-
-
-        /* PAYMENT */
-
         .payment {
             display: grid;
-
             gap: 10px;
         }
 
         .payment label {
-            margin: 0;
-
-            border: 1px solid #e4ebe5;
-
-            border-radius: 12px;
-
+            border: 1px solid #e2e8f0;
             padding: 13px;
-
-            font-weight: 700;
-
+            border-radius: 10px;
+            margin: 0;
             cursor: pointer;
         }
-
-        .payment input {
-            margin-right: 8px;
-        }
-
-
-        /* SUMMARY */
-
-        .row {
-            display: flex;
-
-            justify-content: space-between;
-
-            margin-bottom: 15px;
-
-            font-size: 14px;
-        }
-
-        .muted {
-            color: #68756d;
-        }
-
-        .divider {
-            height: 1px;
-
-            background: #e4ebe5;
-
-            margin: 20px 0;
-        }
-
-        .total {
-            display: flex;
-
-            justify-content: space-between;
-
-            font-size: 17px;
-
-            font-weight: 900;
-        }
-
-        .price {
-            font-size: 27px;
-
-            color: #15803d;
-        }
-
-
-        /* ITEMS */
-
-        .item {
-            display: flex;
-
-            justify-content: space-between;
-
-            gap: 15px;
-
-            padding: 14px 0;
-
-            border-bottom: 1px solid #e4ebe5;
-
-            font-size: 13px;
-        }
-
-        .item:last-child {
-            border-bottom: 0;
-        }
-
-        .item strong {
-            font-size: 14px;
-        }
-
-
-        /* BUTTON */
 
         .place {
             width: 100%;
-
-            margin-top: 20px;
-
-            border: 0;
-
-            border-radius: 13px;
-
+            margin-top: 22px;
             padding: 15px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #22c55e,
-                    #15803d
-                );
-
-            color: #ffffff;
-
-            font-size: 14px;
-
+            border: 0;
+            border-radius: 10px;
+            background: #16a34a;
+            color: white;
+            font-size: 16px;
             font-weight: 900;
-
             cursor: pointer;
-        }
-
-        .place:hover {
-            transform: translateY(-1px);
         }
 
         .back {
             display: block;
-
             text-align: center;
-
             margin-top: 12px;
-
-            padding: 13px;
-
-            border: 1px solid #e4ebe5;
-
-            border-radius: 12px;
-
+            padding: 12px;
+            border: 1px solid #dcfce7;
+            border-radius: 10px;
             color: #15803d;
-
+            text-decoration: none;
             font-weight: 800;
         }
 
-
-        /* FOOTER */
-
-        footer {
-            background: #102318;
-
-            color: #ffffff;
-
-            padding: 28px 25px;
-
-            text-align: center;
-
-            font-size: 12px;
+        .item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #e2e8f0;
         }
 
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
 
-        /* RESPONSIVE */
+        .total {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 21px;
+            font-weight: 900;
+            color: #15803d;
+        }
 
-        @media(max-width:850px) {
+        @media(max-width:800px) {
 
             .grid {
                 grid-template-columns: 1fr;
             }
 
-            .nav {
-                flex-wrap: wrap;
-
-                padding: 14px 18px;
-            }
-
-            .links {
-                width: 100%;
-
-                overflow: auto;
-            }
-
-            .page {
-                padding:
-                    25px
-                    15px
-                    50px;
+            nav {
+                flex-direction: column;
+                gap: 12px;
             }
 
         }
@@ -382,95 +166,53 @@
 
 </head>
 
-
 <body>
 
+<nav>
 
-<!-- NAVBAR -->
+    <a
+        class="logo"
+        href="{{ url_for('dashboard') }}"
+    >
+        🌱 FarmConnect
+    </a>
 
-<nav class="navbar">
+    <div>
 
-    <div class="nav">
-
-        <a
-            href="{{ url_for('dashboard') }}"
-            class="logo"
-        >
-            🌱 FarmConnect
+        <a href="{{ url_for('marketplace') }}">
+            Marketplace
         </a>
 
+        <a href="{{ url_for('cart') }}">
+            Cart
+        </a>
 
-        <div class="links">
+        <a href="{{ url_for('my_orders') }}">
+            Orders
+        </a>
 
-            <a
-                href="{{ url_for('dashboard') }}"
-                class="link"
-            >
-                Dashboard
-            </a>
-
-
-            <a
-                href="{{ url_for('marketplace') }}"
-                class="link"
-            >
-                Marketplace
-            </a>
-
-
-            <a
-                href="{{ url_for('cart') }}"
-                class="link"
-            >
-                🛒 Cart
-            </a>
-
-
-            <a
-                href="{{ url_for('my_orders') }}"
-                class="link active"
-            >
-                📦 My Orders
-            </a>
-
-
-            <a
-                href="{{ url_for('logout') }}"
-                class="link"
-            >
-                Logout
-            </a>
-
-        </div>
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
 
     </div>
 
 </nav>
 
 
-<!-- PAGE -->
+<div class="container">
 
-<main class="page">
+    <h1>
+        🚚 Checkout
+    </h1>
 
-
-    <div class="header">
-
-        <h1>
-            Checkout 🚚
-        </h1>
-
-        <p>
-            Enter your delivery details and confirm
-            your FarmConnect order.
-        </p>
-
-    </div>
+    <p>
+        Confirm your delivery details and place your order.
+    </p>
 
 
     <div class="grid">
 
-
-        <!-- DELIVERY + PAYMENT -->
 
         <section class="card">
 
@@ -481,16 +223,14 @@
 
             <form method="POST">
 
-
-                <label for="address">
+                <label>
                     Delivery Address
                 </label>
 
                 <textarea
-                    id="address"
                     name="address"
+                    placeholder="House / Hostel, Street, Village / City, District, PIN"
                     required
-                    placeholder="House / Hostel, Street, Village / City, District, PIN code"
                 ></textarea>
 
 
@@ -502,42 +242,31 @@
                 <div class="payment">
 
                     <label>
-
                         <input
                             type="radio"
                             name="payment_method"
                             value="Cash on Delivery"
                             checked
                         >
-
-                        Cash on Delivery
-
+                        💵 Cash on Delivery
                     </label>
 
-
                     <label>
-
                         <input
                             type="radio"
                             name="payment_method"
                             value="UPI"
                         >
-
-                        UPI — Demo Payment
-
+                        📱 UPI — Demo Payment
                     </label>
 
-
                     <label>
-
                         <input
                             type="radio"
                             name="payment_method"
                             value="Demo Card"
                         >
-
-                        Card — Demo Payment
-
+                        💳 Card — Demo Payment
                     </label>
 
                 </div>
@@ -563,8 +292,6 @@
         </section>
 
 
-        <!-- ORDER SUMMARY -->
-
         <aside class="card">
 
             <h2>
@@ -574,53 +301,42 @@
 
             {% for item in cart_items %}
 
+                <div class="item">
 
-            <div class="item">
+                    <div>
 
-                <div>
+                        <strong>
+                            {{ item.product.name }}
+                        </strong>
+
+                        <br>
+
+                        {{ item.quantity }}
+                        ×
+                        ₹{{ "%.2f"|format(
+                            item.product.price
+                        ) }}
+
+                    </div>
+
 
                     <strong>
-                        {{ item.product.name }}
-                    </strong>
 
-                    <br>
-
-                    <span class="muted">
-
-                        {{ item.quantity|int }}
-
-                        ×
-
-                        ₹{{ "%.2f"|format(item.product.price) }}
-
-                    </span>
-
-                </div>
-
-
-                <strong>
-
-                    ₹{{
-                        "%.2f"|format(
+                        ₹{{ "%.2f"|format(
                             item.product.price *
                             item.quantity
-                        )
-                    }}
+                        ) }}
 
-                </strong>
+                    </strong>
 
-            </div>
-
+                </div>
 
             {% endfor %}
 
 
-            <div class="divider"></div>
-
-
             <div class="row">
 
-                <span class="muted">
+                <span>
                     Subtotal
                 </span>
 
@@ -633,7 +349,7 @@
 
             <div class="row">
 
-                <span class="muted">
+                <span>
                     Delivery
                 </span>
 
@@ -654,16 +370,13 @@
             </div>
 
 
-            <div class="divider"></div>
-
-
             <div class="total">
 
                 <span>
                     Total
                 </span>
 
-                <span class="price">
+                <span>
                     ₹{{ "%.2f"|format(total) }}
                 </span>
 
@@ -671,18 +384,9 @@
 
         </aside>
 
-
     </div>
 
-</main>
-
-
-<footer>
-
-    🌱 FarmConnect — Fresh products directly from farmers.
-
-</footer>
-
+</div>
 
 </body>
 

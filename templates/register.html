@@ -1,82 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Create Account | FarmConnect</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                linear-gradient(
+                    135deg,
+                    #dcfce7,
+                    #f0fdf4,
+                    #ffffff
+                );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        .box {
+            width: 92%;
+            max-width: 500px;
+            background: white;
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 20px 55px rgba(20,70,35,.12);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 42px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #166534;
+            margin: 8px 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .flash {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin: 14px 0 7px;
+            color: #334155;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 11px;
+            font: inherit;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: 0;
+            border-radius: 12px;
+            background: #16a34a;
+            color: white;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #15803d;
+        }
+
+        .bottom {
+            text-align: center;
+            color: #64748b;
+            margin-top: 20px;
+        }
+
+        .bottom a {
+            color: #15803d;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-<div class="auth-page">
+<div class="box">
 
-    <div class="auth-box">
+    <div class="logo">🌱</div>
 
-        <div class="auth-logo">🌱</div>
+    <h1>Join FarmConnect</h1>
 
-        <h1>Join FarmConnect</h1>
+    <p class="subtitle">
+        Create your farmer or buyer account
+    </p>
 
-        <p>Create your farmer or buyer account</p>
+    {% with messages = get_flashed_messages() %}
 
-        <!-- Connected to Flask Backend -->
-        <form method="POST" action="{{ url_for('register') }}">
+        {% for message in messages %}
 
-            <label>Full Name</label>
-            <input type="text"
-                   name="name"
-                   placeholder="Your name"
-                   required>
+            <div class="flash">
+                {{ message }}
+            </div>
 
-            <label>Email</label>
-            <input type="email"
-                   name="email"
-                   placeholder="you@example.com"
-                   required>
+        {% endfor %}
 
-            <label>Phone</label>
-            <input type="text"
-                   name="phone"
-                   placeholder="Phone number">
+    {% endwith %}
 
-            <label>Location</label>
-            <input type="text"
-                   name="location"
-                   placeholder="Village / City">
+    <form
+        method="POST"
+        action="{{ url_for('register') }}"
+    >
 
-            <label>I am a</label>
+        <label>Full Name</label>
 
-            <select name="role" required>
+        <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            required
+        >
 
-                <option value="farmer">
-                    👨‍🌾 Farmer
-                </option>
+        <label>Email</label>
 
-                <option value="buyer">
-                    🛒 Buyer
-                </option>
+        <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+        >
 
-            </select>
+        <label>Phone</label>
 
-            <label>Password</label>
+        <input
+            type="text"
+            name="phone"
+            placeholder="Phone number"
+        >
 
-            <input type="password"
-                   name="password"
-                   placeholder="Create password"
-                   required>
+        <label>Location</label>
 
-            <button type="submit">
-                Create Account →
-            </button>
+        <input
+            type="text"
+            name="location"
+            placeholder="Village / City"
+        >
 
-        </form>
+        <label>I am a</label>
 
-        <p class="auth-bottom">
-            Already have an account?
-            <a href="{{ url_for('login') }}">Login</a>
-        </p>
+        <select name="role" required>
 
-    </div>
+            <option value="buyer">
+                🛒 Buyer
+            </option>
+
+            <option value="farmer">
+                👨‍🌾 Farmer
+            </option>
+
+        </select>
+
+        <label>Password</label>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Create password"
+            required
+        >
+
+        <button type="submit">
+            Create Account →
+        </button>
+
+    </form>
+
+    <p class="bottom">
+
+        Already have an account?
+
+        <a href="{{ url_for('login') }}">
+            Login
+        </a>
+
+    </p>
 
 </div>
 

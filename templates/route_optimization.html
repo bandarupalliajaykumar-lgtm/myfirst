@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Route Optimization | FarmConnect</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f4;
+            color: #222;
+        }
+
+        .navbar {
+            background: #198754;
+            color: white;
+            padding: 16px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .header {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .header h1 {
+            color: #198754;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .controls button {
+            background: #198754;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .controls button:hover {
+            background: #146c43;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .route-info {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .route-info h2 {
+            color: #198754;
+            margin-bottom: 20px;
+        }
+
+        .order-card {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            background: #fafafa;
+        }
+
+        .order-card h3 {
+            color: #198754;
+            margin-bottom: 8px;
+        }
+
+        .order-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .loading {
+            color: #198754;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar a {
+                margin-left: 10px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            #map {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <h2>🌾 FarmConnect</h2>
+
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('farmer_orders') }}">Orders</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🚚 AI Route Optimization</h1>
+
+        <p>
+            Optimize your delivery route using farmer and buyer locations.
+        </p>
+
+        <p style="margin-top: 8px;">
+            <strong>Farmer Location:</strong>
+            {{ farmer_location }}
+        </p>
+
+    </div>
+
+
+    <div class="controls">
+
+        <button onclick="generateRoute()">
+            🗺️ Generate Optimized Route
+        </button>
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <div id="map"></div>
+
+
+    <div class="route-info">
+
+        <h2>📦 Optimized Delivery Sequence</h2>
+
+        <div id="routeList">
+
+            <p>
+                Click <strong>Generate Optimized Route</strong>
+                to calculate the delivery route.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<script>
+
+const farmerLocation = {{ farmer_location|tojson }};
+
+const orders = {{ orders|tojson }};
+
+
+let map;
+
+let farmerCoords = null;
+
+let routeLayer = null;
+
+let markers = [];
+
+
+// --------------------------------------------------
+// INITIALIZE MAP
+// --------------------------------------------------
+
+function initializeMap() {
+
+    map = L.map("map").setView(
+        [17.3850, 78.4867],
+        11
+    );
+
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution: "&copy; OpenStreetMap contributors"
+        }
+    ).addTo(map);
+}
+
+
+// --------------------------------------------------
+// GEOCODING
+// --------------------------------------------------
+
+async function geocodeAddress(address) {
+
+    const url =
+        "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="
+        + encodeURIComponent(address);
+
+    const response = await fetch(url, {
+        headers: {
+            "Accept": "application/json"
+        }
+    });
+
+    const data = await response.json();
+
+    if (!data || data.length === 0) {
+        return null;
+    }
+
+    return [
+        parseFloat(data[0].lat),
+        parseFloat(data[0].lon)
+    ];
+}
+
+
+// --------------------------------------------------
+// DISTANCE CALCULATION
+// --------------------------------------------------
+
+function distance(point1, point2) {
+
+    const lat1 = point1[0];
+
+    const lon1 = point1[1];
+
+    const lat2 = point2[0];
+
+    const lon2 = point2[1];
+
+
+    const R = 6371;
+
+    const dLat =
+        (lat2 - lat1) * Math.PI / 180;
+
+    const dLon =
+        (lon2 - lon1) * Math.PI / 180;
+
+
+    const a =
+        Math.sin(dLat / 2) *
+        Math.sin(dLat / 2) +
+
+        Math.cos(lat1 * Math.PI / 180) *
+        Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+
+    const c =
+        2 * Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+
+    return R * c;
+}
+
+
+// --------------------------------------------------
+// GREEDY ROUTE OPTIMIZATION
+// --------------------------------------------------
+
+function optimizeRoute(start, stops) {
+
+    const remaining = [...stops];
+
+    const result = [];
+
+    let current = start;
+
+
+    while (remaining.length) {
+
+        let bestIndex = 0;
+
+        let bestDistance = Infinity;
+
+
+        remaining.forEach((stop, index) => {
+
+            const d =
+                distance(
+                    current,
+                    stop.coords
+                );
+
+
+            if (d < bestDistance) {
+
+                bestDistance = d;
+
+                bestIndex = index;
+
+            }
+
+        });
+
+
+        const next =
+            remaining.splice(
+                bestIndex,
+                1
+            )[0];
+
+
+        next.distanceFromPrevious =
+            bestDistance;
+
+
+        result.push(next);
+
+        current = next.coords;
+    }
+
+
+    return result;
+}
+
+
+// --------------------------------------------------
+// ROAD ROUTE USING OSRM
+// --------------------------------------------------
+
+async function getRoadRoute(points) {
+
+    const coordinates =
+        points
+            .map(
+                p =>
+                    `${p[1]},${p[0]}`
+            )
+            .join(";");
+
+
+    const url =
+        `https://router.project-osrm.org/route/v1/driving/${coordinates}?overview=full&geometries=geojson`;
+
+
+    const response =
+        await fetch(url);
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Unable to calculate road route."
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    if (
+        data.code !== "Ok" ||
+        !data.routes ||
+        !data.routes.length
+    ) {
+
+        throw new Error(
+            "No road route found."
+        );
+
+    }
+
+
+    return data.routes[0];
+}
+
+
+// --------------------------------------------------
+// CLEAR OLD MAP DATA
+// --------------------------------------------------
+
+function clearMap() {
+
+    markers.forEach(
+        marker =>
+            map.removeLayer(marker)
+    );
+
+    markers = [];
+
+
+    if (routeLayer) {
+
+        map.removeLayer(routeLayer);
+
+        routeLayer = null;
+    }
+}
+
+
+// --------------------------------------------------
+// GENERATE ROUTE
+// --------------------------------------------------
+
+async function generateRoute() {
+
+    const message =
+        document.getElementById("message");
+
+
+    const routeList =
+        document.getElementById("routeList");
+
+
+    message.innerHTML =
+        `<div class="loading">
+            ⏳ Calculating optimized route...
+        </div>`;
+
+
+    routeList.innerHTML =
+        `<p>Finding locations...</p>`;
+
+
+    try {
+
+        clearMap();
+
+
+        // ------------------------------------------
+        // FARMER LOCATION
+        // ------------------------------------------
+
+        farmerCoords =
+            await geocodeAddress(
+                farmerLocation
+            );
+
+
+        if (!farmerCoords) {
+
+            throw new Error(
+                "Farmer location could not be found."
+            );
+
+        }
+
+
+        // ------------------------------------------
+        // FARMER MARKER
+        // ------------------------------------------
+
+        const farmerMarker =
+            L.marker(
+                farmerCoords
+            )
+            .addTo(map)
+            .bindPopup(
+                "<b>🌾 Farmer Location</b><br>"
+                + farmerLocation
+            );
+
+
+        markers.push(
+            farmerMarker
+        );
+
+
+        // ------------------------------------------
+        // GEOCODE BUYER ORDERS
+        // ------------------------------------------
+
+        const stops = [];
+
+
+        for (
+            let i = 0;
+            i < orders.length;
+            i++
+        ) {
+
+            const order =
+                orders[i];
+
+
+            const coords =
+                await geocodeAddress(
+                    order.address
+                );
+
+
+            if (coords) {
+
+                stops.push({
+
+                    ...order,
+
+                    coords: coords
+
+                });
+
+            }
+
+        }
+
+
+        if (stops.length === 0) {
+
+            throw new Error(
+                "No valid delivery addresses found."
+            );
+
+        }
+
+
+        // ------------------------------------------
+        // OPTIMIZE
+        // ------------------------------------------
+
+        const optimized =
+            optimizeRoute(
+                farmerCoords,
+                stops
+            );
+
+
+        // ------------------------------------------
+        // DISPLAY BUYER MARKERS
+        // ------------------------------------------
+
+        optimized.forEach(
+            (stop, index) => {
+
+                const marker =
+                    L.marker(
+                        stop.coords
+                    )
+                    .addTo(map)
+                    .bindPopup(
+                        `<b>Stop ${index + 1}</b><br>
+                        <strong>${stop.buyer_name}</strong><br>
+                        ${stop.product_name}<br>
+                        Quantity: ${stop.quantity}<br>
+                        ${stop.address}`
+                    );
+
+
+                markers.push(marker);
+
+            }
+        );
+
+
+        // ------------------------------------------
+        // ROAD ROUTE
+        // ------------------------------------------
+
+        const allPoints = [
+
+            farmerCoords,
+
+            ...optimized.map(
+                stop => stop.coords
+            )
+
+        ];
+
+
+        const roadRoute =
+            await getRoadRoute(
+                allPoints
+            );
+
+
+        const routeCoordinates =
+            roadRoute.geometry.coordinates
+                .map(
+                    point => [
+                        point[1],
+                        point[0]
+                    ]
+                );
+
+
+        routeLayer =
+            L.polyline(
+                routeCoordinates,
+                {
+                    weight: 5
+                }
+            )
+            .addTo(map);
+
+
+        map.fitBounds(
+            routeLayer.getBounds(),
+            {
+                padding: [30, 30]
+            }
+        );
+
+
+        // ------------------------------------------
+        // ROUTE LIST
+        // ------------------------------------------
+
+        let html = "";
+
+
+        optimized.forEach(
+            (stop, index) => {
+
+                html += `
+
+                    <div class="order-card">
+
+                        <h3>
+                            Stop ${index + 1} —
+                            ${stop.buyer_name}
+                        </h3>
+
+                        <p>
+                            <strong>Order:</strong>
+                            ${stop.order_no}
+                        </p>
+
+                        <p>
+                            <strong>Product:</strong>
+                            ${stop.product_name}
+                        </p>
+
+                        <p>
+                            <strong>Quantity:</strong>
+                            ${stop.quantity}
+                        </p>
+
+                        <p>
+                            <strong>Address:</strong>
+                            ${stop.address}
+                        </p>
+
+                        <p>
+                            <strong>Distance from previous stop:</strong>
+                            ${stop.distanceFromPrevious.toFixed(2)}
+                            km
+                        </p>
+
+                        <span class="badge">
+                            ${stop.status}
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+        routeList.innerHTML = html;
+
+
+        message.innerHTML =
+            `<div class="loading">
+                ✅ Route optimized successfully!
+                ${optimized.length} delivery stops found.
+            </div>`;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        message.innerHTML =
+            `<div class="error">
+                ❌ ${error.message}
+            </div>`;
+
+
+        routeList.innerHTML =
+            `<p class="error">
+                Unable to generate route.
+            </p>`;
+
+    }
+
+}
+
+
+// --------------------------------------------------
+// START MAP
+// --------------------------------------------------
+
+initializeMap();
+
+</script>
+
+</body>
+</html>

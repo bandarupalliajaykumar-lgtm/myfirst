@@ -1,1193 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FarmConnect | Cart</title>
+    <title>My Cart | FarmConnect</title>
 
     <style>
 
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --green: #16a34a;
-            --dark-green: #15803d;
-            --light-green: #dcfce7;
-            --bg: #f5f8f5;
-            --dark: #17201a;
-            --muted: #68756d;
-            --white: #ffffff;
-            --border: #e4ebe5;
-            --red: #ef4444;
-            --shadow: 0 10px 35px rgba(20, 70, 35, 0.08);
-        }
-
         body {
-            font-family: Inter, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--dark);
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0fdf4;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        button,
-        input {
-            font-family: inherit;
-        }
-
-        /* ================= NAVBAR ================= */
-
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            background: rgba(255,255,255,.96);
-            backdrop-filter: blur(15px);
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-inner {
-            max-width: 1400px;
-            min-height: 76px;
-
-            margin: auto;
-            padding: 0 25px;
-
+        nav {
+            background: white;
+            padding: 18px 6%;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 25px;
+            align-items: center;
+            border-bottom: 1px solid #dcfce7;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-left: 15px;
+            color: #475569;
+            font-weight: 700;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-
-            color: var(--green);
+            color: #15803d;
             font-size: 24px;
             font-weight: 900;
+            text-decoration: none;
         }
 
-        .logo-icon {
-            width: 44px;
-            height: 44px;
-
-            border-radius: 14px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            color: white;
-            font-size: 23px;
-
-            background: linear-gradient(
-                135deg,
-                #22c55e,
-                #15803d
-            );
-
-            box-shadow:
-                0 8px 20px rgba(22,163,74,.25);
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 35px auto;
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        h1 {
+            color: #166534;
         }
 
-        .nav-link {
-            padding: 11px 16px;
-
-            border-radius: 12px;
-
-            color: #526057;
-
-            font-size: 14px;
-            font-weight: 700;
-
-            transition: .2s;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background: var(--light-green);
-            color: var(--dark-green);
-        }
-
-        .cart-count {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            min-width: 23px;
-            height: 23px;
-
-            padding: 0 6px;
-
-            margin-left: 4px;
-
-            border-radius: 50px;
-
-            background: var(--green);
-            color: white;
-
-            font-size: 11px;
-            font-weight: 900;
-        }
-
-        /* ================= PAGE ================= */
-
-        .page {
-            max-width: 1400px;
-            margin: auto;
-
-            padding: 35px 25px 70px;
-        }
-
-        .page-header {
-            margin-bottom: 28px;
-        }
-
-        .page-header h1 {
-            font-size: 38px;
-            letter-spacing: -1px;
-            margin-bottom: 7px;
-        }
-
-        .page-header p {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        /* ================= LAYOUT ================= */
-
-        .cart-layout {
-            display: grid;
-
-            grid-template-columns:
-                minmax(0, 1fr)
-                380px;
-
-            gap: 25px;
-
-            align-items: start;
-        }
-
-        /* ================= CART ITEMS ================= */
-
-        .cart-section {
+        .item {
             background: white;
-
-            border: 1px solid var(--border);
-            border-radius: 22px;
-
             padding: 20px;
-
-            box-shadow: var(--shadow);
-        }
-
-        .cart-top {
+            border-radius: 16px;
+            margin: 15px 0;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-
-            margin-bottom: 18px;
-        }
-
-        .cart-top h2 {
-            font-size: 21px;
-        }
-
-        .clear-form {
-            margin: 0;
-        }
-
-        .clear-btn {
-            border: 0;
-            background: transparent;
-
-            color: var(--red);
-
-            font-size: 12px;
-            font-weight: 800;
-
-            cursor: pointer;
-
-            padding: 8px 10px;
-            border-radius: 9px;
-
-            transition: .2s;
-        }
-
-        .clear-btn:hover {
-            background: #fee2e2;
-        }
-
-        /* ================= ITEM ================= */
-
-        .cart-item {
-            display: grid;
-
-            grid-template-columns:
-                125px
-                minmax(0, 1fr)
-                190px;
-
-            gap: 18px;
-
-            padding: 18px 0;
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cart-item:last-child {
-            border-bottom: 0;
-        }
-
-        .product-image {
-            width: 125px;
-            height: 125px;
-
-            overflow: hidden;
-
-            border-radius: 17px;
-
-            background: #edf4ee;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            display: block;
-        }
-
-        .product-placeholder {
-            width: 100%;
-            height: 100%;
-
-            display: flex;
+            gap: 20px;
             align-items: center;
-            justify-content: center;
-
-            font-size: 35px;
+            box-shadow: 0 6px 20px rgba(0,0,0,.06);
         }
 
-        .product-info {
-            padding-top: 3px;
+        .item img {
+            width: 100px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
         }
 
-        .category {
-            display: inline-block;
-
-            padding: 5px 9px;
-
-            margin-bottom: 8px;
-
-            border-radius: 50px;
-
-            background: var(--light-green);
-            color: var(--dark-green);
-
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
+        .info {
+            flex: 1;
         }
 
-        .product-info h3 {
+        .name {
             font-size: 19px;
-            margin-bottom: 8px;
-        }
-
-        .farmer {
-            color: var(--muted);
-
-            font-size: 12px;
-            font-weight: 600;
-
-            margin-bottom: 12px;
+            font-weight: 900;
+            color: #166534;
         }
 
         .price {
-            color: var(--dark-green);
-
-            font-size: 19px;
-            font-weight: 900;
-        }
-
-        /* ================= ACTIONS ================= */
-
-        .item-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-
-            gap: 10px;
-        }
-
-        .item-total {
-            color: var(--dark);
-
-            font-size: 20px;
-            font-weight: 900;
-        }
-
-        .quantity-form {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .qty-input {
-            width: 65px;
-            height: 38px;
-
-            border: 1px solid var(--border);
-            border-radius: 9px;
-
-            text-align: center;
-
-            outline: none;
-
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .qty-input:focus {
-            border-color: #86efac;
-
-            box-shadow:
-                0 0 0 3px #dcfce7;
-        }
-
-        .update-btn {
-            height: 38px;
-
-            border: 0;
-            border-radius: 9px;
-
-            padding: 0 12px;
-
-            background: #ecfdf5;
-            color: var(--dark-green);
-
-            font-size: 12px;
+            color: #15803d;
             font-weight: 800;
-
-            cursor: pointer;
+            margin-top: 6px;
         }
 
-        .update-btn:hover {
-            background: var(--light-green);
-        }
-
-        .remove-form {
-            margin: 0;
-        }
-
-        .remove-btn {
-            border: 0;
-            background: transparent;
-
-            color: var(--red);
-
-            font-size: 11px;
-            font-weight: 800;
-
-            cursor: pointer;
-        }
-
-        .remove-btn:hover {
-            text-decoration: underline;
-        }
-
-        /* ================= EMPTY CART ================= */
-
-        .empty-cart {
-            text-align: center;
-
-            padding: 70px 25px;
-        }
-
-        .empty-icon {
+        input {
             width: 80px;
-            height: 80px;
-
-            margin: auto auto 18px;
-
-            border-radius: 25px;
-
-            background: var(--light-green);
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 38px;
+            padding: 9px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
         }
 
-        .empty-cart h2 {
-            margin-bottom: 8px;
-        }
-
-        .empty-cart p {
-            color: var(--muted);
-
-            font-size: 14px;
-
-            margin-bottom: 22px;
-        }
-
-        .shop-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 13px 20px;
-
-            border-radius: 12px;
-
-            background: linear-gradient(
-                135deg,
-                #22c55e,
-                #15803d
-            );
-
-            color: white;
-
-            font-size: 13px;
+        button {
+            border: 0;
+            padding: 9px 13px;
+            border-radius: 8px;
             font-weight: 800;
-
-            box-shadow:
-                0 8px 20px rgba(22,163,74,.2);
+            cursor: pointer;
         }
 
-        /* ================= SUMMARY ================= */
+        .update {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .remove {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
 
         .summary {
-            position: sticky;
-            top: 100px;
-
             background: white;
-
-            border: 1px solid var(--border);
-            border-radius: 22px;
-
             padding: 25px;
-
-            box-shadow: var(--shadow);
+            border-radius: 16px;
+            margin-top: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,.06);
         }
 
-        .summary h2 {
-            font-size: 21px;
-            margin-bottom: 22px;
-        }
-
-        .summary-row {
+        .row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-
-            margin-bottom: 15px;
-
-            font-size: 14px;
+            margin: 12px 0;
         }
 
-        .summary-row span {
-            color: var(--muted);
-        }
-
-        .summary-row strong {
-            color: var(--dark);
-        }
-
-        .summary-divider {
-            height: 1px;
-
-            background: var(--border);
-
-            margin: 20px 0;
-        }
-
-        .total-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .total-row span {
-            font-size: 16px;
+        .total {
+            font-size: 22px;
             font-weight: 900;
+            color: #15803d;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
         }
 
-        .total-price {
-            color: var(--dark-green);
-
-            font-size: 27px;
-            font-weight: 900;
-        }
-
-        .delivery-note {
-            margin-top: 18px;
-
-            padding: 13px;
-
-            border-radius: 12px;
-
-            background: #f0fdf4;
-
-            color: #477153;
-
-            font-size: 12px;
-            line-height: 1.55;
-        }
-
-        .delivery-note strong {
-            color: var(--dark-green);
-        }
-
-        .checkout-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            width: 100%;
-
-            border: 0;
-            border-radius: 13px;
-
+        .checkout {
+            display: block;
+            text-align: center;
             margin-top: 20px;
-
-            padding: 15px;
-
-            background: linear-gradient(
-                135deg,
-                #22c55e,
-                #15803d
-            );
-
+            padding: 14px;
+            background: #16a34a;
             color: white;
-
-            font-size: 14px;
-            font-weight: 900;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 9px 22px rgba(22,163,74,.2);
-
-            transition: .2s;
-        }
-
-        .checkout-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .continue-btn {
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            width: 100%;
-
-            margin-top: 11px;
-
-            padding: 13px;
-
-            border: 1px solid var(--border);
-            border-radius: 12px;
-
-            color: var(--dark-green);
-
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .continue-btn:hover {
-            background: #f0fdf4;
-        }
-
-        /* ================= FOOTER ================= */
-
-        footer {
-            background: #102318;
-            color: white;
-        }
-
-        .footer-inner {
-            max-width: 1400px;
-            margin: auto;
-
-            padding: 28px 25px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 20px;
-        }
-
-        .footer-logo {
-            font-size: 18px;
+            text-decoration: none;
+            border-radius: 10px;
             font-weight: 900;
         }
 
-        .footer-text {
-            color: #a8b7ad;
-            font-size: 12px;
+        .empty {
+            background: white;
+            text-align: center;
+            padding: 70px;
+            border-radius: 18px;
         }
 
-        /* ================= RESPONSIVE ================= */
+        @media(max-width:700px) {
 
-        @media (max-width: 1000px) {
-
-            .cart-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .summary {
-                position: static;
-            }
-
-        }
-
-        @media (max-width: 700px) {
-
-            .nav-inner {
-                flex-wrap: wrap;
-                padding: 14px 18px;
-            }
-
-            .nav-links {
-                width: 100%;
-                overflow-x: auto;
-            }
-
-            .page {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-
-            .cart-item {
-                grid-template-columns: 90px 1fr;
-            }
-
-            .product-image {
-                width: 90px;
-                height: 90px;
-            }
-
-            .item-actions {
-                grid-column: 1 / -1;
-                align-items: flex-start;
-            }
-
-            .footer-inner {
+            .item {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: stretch;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
             }
 
         }
 
     </style>
+
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<nav>
 
-<nav class="navbar">
+    <a class="logo" href="{{ url_for('dashboard') }}">
+        🌱 FarmConnect
+    </a>
 
-    <div class="nav-inner">
-
-        <a
-            href="{{ url_for('dashboard') }}"
-            class="logo"
-        >
-
-            <span class="logo-icon">
-                🌱
-            </span>
-
-            FarmConnect
-
-        </a>
-
-
-        <div class="nav-links">
-
-            <a
-                href="{{ url_for('dashboard') }}"
-                class="nav-link"
-            >
-                Dashboard
-            </a>
-
-
-            <a
-                href="{{ url_for('marketplace') }}"
-                class="nav-link"
-            >
-                Marketplace
-            </a>
-
-
-            <a
-                href="{{ url_for('cart') }}"
-                class="nav-link active"
-            >
-
-                🛒 Cart
-
-                <span class="cart-count">
-                    {{ cart_count }}
-                </span>
-
-            </a>
-
-
-            <a
-                href="{{ url_for('my_orders') }}"
-                class="nav-link"
-            >
-                📦 My Orders
-            </a>
-
-
-            <a
-                href="{{ url_for('logout') }}"
-                class="nav-link"
-            >
-                Logout
-            </a>
-
-        </div>
-
+    <div>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('marketplace') }}">Marketplace</a>
+        <a href="{{ url_for('my_orders') }}">Orders</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
     </div>
 
 </nav>
 
+<div class="container">
 
-<!-- ================= PAGE ================= -->
-
-<main class="page">
-
-
-    <div class="page-header">
-
-        <h1>
-            Shopping Cart 🛒
-        </h1>
-
-        <p>
-            Review your selected farm-fresh products
-            before checkout.
-        </p>
-
-    </div>
-
+    <h1>🛒 My Cart</h1>
 
     {% if cart_items %}
 
+        {% for item in cart_items %}
 
-    <div class="cart-layout">
+            <div class="item">
 
-
-        <!-- ================= CART ================= -->
-
-        <section class="cart-section">
-
-
-            <div class="cart-top">
-
-                <h2>
-                    Your Items
-                </h2>
-
-
-                <form
-                    method="POST"
-                    action="{{ url_for('clear_cart') }}"
-                    class="clear-form"
-                >
-
-                    <button
-                        type="submit"
-                        class="clear-btn"
-                        onclick="return confirm('Clear your entire cart?')"
-                    >
-                        Clear Cart
-                    </button>
-
-                </form>
-
-            </div>
-
-
-            {% for item in cart_items %}
-
-
-            <article class="cart-item">
-
-
-                <!-- IMAGE -->
-
-                <div class="product-image">
-
-                    {% if item.product.image %}
+                {% if item.product.image %}
 
                     <img
                         src="{{ item.product.image }}"
                         alt="{{ item.product.name }}"
-                        loading="lazy"
                     >
 
-                    {% else %}
+                {% else %}
 
-                    <div class="product-placeholder">
-                        🌱
+                    <div style="font-size:50px;">
+                        🌾
                     </div>
 
-                    {% endif %}
+                {% endif %}
 
-                </div>
+                <div class="info">
 
-
-                <!-- PRODUCT INFO -->
-
-                <div class="product-info">
-
-                    <span class="category">
-                        {{ item.product.category }}
-                    </span>
-
-
-                    <h3>
+                    <div class="name">
                         {{ item.product.name }}
-                    </h3>
-
-
-                    <div class="farmer">
-
-                        🌾 Farmer ID:
-                        {{ item.product.farmer_id }}
-
                     </div>
 
+                    <div>
+                        {{ item.product.category }}
+                    </div>
 
                     <div class="price">
-
-                        ₹{{ "%.2f"|format(item.product.price) }}
-
-                        <span
-                            style="
-                                font-size:12px;
-                                color:#84968a;
-                                font-weight:600;
-                            "
-                        >
-                            / unit
-                        </span>
-
+                        ₹{{ "%.2f"|format(item.product.price) }} / kg
                     </div>
 
                 </div>
 
-
-                <!-- ACTIONS -->
-
-                <div class="item-actions">
-
-
-                    <div class="item-total">
-
-                        ₹{{
-                            "%.2f"|format(
-                                item.product.price *
-                                item.quantity
-                            )
-                        }}
-
-                    </div>
-
+                <div>
 
                     <form
                         method="POST"
-                        action="{{
-                            url_for(
-                                'update_cart',
-                                item_id=item.id
-                            )
-                        }}"
-                        class="quantity-form"
+                        action="{{ url_for('update_cart', item_id=item.id) }}"
                     >
 
                         <input
-                            class="qty-input"
                             type="number"
                             name="quantity"
-                            value="{{ item.quantity|int }}"
-                            min="1"
-                            max="{{ item.product.quantity|int }}"
+                            value="{{ item.quantity }}"
+                            min="0.1"
+                            max="{{ item.product.quantity }}"
+                            step="0.1"
+                            required
                         >
 
-
                         <button
+                            class="update"
                             type="submit"
-                            class="update-btn"
                         >
                             Update
                         </button>
 
                     </form>
 
+                    <br>
 
                     <form
                         method="POST"
-                        action="{{
-                            url_for(
-                                'remove_from_cart',
-                                item_id=item.id
-                            )
-                        }}"
-                        class="remove-form"
+                        action="{{ url_for('remove_from_cart', item_id=item.id) }}"
                     >
 
                         <button
+                            class="remove"
                             type="submit"
-                            class="remove-btn"
-                            onclick="return confirm('Remove this item from your cart?')"
                         >
-                            ✕ Remove
+                            Remove
                         </button>
 
                     </form>
 
                 </div>
 
-
-            </article>
-
-
-            {% endfor %}
-
-
-        </section>
-
-
-        <!-- ================= SUMMARY ================= -->
-
-        <aside class="summary">
-
-            <h2>
-                Order Summary
-            </h2>
-
-
-            <div class="summary-row">
-
-                <span>
-                    Subtotal
-                </span>
-
-                <strong>
-                    ₹{{ "%.2f"|format(subtotal) }}
-                </strong>
-
             </div>
 
+        {% endfor %}
 
-            <div class="summary-row">
 
-                <span>
-                    Delivery
-                </span>
+        <div class="summary">
 
+            <div class="row">
+                <span>Subtotal</span>
+                <strong>₹{{ "%.2f"|format(subtotal) }}</strong>
+            </div>
+
+            <div class="row">
+                <span>Delivery</span>
                 <strong>
-
                     {% if delivery == 0 %}
-
                         FREE
-
                     {% else %}
-
                         ₹{{ "%.2f"|format(delivery) }}
-
                     {% endif %}
-
                 </strong>
-
             </div>
 
-
-            <div class="summary-divider"></div>
-
-
-            <div class="total-row">
-
-                <span>
-                    Total
-                </span>
-
-                <div class="total-price">
-                    ₹{{ "%.2f"|format(total) }}
-                </div>
-
+            <div class="row total">
+                <span>Total</span>
+                <span>₹{{ "%.2f"|format(total) }}</span>
             </div>
-
-
-            {% if subtotal < 500 and subtotal > 0 %}
-
-                <div class="delivery-note">
-
-                    🚚 Add
-
-                    <strong>
-                        ₹{{ "%.2f"|format(500 - subtotal) }}
-                    </strong>
-
-                    more to get
-
-                    <strong>
-                        FREE DELIVERY
-                    </strong>.
-
-                </div>
-
-            {% else %}
-
-                <div class="delivery-note">
-
-                    🎉 You unlocked
-                    <strong>
-                        FREE DELIVERY!
-                    </strong>
-
-                </div>
-
-            {% endif %}
-
 
             <a
+                class="checkout"
                 href="{{ url_for('checkout') }}"
-                class="checkout-btn"
             >
                 Proceed to Checkout →
             </a>
 
-
-            <a
-                href="{{ url_for('marketplace') }}"
-                class="continue-btn"
-            >
-                ← Continue Shopping
-            </a>
-
-        </aside>
-
-
-    </div>
+        </div>
 
 
     {% else %}
 
+        <div class="empty">
 
-    <!-- ================= EMPTY ================= -->
+            <h2>🛒 Your Cart is Empty</h2>
 
-    <section class="cart-section">
-
-        <div class="empty-cart">
-
-            <div class="empty-icon">
-                🛒
-            </div>
-
-            <h2>
-                Your cart is empty
-            </h2>
-
-            <p>
-                Add some fresh products from the
-                FarmConnect marketplace.
-            </p>
+            <p>Add products from farmers to your cart.</p>
 
             <a
+                class="checkout"
                 href="{{ url_for('marketplace') }}"
-                class="shop-btn"
             >
-                🌱 Explore Marketplace
+                🌱 Browse Marketplace
             </a>
 
         </div>
 
-    </section>
-
-
     {% endif %}
 
-</main>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-    <div class="footer-inner">
-
-        <div class="footer-logo">
-            🌱 FarmConnect
-        </div>
-
-        <div class="footer-text">
-            Fresh products directly from farmers.
-        </div>
-
-        <div class="footer-text">
-            © 2026 FarmConnect
-        </div>
-
-    </div>
-
-</footer>
-
-
-<script>
-
-    document
-        .querySelectorAll(".product-image img")
-        .forEach(function(img) {
-
-            img.addEventListener(
-                "error",
-                function() {
-
-                    this.onerror = null;
-
-                    this.src =
-                        "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=900&q=90";
-
-                }
-            );
-
-        });
-
-</script>
+</div>
 
 </body>
 </html>

@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Buyer Dashboard | FarmConnect</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
-          rel="stylesheet">
 
     <style>
 
@@ -22,617 +20,401 @@
 
         body {
             margin: 0;
-            font-family: "Inter", sans-serif;
-            background: #f7f8f3;
-            color: #183b25;
+            font-family: Arial, sans-serif;
+            background: #f0fdf4;
+            color: #1e293b;
         }
 
-        .buyer-page {
-            min-height: 100vh;
-        }
-
-        /* NAVBAR */
-
-        .buyer-nav {
-            height: 78px;
-            background: white;
-            border-bottom: 1px solid #e5eae2;
-            padding: 0 6%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .buyer-logo {
-            font-family: "Playfair Display", serif;
-            font-size: 27px;
-            font-weight: 700;
-            color: #183b25;
-        }
-
-        .buyer-logo span {
-            color: #6b9e45;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .welcome-small {
-            color: #536258;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            text-decoration: none;
-            color: #183b25;
-            border: 1px solid #dce5dc;
-            padding: 10px 17px;
-            border-radius: 10px;
-            font-weight: 700;
-            background: white;
-        }
-
-        .logout-btn:hover {
-            background: #f2f6f0;
-        }
-
-        /* MAIN */
-
-        .buyer-container {
-            width: 88%;
-            max-width: 1200px;
-            margin: auto;
-            padding: 48px 0 70px;
-        }
-
-        .hero {
+        .navbar {
+            background: #166534;
+            color: white;
+            padding: 18px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 30px;
-            margin-bottom: 32px;
         }
 
-        .hero h1 {
-            font-family: "Playfair Display", serif;
-            font-size: 42px;
-            margin: 0 0 10px;
-            color: #183b25;
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
         }
 
-        .hero p {
-            margin: 0;
-            color: #687268;
-            font-size: 16px;
-        }
-
-        .market-btn {
-            display: inline-flex;
+        .nav-links {
+            display: flex;
+            gap: 10px;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 23px;
-            border-radius: 12px;
-            background: #183b25;
+        }
+
+        .nav-links a {
             color: white;
             text-decoration: none;
-            font-weight: 800;
-            box-shadow: 0 8px 20px rgba(24, 59, 37, 0.16);
-            transition: 0.2s;
+            padding: 9px 14px;
+            border-radius: 8px;
+            font-weight: 700;
         }
 
-        .market-btn:hover {
-            background: #245c38;
-            transform: translateY(-2px);
+        .nav-links a:hover {
+            background: #15803d;
         }
 
-        /* STATS */
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 28px;
+        .logout {
+            background: #dc2626;
         }
 
-        .stat-card {
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .welcome {
             background: white;
-            border: 1px solid #e4eae2;
+            padding: 28px;
             border-radius: 18px;
-            padding: 24px;
-            box-shadow: 0 8px 25px rgba(30, 50, 35, 0.04);
-        }
-
-        .stat-icon {
-            font-size: 28px;
-            margin-bottom: 12px;
-        }
-
-        .stat-title {
-            color: #718077;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .stat-value {
-            color: #183b25;
-            font-size: 25px;
-            font-weight: 800;
-            margin-top: 5px;
-        }
-
-        /* CONTENT */
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 22px;
-        }
-
-        .main-card,
-        .side-card {
-            background: white;
-            border: 1px solid #e4eae2;
-            border-radius: 22px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(30, 50, 35, 0.04);
-        }
-
-        .card-title {
-            font-family: "Playfair Display", serif;
-            font-size: 25px;
-            color: #183b25;
-            margin: 0 0 8px;
-        }
-
-        .card-text {
-            color: #687268;
-            line-height: 1.6;
+            box-shadow: 0 8px 25px rgba(0,0,0,.08);
             margin-bottom: 25px;
         }
 
-        /* QUICK ACTIONS */
+        .welcome h1 {
+            margin: 0 0 8px;
+            color: #166534;
+        }
 
-        .actions {
+        .welcome p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .cards {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        .action-card {
-            text-decoration: none;
-            background: #f7faf5;
-            border: 1px solid #e3ebdf;
-            border-radius: 15px;
-            padding: 20px;
-            transition: 0.2s;
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.07);
         }
 
-        .action-card:hover {
-            transform: translateY(-3px);
-            border-color: #b9d3b9;
-            background: #f1f7ee;
+        .card-icon {
+            font-size: 32px;
         }
 
-        .action-icon {
-            font-size: 28px;
-            margin-bottom: 10px;
+        .card h3 {
+            margin: 12px 0 8px;
+            color: #166534;
         }
 
-        .action-title {
-            color: #183b25;
-            font-weight: 800;
-            font-size: 15px;
-        }
-
-        .action-text {
-            color: #78837b;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-
-        /* AI CARD */
-
-        .ai-card {
-            background: linear-gradient(135deg, #183b25, #285d39);
-            color: white;
-            border-radius: 22px;
-            padding: 30px;
-            min-height: 100%;
-        }
-
-        .ai-icon {
-            font-size: 42px;
+        .card p {
+            color: #64748b;
             margin-bottom: 18px;
         }
 
-        .ai-card h2 {
-            margin: 0 0 10px;
-            font-family: "Playfair Display", serif;
-            font-size: 26px;
+        .btn {
+            display: inline-block;
+            background: #16a34a;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font-weight: 700;
         }
 
-        .ai-card p {
-            color: #dcebdd;
-            line-height: 1.6;
-            font-size: 14px;
+        .btn:hover {
+            background: #15803d;
         }
 
-        .ai-points {
-            margin-top: 20px;
-        }
-
-        .ai-point {
-            margin: 11px 0;
-            font-size: 14px;
-            color: #f0f8f0;
-        }
-
-        /* BANNER */
-
-        .bottom-banner {
-            margin-top: 24px;
+        .section {
             background: white;
-            border: 1px solid #e4eae2;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.07);
+            margin-bottom: 25px;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #166534;
+        }
+
+        .order {
+            border: 1px solid #dcfce7;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .order:last-child {
+            margin-bottom: 0;
+        }
+
+        .order strong {
+            color: #166534;
+        }
+
+        .status {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
             border-radius: 20px;
-            padding: 24px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        .bottom-banner h3 {
-            margin: 0 0 6px;
-            color: #183b25;
+        .empty {
+            color: #64748b;
+            text-align: center;
+            padding: 20px;
         }
 
-        .bottom-banner p {
-            margin: 0;
-            color: #718077;
-            font-size: 14px;
-        }
+        @media (max-width: 700px) {
 
-        /* MOBILE */
-
-        @media (max-width: 850px) {
-
-            .hero {
+            .navbar {
                 flex-direction: column;
-                align-items: flex-start;
+                gap: 15px;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .bottom-banner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .buyer-nav {
-                padding: 0 5%;
-            }
-
-            .welcome-small {
-                display: none;
-            }
-
-            .buyer-container {
-                width: 90%;
-                padding-top: 35px;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-            }
-
-            .actions {
-                grid-template-columns: 1fr;
-            }
-
-            .main-card,
-            .side-card,
-            .ai-card {
-                padding: 22px;
-            }
         }
 
     </style>
+
 </head>
 
 <body>
 
-<div class="buyer-page">
+    <div class="navbar">
 
-    <!-- NAVBAR -->
-
-    <nav class="buyer-nav">
-
-        <div class="buyer-logo">
-            Farm<span>Connect</span> 🌱
+        <div class="logo">
+            🌱 FarmConnect
         </div>
 
-        <div class="nav-right">
+        <div class="nav-links">
 
-            <div class="welcome-small">
-                Welcome, {{ user.name }}
-            </div>
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
 
-            <a href="{{ url_for('logout') }}"
-               class="logout-btn">
+            <a href="{{ url_for('marketplace') }}">
+                🛒 Marketplace
+            </a>
+
+            <a href="{{ url_for('cart') }}">
+                Cart ({{ cart_count }})
+            </a>
+
+            <a href="{{ url_for('my_orders') }}">
+                My Orders
+            </a>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout"
+            >
                 Logout
             </a>
 
         </div>
 
-    </nav>
+    </div>
 
 
-    <!-- MAIN -->
+    <div class="container">
 
-    <main class="buyer-container">
+        <div class="welcome">
 
-        <!-- HERO -->
+            <h1>
+                Welcome, {{ user.name }}! 👋
+            </h1>
 
-        <section class="hero">
+            <p>
+                Find fresh products directly from farmers.
+            </p>
 
-            <div>
-
-                <h1>
-                    Welcome, {{ user.name }}! 🛒
-                </h1>
-
-                <p>
-                    Discover fresh products directly from farmers.
-                </p>
-
-            </div>
-
-            <a href="{{ url_for('marketplace') }}"
-               class="market-btn">
-
-                🛍️ Browse Marketplace
-
-            </a>
-
-        </section>
+        </div>
 
 
-        <!-- STATS -->
+        <div class="cards">
 
-        <section class="stats-grid">
+            <div class="card">
 
-            <div class="stat-card">
-
-                <div class="stat-icon">
+                <div class="card-icon">
                     🛒
                 </div>
 
-                <div class="stat-title">
-                    Cart Items
-                </div>
-
-                <div class="stat-value">
-                    0
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    📦
-                </div>
-
-                <div class="stat-title">
-                    My Orders
-                </div>
-
-                <div class="stat-value">
-                    0
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    ❤️
-                </div>
-
-                <div class="stat-title">
-                    Wishlist
-                </div>
-
-                <div class="stat-value">
-                    0
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CONTENT -->
-
-        <section class="content-grid">
-
-            <!-- QUICK ACTIONS -->
-
-            <div class="main-card">
-
-                <h2 class="card-title">
-                    Quick Actions
-                </h2>
-
-                <p class="card-text">
-                    Everything you need to discover and purchase
-                    fresh products from local farmers.
-                </p>
-
-
-                <div class="actions">
-
-                    <a href="{{ url_for('marketplace') }}"
-                       class="action-card">
-
-                        <div class="action-icon">
-                            🛍️
-                        </div>
-
-                        <div class="action-title">
-                            Browse Products
-                        </div>
-
-                        <div class="action-text">
-                            Explore fresh farm products
-                        </div>
-
-                    </a>
-
-
-                    <div class="action-card">
-
-                        <div class="action-icon">
-                            🛒
-                        </div>
-
-                        <div class="action-title">
-                            My Cart
-                        </div>
-
-                        <div class="action-text">
-                            Cart system coming next
-                        </div>
-
-                    </div>
-
-
-                    <div class="action-card">
-
-                        <div class="action-icon">
-                            📦
-                        </div>
-
-                        <div class="action-title">
-                            My Orders
-                        </div>
-
-                        <div class="action-text">
-                            Track your purchases
-                        </div>
-
-                    </div>
-
-
-                    <div class="action-card">
-
-                        <div class="action-icon">
-                            ❤️
-                        </div>
-
-                        <div class="action-title">
-                            Wishlist
-                        </div>
-
-                        <div class="action-text">
-                            Save products for later
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- AI -->
-
-            <div class="ai-card">
-
-                <div class="ai-icon">
-                    🤖
-                </div>
-
-                <h2>
-                    FarmConnect Smart Buyer
-                </h2>
-
-                <p>
-                    Our intelligent marketplace will help you
-                    discover products and make better purchasing
-                    decisions.
-                </p>
-
-                <div class="ai-points">
-
-                    <div class="ai-point">
-                        ✓ Fresh farmer products
-                    </div>
-
-                    <div class="ai-point">
-                        ✓ Direct farmer connection
-                    </div>
-
-                    <div class="ai-point">
-                        ✓ Smart product recommendations
-                    </div>
-
-                    <div class="ai-point">
-                        ✓ Transparent pricing
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- BOTTOM BANNER -->
-
-        <section class="bottom-banner">
-
-            <div>
-
                 <h3>
-                    🌱 Buy directly from farmers
+                    Marketplace
                 </h3>
 
                 <p>
-                    Support farmers while getting fresh,
-                    quality products.
+                    Browse fresh products from local farmers.
                 </p>
+
+                <a
+                    href="{{ url_for('marketplace') }}"
+                    class="btn"
+                >
+                    Shop Now
+                </a>
 
             </div>
 
-            <a href="{{ url_for('marketplace') }}"
-               class="market-btn">
 
-                Explore Products →
+            <div class="card">
 
-            </a>
+                <div class="card-icon">
+                    🧺
+                </div>
 
-        </section>
+                <h3>
+                    My Cart
+                </h3>
 
-    </main>
+                <p>
+                    You have {{ cart_count }} item(s) in your cart.
+                </p>
 
-</div>
+                <a
+                    href="{{ url_for('cart') }}"
+                    class="btn"
+                >
+                    View Cart
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📦
+                </div>
+
+                <h3>
+                    My Orders
+                </h3>
+
+                <p>
+                    Track your previous and current orders.
+                </p>
+
+                <a
+                    href="{{ url_for('my_orders') }}"
+                    class="btn"
+                >
+                    View Orders
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>
+                📦 Recent Orders
+            </h2>
+
+            {% if orders %}
+
+                {% for order in orders %}
+
+                    <div class="order">
+
+                        <strong>
+                            Order #FC{{ "%05d"|format(order.id) }}
+                        </strong>
+
+                        <br><br>
+
+                        Product:
+                        {{ order.product.name }}
+
+                        <br>
+
+                        Quantity:
+                        {{ order.quantity }}
+
+                        <br>
+
+                        Total:
+                        ₹{{ "%.2f"|format(order.total_price) }}
+
+                        <br><br>
+
+                        <span class="status">
+                            {{ order.status }}
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty">
+
+                    <p>
+                        You haven't placed any orders yet.
+                    </p>
+
+                    <a
+                        href="{{ url_for('marketplace') }}"
+                        class="btn"
+                    >
+                        Start Shopping
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="section">
+
+            <h2>
+                🌾 Why FarmConnect?
+            </h2>
+
+            <p>
+                Buy fresh agricultural products directly
+                from farmers while supporting local farming.
+            </p>
+
+            <p>
+                ✔ Direct farmer-to-consumer connection
+            </p>
+
+            <p>
+                ✔ Fresh farm products
+            </p>
+
+            <p>
+                ✔ Easy online ordering
+            </p>
+
+            <p>
+                ✔ Order tracking
+            </p>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

@@ -6,114 +6,278 @@
 
     <title>Edit Product | FarmConnect</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg,#f0fdf4,#ffffff);
+        }
+
+        .navbar {
+            background: #166534;
+            min-height: 70px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 15px;
+            border-radius: 9px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,.12);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 45px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 15px 45px rgba(0,0,0,.08);
+        }
+
+        h1 {
+            color: #166534;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 28px;
+        }
+
+        .flash {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin: 17px 0 7px;
+            color: #334155;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            font: inherit;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 13px 22px;
+            border-radius: 12px;
+            border: 0;
+            font-weight: 800;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .save {
+            background: #16a34a;
+            color: white;
+        }
+
+        .back {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        @media(max-width:700px) {
+            .nav-links {
+                display: none;
+            }
+
+            .card {
+                padding: 22px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="auth-page">
+<nav class="navbar">
 
-    <div class="auth-box">
+    <a href="{{ url_for('home') }}" class="logo">
+        🌱 FarmConnect
+    </a>
 
-        <div class="auth-logo">✏️</div>
+    <div class="nav-links">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
 
-        <h1>Edit Product</h1>
+</nav>
 
-        <p>Update your product details</p>
+<div class="container">
 
-        <form method="POST"
-              action="{{ url_for('edit_product', product_id=product.id) }}">
+    <div class="card">
+
+        <h1>✏️ Edit Product</h1>
+
+        <p class="subtitle">
+            Update your product information.
+        </p>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form
+            method="POST"
+            action="{{ url_for('edit_product', product_id=product.id) }}"
+        >
 
             <label>Product Name</label>
 
-            <input type="text"
-                   name="name"
-                   value="{{ product.name }}"
-                   required>
-
+            <input
+                type="text"
+                name="name"
+                value="{{ product.name }}"
+                required
+            >
 
             <label>Category</label>
 
             <select name="category" required>
 
-                <option value="Vegetables"
-                    {% if product.category == "Vegetables" %}selected{% endif %}>
-                    🥬 Vegetables
-                </option>
+                {% for category in [
+                    "Vegetables",
+                    "Fruits",
+                    "Grains",
+                    "Pulses",
+                    "Spices",
+                    "Dairy",
+                    "Other"
+                ] %}
 
-                <option value="Fruits"
-                    {% if product.category == "Fruits" %}selected{% endif %}>
-                    🍎 Fruits
-                </option>
+                    <option
+                        value="{{ category }}"
+                        {% if product.category == category %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ category }}
+                    </option>
 
-                <option value="Grains"
-                    {% if product.category == "Grains" %}selected{% endif %}>
-                    🌾 Grains
-                </option>
-
-                <option value="Pulses"
-                    {% if product.category == "Pulses" %}selected{% endif %}>
-                    🫘 Pulses
-                </option>
-
-                <option value="Other"
-                    {% if product.category == "Other" %}selected{% endif %}>
-                    📦 Other
-                </option>
+                {% endfor %}
 
             </select>
 
+            <label>Price (₹ / kg)</label>
 
-            <label>Price (₹ per kg)</label>
-
-            <input type="number"
-                   name="price"
-                   value="{{ product.price }}"
-                   step="0.01"
-                   min="0"
-                   required>
-
+            <input
+                type="number"
+                name="price"
+                value="{{ product.price }}"
+                min="0"
+                step="0.01"
+                required
+            >
 
             <label>Available Quantity (kg)</label>
 
-            <input type="number"
-                   name="quantity"
-                   value="{{ product.quantity }}"
-                   step="0.1"
-                   min="0"
-                   required>
+            <input
+                type="number"
+                name="quantity"
+                value="{{ product.quantity }}"
+                min="0"
+                step="0.1"
+                required
+            >
 
+            <label>Product Image</label>
 
-            <label>Product Image URL</label>
-
-            <input type="text"
-                   name="image"
-                   value="{{ product.image or '' }}"
-                   placeholder="Optional image URL">
-
+            <input
+                type="text"
+                name="image"
+                value="{{ product.image or '' }}"
+                placeholder="/static/images/Fresh Tomatoes.jpg"
+            >
 
             <label>Description</label>
 
-            <textarea name="description"
-                      rows="4"
-                      placeholder="Tell buyers about your product...">{{ product.description or '' }}</textarea>
+            <textarea
+                name="description"
+            >{{ product.description or '' }}</textarea>
 
+            <div class="buttons">
 
-            <button type="submit">
-                Save Changes ✓
-            </button>
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="btn back"
+                >
+                    ← Back
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn save"
+                >
+                    Save Changes ✓
+                </button>
+
+            </div>
 
         </form>
-
-
-        <p class="auth-bottom">
-
-            <a href="{{ url_for('dashboard') }}">
-                ← Back to Dashboard
-            </a>
-
-        </p>
 
     </div>
 
