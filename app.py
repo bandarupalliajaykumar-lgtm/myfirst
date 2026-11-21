@@ -28,7 +28,11 @@ import random
 
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = "farmconnect-secret-key"
+
+import os
+app.config["SECRET_KEY"] = os.environ.get(
+    "SECRET_KEY", "local-development-only-key"
+)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///farmconnect.db"
 
