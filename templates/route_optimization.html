@@ -281,27 +281,33 @@ function initializeMap() {
 // --------------------------------------------------
 
 async function geocodeAddress(address) {
+    const value = String(address || "").trim();
+    if (!value) return null;
 
-    const url =
-        "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="
-        + encodeURIComponent(address);
-
-    const response = await fetch(url, {
-        headers: {
-            "Accept": "application/json"
+    // Buyer checkout may save "Vatluru, Eluru,16.701128,81.056456".
+    // Use the final two numbers directly instead of searching this full text.
+    const parts = value.split(",").map(item => item.trim());
+    if (parts.length >= 2) {
+        const latitude = Number(parts[parts.length - 2]);
+        const longitude = Number(parts[parts.length - 1]);
+        if (Number.isFinite(latitude) && Number.isFinite(longitude) &&
+            latitude >= -90 && latitude <= 90 &&
+            longitude >= -180 && longitude <= 180) {
+            return [latitude, longitude];
         }
-    });
-
-    const data = await response.json();
-
-    if (!data || data.length === 0) {
-        return null;
     }
 
-    return [
-        parseFloat(data[0].lat),
-        parseFloat(data[0].lon)
-    ];
+    // Normal street/place addresses still work through geocoding.
+    const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="
+        + encodeURIComponent(value);
+    const response = await fetch(url, {headers: {"Accept": "application/json"}});
+    if (!response.ok) throw new Error("Location lookup service is unavailable.");
+    const data = await response.json();
+    if (!Array.isArray(data) || !data.length) return null;
+    const latitude = Number(data[0].lat);
+    const longitude = Number(data[0].lon);
+    return Number.isFinite(latitude) && Number.isFinite(longitude)
+        ? [latitude, longitude] : null;
 }
 
 
