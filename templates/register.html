@@ -1,233 +1,289 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Create Account | FarmConnect</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background:
-                linear-gradient(
-                    135deg,
-                    #dcfce7,
-                    #f0fdf4,
-                    #ffffff
-                );
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 30px 0;
-        }
-
-        .box {
-            width: 92%;
-            max-width: 500px;
-            background: white;
-            padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 20px 55px rgba(20,70,35,.12);
-        }
-
-        .logo {
-            text-align: center;
-            font-size: 42px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #166534;
-            margin: 8px 0;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 25px;
-        }
-
-        .flash {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-weight: 700;
-            margin: 14px 0 7px;
-            color: #334155;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 11px;
-            font: inherit;
-            outline: none;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #22c55e;
-            box-shadow: 0 0 0 3px rgba(34,197,94,.15);
-        }
-
-        button {
-            width: 100%;
-            margin-top: 22px;
-            padding: 14px;
-            border: 0;
-            border-radius: 12px;
-            background: #16a34a;
-            color: white;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #15803d;
-        }
-
-        .bottom {
-            text-align: center;
-            color: #64748b;
-            margin-top: 20px;
-        }
-
-        .bottom a {
-            color: #15803d;
-            font-weight: 800;
-            text-decoration: none;
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Create Account | FarmConnect</title>
+<style>
+:root{--green:#168447;--deep:#103e29;--bg:#f5faf5;--muted:#718176;--line:#dce8df}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:"Segoe UI",Arial,sans-serif;color:#193528}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+nav{background:white;padding:17px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--line)}
+.logo{font-size:25px;font-weight:900;color:var(--green)}
+nav a:last-child{font-size:13px;color:var(--deep);font-weight:800}
+.container{width:94%;max-width:1080px;margin:35px auto}
+.layout{display:grid;grid-template-columns:1fr 1.35fr;gap:25px;align-items:start}
+.info{
+ background:linear-gradient(140deg,#103e29,#168447);
+ color:white;padding:35px;border-radius:22px;
+ position:sticky;top:20px
+}
+.info h1{font-size:36px;line-height:1.2;letter-spacing:-.8px;margin:22px 0}
+.info h1 span{color:#d8f594}
+.info p{font-size:14px;line-height:1.9;color:#d9f0de}
+.info-icon{font-size:65px;margin:35px 0}
+.info-point{padding:13px 0;border-bottom:1px solid #ffffff24;font-size:13px;font-weight:700}
+.card{background:white;border:1px solid var(--line);border-radius:23px;padding:32px;box-shadow:0 12px 35px #1338200c}
+.card h2{font-size:27px;color:var(--deep);margin:0 0 8px}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:26px}
+.role-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 25px}
+.role-card{border:2px solid var(--line);border-radius:15px;padding:18px;text-align:center;cursor:pointer;transition:.2s;display:block}
+.role-card input{position:absolute;opacity:0;width:1px;height:1px}
+.role-card:has(input:checked){background:#eff9ef;border-color:var(--green)}
+.role-card:has(input:focus-visible){outline:3px solid #86efac;outline-offset:2px}
+.role-icon{font-size:34px;display:block;margin-bottom:9px}
+.role-name{display:block;font-size:14px;font-weight:900;color:var(--deep)}
+.role-desc{display:block;font-size:11px;color:var(--muted);margin-top:7px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:12px;font-weight:900;margin-bottom:8px}
+.field input{
+ width:100%;padding:14px;border:1px solid #cddbd0;
+ border-radius:11px;background:white;outline:none;min-width:0
+}
+.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px #16a34a1c}
+.field small{display:block;font-size:11px;color:var(--muted);margin-top:7px;line-height:1.6}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:73px}
+.toggle{position:absolute;right:7px;top:7px;padding:9px 11px;border:0;border-radius:8px;background:#edf7ee;color:var(--green);font-weight:800;font-size:11px}
+.strength-track{height:7px;background:#e5ebe5;border-radius:10px;overflow:hidden;margin-top:10px}
+.strength-fill{height:100%;width:0;border-radius:10px;transition:.2s;background:#ef4444}
+.strength-label{font-size:11px;color:var(--muted);margin-top:8px}
+.terms{font-size:12px;color:var(--muted);line-height:1.8;margin:7px 0 19px}
+.btn{width:100%;padding:15px;background:var(--green);color:white;border:0;border-radius:12px;font-size:15px;font-weight:900}
+.btn:hover{background:var(--deep)}
+.btn:disabled{opacity:.7}
+.bottom{text-align:center;font-size:13px;color:var(--muted);margin-top:23px}
+.bottom a{font-weight:900;color:var(--green)}
+.flash{padding:13px;background:#fff0e9;color:#974118;border-radius:11px;font-size:13px;margin-bottom:15px}
+.message{font-size:12px;color:#b91c1c;margin-bottom:10px;min-height:16px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.info{position:static}.info-icon{display:none}}
+@media(max-width:520px){.card,.info{padding:22px}.form-grid{grid-template-columns:1fr}.container{width:95%;margin:16px auto}.role-card{padding:12px}.info h1{font-size:29px}}
+</style>
 </head>
-
 <body>
+<nav>
+<a class="logo" href="{{ url_for('home') }}">🌱 FarmConnect</a>
+<a href="{{ url_for('login') }}">Already registered? Login →</a>
+</nav>
 
-<div class="box">
+<main class="container">
+<div class="layout">
+<aside class="info">
+<div style="font-size:13px;font-weight:900">🌾 JOIN OUR FARMING COMMUNITY</div>
+<h1>Grow together.<br><span>Connect directly.</span></h1>
+<p>Create your account and become part of a marketplace that connects farmers and customers.</p>
+<div class="info-icon">👨‍🌾 🥬</div>
+<div class="info-point">✓ Farmers can list products and manage orders</div>
+<div class="info-point">✓ Buyers can discover fresh farm produce</div>
+<div class="info-point">✓ Nearby farmer discovery</div>
+<div class="info-point">✓ Order tracking and dashboards</div>
+</aside>
 
-    <div class="logo">🌱</div>
+<section class="card">
+<h2>Create Your Account</h2>
+<p class="subtitle">Choose your role and fill in your information to get started.</p>
 
-    <h1>Join FarmConnect</h1>
+{% with messages=get_flashed_messages() %}
+{% for message in messages %}
+<div class="flash" role="alert">{{ message }}</div>
+{% endfor %}
+{% endwith %}
 
-    <p class="subtitle">
-        Create your farmer or buyer account
-    </p>
+<form id="registerForm" method="POST"
+action="{{ url_for('register') }}">
 
-    {% with messages = get_flashed_messages() %}
+<label style="font-size:13px;font-weight:900">I want to join as</label>
 
-        {% for message in messages %}
-
-            <div class="flash">
-                {{ message }}
-            </div>
-
-        {% endfor %}
-
-    {% endwith %}
-
-    <form
-        method="POST"
-        action="{{ url_for('register') }}"
-    >
-
-        <label>Full Name</label>
-
-        <input
-            type="text"
-            name="name"
-            placeholder="Your name"
-            required
-        >
-
-        <label>Email</label>
-
-        <input
-            type="email"
-            name="email"
-            placeholder="you@example.com"
-            required
-        >
-
-        <label>Phone</label>
-
-        <input
-            type="text"
-            name="phone"
-            placeholder="Phone number"
-        >
-
-        <label>Location</label>
-
-        <input
-            type="text"
-            name="location"
-            placeholder="Village / City"
-        >
-
-        <label>I am a</label>
-
-        <select name="role" required>
-
-            <option value="buyer">
-                🛒 Buyer
-            </option>
-
-            <option value="farmer">
-                👨‍🌾 Farmer
-            </option>
-
-        </select>
-
-        <label>Password</label>
-
-        <input
-            type="password"
-            name="password"
-            placeholder="Create password"
-            required
-        >
-
-        <button type="submit">
-            Create Account →
-        </button>
-
-    </form>
-
-    <p class="bottom">
-
-        Already have an account?
-
-        <a href="{{ url_for('login') }}">
-            Login
-        </a>
-
-    </p>
-
+<div class="role-options">
+<label class="role-card">
+<input type="radio" name="role" value="buyer"
+{% if request.form.get('role','buyer')=='buyer' %}checked{% endif %}>
+<span class="role-icon">🛒</span>
+<span class="role-name">Customer</span>
+<span class="role-desc">Buy fresh products</span>
+</label>
+<label class="role-card">
+<input type="radio" name="role" value="farmer"
+{% if request.form.get('role')=='farmer' %}checked{% endif %}>
+<span class="role-icon">👨‍🌾</span>
+<span class="role-name">Farmer</span>
+<span class="role-desc">Sell your produce</span>
+</label>
 </div>
 
+<div class="form-grid">
+<div class="field">
+<label for="name">Full Name *</label>
+<input type="text" id="name" name="name" required
+maxlength="100" autocomplete="name"
+placeholder="Your full name"
+value="{{ request.form.get('name','') }}">
+</div>
+<div class="field">
+<label for="phone">Phone Number</label>
+<input type="tel" id="phone" name="phone" inputmode="numeric"
+maxlength="15" placeholder="10-digit mobile number"
+autocomplete="tel"
+value="{{ request.form.get('phone','') }}">
+</div>
+</div>
+
+<div class="field">
+<label for="email">Email Address *</label>
+<input type="email" id="email" name="email" required
+maxlength="120" autocomplete="email"
+placeholder="you@example.com"
+value="{{ request.form.get('email','') }}">
+</div>
+
+<div class="field">
+<label for="location">Village / City</label>
+<input type="text" id="location" name="location"
+maxlength="200" autocomplete="address-level2"
+placeholder="Example: Hyderabad"
+value="{{ request.form.get('location','') }}">
+<small>Farmers can separately save their approximate farm coordinates after login.</small>
+</div>
+
+<div class="field">
+<label for="password">Create Password *</label>
+<div class="password-wrap">
+<input type="password" id="password" name="password"
+minlength="8" maxlength="128"
+autocomplete="new-password" required
+placeholder="Minimum 8 characters">
+<button type="button" class="toggle" id="showPassword">Show</button>
+</div>
+<div class="strength-track">
+<div id="strengthFill" class="strength-fill"></div>
+</div>
+<div class="strength-label" id="strengthText">Enter a password</div>
+<small>Use a long, unique password with a mix of characters.</small>
+</div>
+
+<div class="field">
+<label for="confirmPassword">Confirm Password *</label>
+<div class="password-wrap">
+<input type="password" id="confirmPassword"
+minlength="8" maxlength="128"
+autocomplete="new-password" required
+placeholder="Re-enter your password">
+<button type="button" class="toggle" id="showConfirm">Show</button>
+</div>
+</div>
+
+<div id="formMessage" class="message" role="alert"></div>
+
+<p class="terms">
+🔒 Your details are submitted to FarmConnect to create your account.
+Don't reuse a password from another website.
+</p>
+
+<button type="submit" id="registerButton" class="btn">
+🌱 Create My Account →
+</button>
+</form>
+
+<div class="bottom">
+Already have an account?
+<a href="{{ url_for('login') }}">Login Here</a>
+</div>
+</section>
+</div>
+</main>
+
+<script>
+"use strict";
+const form=document.getElementById("registerForm");
+const pass=document.getElementById("password");
+const confirmPass=document.getElementById("confirmPassword");
+const strengthFill=document.getElementById("strengthFill");
+const strengthText=document.getElementById("strengthText");
+const message=document.getElementById("formMessage");
+const registerButton=document.getElementById("registerButton");
+
+function attachToggle(buttonId,input){
+const button=document.getElementById(buttonId);
+button.addEventListener("click",()=>{
+const showing=input.type==="text";
+input.type=showing?"password":"text";
+button.textContent=showing?"Show":"Hide";
+});
+}
+attachToggle("showPassword",pass);
+attachToggle("showConfirm",confirmPass);
+
+function updateStrength(){
+const value=pass.value;
+if(!value){
+strengthFill.style.width="0";
+strengthText.textContent="Enter a password";
+return;
+}
+let score=0;
+if(value.length>=8)score++;
+if(value.length>=12)score++;
+if(/[a-z]/.test(value)&&/[A-Z]/.test(value))score++;
+if(/\d/.test(value))score++;
+if(/[^a-zA-Z0-9]/.test(value))score++;
+
+const levels=[
+["Very weak","#ef4444"],
+["Weak","#f97316"],
+["Fair","#eab308"],
+["Good","#65a30d"],
+["Strong","#16a34a"],
+["Strong","#16a34a"]
+];
+strengthFill.style.width=Math.max(12,score*20)+"%";
+strengthFill.style.background=levels[score][1];
+strengthText.textContent=levels[score][0]+
+" password (basic estimate)";
+}
+pass.addEventListener("input",updateStrength);
+
+function validateForm(){
+message.textContent="";
+confirmPass.setCustomValidity("");
+
+if(pass.value!==confirmPass.value){
+confirmPass.setCustomValidity("Passwords do not match");
+message.textContent="Passwords do not match.";
+return false;
+}
+const phone=document.getElementById("phone").value.trim();
+if(phone && !/^[0-9+\s()-]{7,15}$/.test(phone)){
+message.textContent="Please enter a valid phone number.";
+return false;
+}
+return true;
+}
+
+confirmPass.addEventListener("input",()=>{
+confirmPass.setCustomValidity("");
+message.textContent="";
+});
+
+form.addEventListener("submit",event=>{
+if(!validateForm()){
+event.preventDefault();
+if(confirmPass.validationMessage)confirmPass.reportValidity();
+return;
+}
+if(!form.checkValidity()){
+event.preventDefault();
+form.reportValidity();
+return;
+}
+registerButton.disabled=true;
+registerButton.textContent="Creating Account...";
+});
+updateStrength();
+</script>
 </body>
 </html>

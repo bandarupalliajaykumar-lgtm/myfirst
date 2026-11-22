@@ -1,337 +1,280 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Cart | FarmConnect</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f0fdf4;
-        }
-
-        nav {
-            background: white;
-            padding: 18px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #dcfce7;
-        }
-
-        nav a {
-            text-decoration: none;
-            margin-left: 15px;
-            color: #475569;
-            font-weight: 700;
-        }
-
-        .logo {
-            color: #15803d;
-            font-size: 24px;
-            font-weight: 900;
-            text-decoration: none;
-        }
-
-        .container {
-            width: 92%;
-            max-width: 1100px;
-            margin: 35px auto;
-        }
-
-        h1 {
-            color: #166534;
-        }
-
-        .item {
-            background: white;
-            padding: 20px;
-            border-radius: 16px;
-            margin: 15px 0;
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            align-items: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,.06);
-        }
-
-        .item img {
-            width: 100px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .info {
-            flex: 1;
-        }
-
-        .name {
-            font-size: 19px;
-            font-weight: 900;
-            color: #166534;
-        }
-
-        .price {
-            color: #15803d;
-            font-weight: 800;
-            margin-top: 6px;
-        }
-
-        input {
-            width: 80px;
-            padding: 9px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-        }
-
-        button {
-            border: 0;
-            padding: 9px 13px;
-            border-radius: 8px;
-            font-weight: 800;
-            cursor: pointer;
-        }
-
-        .update {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .remove {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-        .summary {
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            margin-top: 25px;
-            box-shadow: 0 6px 20px rgba(0,0,0,.06);
-        }
-
-        .row {
-            display: flex;
-            justify-content: space-between;
-            margin: 12px 0;
-        }
-
-        .total {
-            font-size: 22px;
-            font-weight: 900;
-            color: #15803d;
-            border-top: 1px solid #ddd;
-            padding-top: 15px;
-        }
-
-        .checkout {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            padding: 14px;
-            background: #16a34a;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 900;
-        }
-
-        .empty {
-            background: white;
-            text-align: center;
-            padding: 70px;
-            border-radius: 18px;
-        }
-
-        @media(max-width:700px) {
-
-            .item {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shopping Cart | FarmConnect</title>
+<style>
+:root{--green:#168447;--deep:#103e29;--line:#e1ebe3;--muted:#718276;--bg:#f6faf6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:"Segoe UI",Arial,sans-serif;color:#183629}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+button{cursor:pointer}
+nav{background:white;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--line)}
+.logo{font-size:25px;color:var(--green);font-weight:900}
+.links{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;font-weight:800}
+.links a:hover{color:var(--green)}
+.container{width:92%;max-width:1200px;margin:30px auto}
+.hero{padding:33px;background:linear-gradient(110deg,#103e29,#18884a);border-radius:22px;color:white;margin-bottom:25px}
+.hero h1{font-size:34px;margin:0 0 10px}
+.hero p{margin:0;color:#d9f2df;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,0.85fr);gap:23px;align-items:start}
+.card{background:white;border:1px solid var(--line);border-radius:19px;padding:23px;box-shadow:0 7px 28px #143b2010}
+.card h2{color:var(--deep);font-size:21px;margin:0 0 20px}
+.cart-item{display:grid;grid-template-columns:95px minmax(0,1fr);gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.cart-item:first-child{padding-top:0}
+.product-img{width:95px;height:95px;object-fit:cover;border-radius:13px;background:#eaf7ed}
+.img-fallback{width:95px;height:95px;border-radius:13px;background:#eaf7ed;display:grid;place-items:center;font-size:36px}
+.product-name{font-size:18px;font-weight:900;color:var(--deep);margin:0 0 7px}
+.muted{font-size:12px;color:var(--muted);line-height:1.7}
+.unit-price{font-weight:900;color:var(--green);margin:9px 0;font-size:16px}
+.item-total{font-size:14px;font-weight:900;color:var(--deep);margin:12px 0}
+.controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px}
+.controls input{width:90px;border:1px solid #cbdccd;border-radius:9px;padding:10px}
+.btn{border:0;border-radius:10px;padding:11px 15px;font-size:12px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
+.btn-green{background:var(--green);color:white}
+.btn-green:hover{background:var(--deep)}
+.btn-soft{background:#e9f7ea;color:var(--green)}
+.btn-red{background:#fee7e7;color:#b91c1c}
+.btn-large{width:100%;padding:15px;font-size:14px;margin-top:18px}
+.warning{margin-top:8px;color:#ad6a09;font-size:11px}
+.summary-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;color:#506356;font-size:14px}
+.summary-row strong{color:var(--deep)}
+.total-row{border-top:1px solid var(--line);margin-top:13px;padding-top:20px;font-size:21px;font-weight:900;color:var(--green);display:flex;justify-content:space-between}
+.delivery-box{background:#f0f8ee;padding:15px;border-radius:12px;margin:17px 0;color:#41674a;font-size:12px;line-height:1.7}
+.progress-track{background:#dbe9df;height:9px;border-radius:20px;margin:12px 0;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:20px;width:var(--progress,0%)}
+.notice{font-size:11px;color:var(--muted);line-height:1.7;margin-top:13px}
+.empty{text-align:center;background:white;padding:70px 20px;border-radius:20px}
+.empty h2{color:var(--deep)}
+.empty p{color:var(--muted)}
+.flash{background:#e7f6e9;border-radius:11px;padding:13px 15px;color:var(--deep);margin-bottom:20px}
+footer{background:#102b1b;padding:28px;color:white;text-align:center;margin-top:50px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}}
+@media(max-width:520px){nav{flex-direction:column;align-items:flex-start}.container{width:94%}.hero{padding:24px}.card{padding:17px}.cart-item{grid-template-columns:70px 1fr}.product-img,.img-fallback{width:70px;height:75px}}
+</style>
 </head>
-
 <body>
 
 <nav>
-
-    <a class="logo" href="{{ url_for('dashboard') }}">
-        🌱 FarmConnect
-    </a>
-
-    <div>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('marketplace') }}">Marketplace</a>
-        <a href="{{ url_for('my_orders') }}">Orders</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
-    </div>
-
+<a class="logo" href="{{ url_for('dashboard') }}">🌱 FarmConnect</a>
+<div class="links">
+<a href="{{ url_for('marketplace') }}">Marketplace</a>
+<a href="{{ url_for('my_orders') }}">Orders</a>
+<a href="{{ url_for('cart') }}">🛒 Cart</a>
+<a href="{{ url_for('logout') }}">Logout</a>
+</div>
 </nav>
 
-<div class="container">
+<main class="container">
+<section class="hero">
+<h1>🛒 Your Farm Basket</h1>
+<p>Review fresh produce, adjust quantities and continue to secure checkout.</p>
+</section>
 
-    <h1>🛒 My Cart</h1>
+{% with messages=get_flashed_messages() %}
+{% for message in messages %}
+<div class="flash">{{ message }}</div>
+{% endfor %}
+{% endwith %}
 
-    {% if cart_items %}
+{% if cart_items %}
+<div class="layout">
+<section class="card">
+<h2>Your Selected Products ({{ cart_items|length }})</h2>
 
-        {% for item in cart_items %}
-
-            <div class="item">
-
-                {% if item.product.image %}
-
-                    <img
-                        src="{{ item.product.image }}"
-                        alt="{{ item.product.name }}"
-                    >
-
-                {% else %}
-
-                    <div style="font-size:50px;">
-                        🌾
-                    </div>
-
-                {% endif %}
-
-                <div class="info">
-
-                    <div class="name">
-                        {{ item.product.name }}
-                    </div>
-
-                    <div>
-                        {{ item.product.category }}
-                    </div>
-
-                    <div class="price">
-                        ₹{{ "%.2f"|format(item.product.price) }} / kg
-                    </div>
-
-                </div>
-
-                <div>
-
-                    <form
-                        method="POST"
-                        action="{{ url_for('update_cart', item_id=item.id) }}"
-                    >
-
-                        <input
-                            type="number"
-                            name="quantity"
-                            value="{{ item.quantity }}"
-                            min="0.1"
-                            max="{{ item.product.quantity }}"
-                            step="0.1"
-                            required
-                        >
-
-                        <button
-                            class="update"
-                            type="submit"
-                        >
-                            Update
-                        </button>
-
-                    </form>
-
-                    <br>
-
-                    <form
-                        method="POST"
-                        action="{{ url_for('remove_from_cart', item_id=item.id) }}"
-                    >
-
-                        <button
-                            class="remove"
-                            type="submit"
-                        >
-                            Remove
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        {% endfor %}
-
-
-        <div class="summary">
-
-            <div class="row">
-                <span>Subtotal</span>
-                <strong>₹{{ "%.2f"|format(subtotal) }}</strong>
-            </div>
-
-            <div class="row">
-                <span>Delivery</span>
-                <strong>
-                    {% if delivery == 0 %}
-                        FREE
-                    {% else %}
-                        ₹{{ "%.2f"|format(delivery) }}
-                    {% endif %}
-                </strong>
-            </div>
-
-            <div class="row total">
-                <span>Total</span>
-                <span>₹{{ "%.2f"|format(total) }}</span>
-            </div>
-
-            <a
-                class="checkout"
-                href="{{ url_for('checkout') }}"
-            >
-                Proceed to Checkout →
-            </a>
-
-        </div>
-
-
-    {% else %}
-
-        <div class="empty">
-
-            <h2>🛒 Your Cart is Empty</h2>
-
-            <p>Add products from farmers to your cart.</p>
-
-            <a
-                class="checkout"
-                href="{{ url_for('marketplace') }}"
-            >
-                🌱 Browse Marketplace
-            </a>
-
-        </div>
-
-    {% endif %}
-
+{% for item in cart_items %}
+<article class="cart-item"
+data-price="{{ item.product.price }}"
+data-stock="{{ item.product.quantity }}">
+<div>
+{% if item.product.image %}
+<img src="{{ item.product.image }}" alt="{{ item.product.name }}"
+class="product-img" loading="lazy">
+{% else %}
+<div class="img-fallback">🥬</div>
+{% endif %}
+</div>
+<div>
+<h3 class="product-name">{{ item.product.name }}</h3>
+<div class="muted">
+{{ item.product.category }}
+{% if item.product.farmer %}
+<br>👨‍🌾 {{ item.product.farmer.name }}
+{% endif %}
 </div>
 
+<div class="unit-price">
+₹{{ "%.2f"|format(item.product.price) }} / kg
+</div>
+<div class="muted">
+Stock: {{ "%.1f"|format(item.product.quantity) }} kg
+</div>
+
+<div class="item-total">
+Estimated item total:
+₹<span class="line-total">{{ "%.2f"|format(item.quantity*item.product.price) }}</span>
+</div>
+
+<form class="controls" method="POST"
+action="{{ url_for('update_cart',item_id=item.id) }}">
+<label class="muted" for="qty-{{ item.id }}">Quantity (kg)</label>
+<input id="qty-{{ item.id }}" name="quantity"
+class="qty-input" type="number" min="0.1" step="0.1"
+max="{{ item.product.quantity }}"
+value="{{ item.quantity }}" required>
+<button type="submit" class="btn btn-soft">Update</button>
+</form>
+<div class="warning" {% if item.quantity<=item.product.quantity %}hidden{% endif %}>
+⚠️ Requested quantity exceeds available stock.
+</div>
+
+<form method="POST"
+action="{{ url_for('remove_from_cart',item_id=item.id) }}"
+style="margin-top:10px">
+<button type="submit" class="btn btn-red"
+onclick="return confirm('Remove this product from your cart?')">
+🗑 Remove Item
+</button>
+</form>
+</div>
+</article>
+{% endfor %}
+
+<a href="{{ url_for('marketplace') }}" class="btn btn-soft"
+style="margin-top:20px">← Continue Shopping</a>
+</section>
+
+<aside class="card">
+<h2>📋 Order Summary</h2>
+
+<div class="summary-row">
+<span>Products</span>
+<strong>{{ cart_items|length }}</strong>
+</div>
+<div class="summary-row">
+<span>Subtotal</span>
+<strong>₹<span id="subtotal">{{ "%.2f"|format(subtotal) }}</span></strong>
+</div>
+<div class="summary-row">
+<span>Delivery</span>
+<strong id="deliveryText">
+{% if delivery==0 %}FREE{% else %}₹{{ "%.2f"|format(delivery) }}{% endif %}
+</strong>
+</div>
+
+<div class="delivery-box">
+<strong>🚚 Free Delivery Above ₹500</strong>
+<div id="freeDeliveryText">Checking your basket...</div>
+<div class="progress-track">
+<div id="progressFill" class="progress-fill"></div>
+</div>
+</div>
+
+<div class="total-row">
+<span>Estimated Total</span>
+<span>₹<span id="grandTotal">{{ "%.2f"|format(total) }}</span></span>
+</div>
+
+<a href="{{ url_for('checkout') }}" class="btn btn-green btn-large"
+id="checkoutButton">Proceed to Checkout →</a>
+
+<p class="notice">
+Changing quantities updates this preview immediately.
+Click Update to save each quantity before checkout.
+Final prices and stock are checked by the server.
+</p>
+</aside>
+</div>
+
+{% else %}
+<div class="empty">
+<div style="font-size:60px">🧺</div>
+<h2>Your basket is empty</h2>
+<p>Discover fresh vegetables, fruits and other farm products.</p>
+<a href="{{ url_for('marketplace') }}"
+class="btn btn-green">🌾 Explore Marketplace</a>
+</div>
+{% endif %}
+</main>
+
+<footer>🌱 FarmConnect — Fresh from farmers to families.</footer>
+
+<script>
+"use strict";
+const cards=[...document.querySelectorAll(".cart-item")];
+const money=n=>n.toFixed(2);
+const savedValues=new Map();
+
+cards.forEach((card,index)=>{
+const input=card.querySelector(".qty-input");
+savedValues.set(index,Number(input.defaultValue));
+input.addEventListener("input",calculate);
+});
+
+function calculate(){
+if(!cards.length)return;
+let subtotal=0;
+let valid=true;
+let unsaved=false;
+
+cards.forEach((card,index)=>{
+const price=Number(card.dataset.price);
+const stock=Number(card.dataset.stock);
+const input=card.querySelector(".qty-input");
+const qty=Number(input.value);
+const okay=input.value.trim()!=="" &&
+Number.isFinite(qty) && qty>=0.1 &&
+qty<=stock;
+
+input.setCustomValidity(okay?"":"Enter a quantity within available stock");
+card.querySelector(".warning").hidden=okay;
+
+if(!okay)valid=false;
+if(qty!==savedValues.get(index))unsaved=true;
+if(okay)subtotal+=price*qty;
+card.querySelector(".line-total").textContent=
+okay?money(price*qty):"—";
+});
+
+const delivery=subtotal>=500?0:40;
+document.getElementById("subtotal").textContent=money(subtotal);
+document.getElementById("deliveryText").textContent=
+delivery===0?"FREE":"₹"+money(delivery);
+document.getElementById("grandTotal").textContent=
+money(subtotal+delivery);
+
+const remaining=Math.max(0,500-subtotal);
+document.getElementById("freeDeliveryText").textContent=
+remaining===0?"🎉 You qualify for free delivery!":
+"Add ₹"+money(remaining)+" more for free delivery.";
+document.getElementById("progressFill").style.width=
+Math.min(100,subtotal/500*100)+"%";
+
+const checkout=document.getElementById("checkoutButton");
+if(!valid||unsaved){
+checkout.setAttribute("aria-disabled","true");
+checkout.style.opacity=".55";
+checkout.title=valid?"Save the updated quantities first":"Fix invalid quantities";
+}else{
+checkout.removeAttribute("aria-disabled");
+checkout.style.opacity="1";
+checkout.title="";
+}
+}
+
+const checkout=document.getElementById("checkoutButton");
+if(checkout){
+checkout.addEventListener("click",event=>{
+if(checkout.getAttribute("aria-disabled")==="true"){
+event.preventDefault();
+alert("Please save valid quantities by clicking Update first.");
+}
+});
+}
+calculate();
+</script>
 </body>
 </html>

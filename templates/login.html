@@ -1,188 +1,164 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Login | FarmConnect</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            background:
-                linear-gradient(
-                    135deg,
-                    #dcfce7,
-                    #f0fdf4,
-                    #ffffff
-                );
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .box {
-            width: 92%;
-            max-width: 450px;
-            background: white;
-            padding: 38px;
-            border-radius: 24px;
-            box-shadow: 0 20px 55px rgba(20,70,35,.12);
-        }
-
-        .logo {
-            text-align: center;
-            font-size: 45px;
-            margin-bottom: 8px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #166534;
-            margin: 0 0 8px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 28px;
-        }
-
-        .flash {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-weight: 700;
-            color: #334155;
-            margin: 15px 0 7px;
-        }
-
-        input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #cbd5e1;
-            border-radius: 11px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #22c55e;
-            box-shadow: 0 0 0 3px rgba(34,197,94,.15);
-        }
-
-        button {
-            width: 100%;
-            margin-top: 22px;
-            padding: 14px;
-            border: 0;
-            border-radius: 12px;
-            background: #16a34a;
-            color: white;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #15803d;
-        }
-
-        .bottom {
-            text-align: center;
-            color: #64748b;
-            margin-top: 22px;
-        }
-
-        .bottom a {
-            color: #15803d;
-            font-weight: 800;
-            text-decoration: none;
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login | FarmConnect</title>
+<style>
+:root{--green:#168447;--deep:#103e29;--muted:#718176;--line:#dce9df}
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;font-family:"Segoe UI",Arial,sans-serif;
+ background:#f6faf6;color:#193528
+}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+button{cursor:pointer}
+.layout{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.visual{
+ background:
+ linear-gradient(145deg,rgba(8,54,26,.94),rgba(16,111,53,.82)),
+ url("/static/images/Fresh Tomatoes.jpg") center/cover;
+ color:white;padding:55px;
+ display:flex;flex-direction:column;justify-content:space-between
+}
+.brand{font-size:27px;font-weight:900}
+.visual-content{max-width:520px}
+.tag{font-size:12px;font-weight:900;background:#ffffff24;padding:10px 16px;border-radius:25px;display:inline-block}
+.visual h1{font-size:clamp(39px,4.4vw,60px);line-height:1.12;letter-spacing:-1.8px;margin:24px 0}
+.visual h1 span{color:#d3f596}
+.visual p{font-size:15px;line-height:1.85;color:#d8efdc}
+.visual-points{display:grid;gap:17px;margin:33px 0}
+.visual-point{font-size:14px;font-weight:700}
+.visual-footer{font-size:12px;color:#d3e8d8}
+.form-section{
+ display:flex;align-items:center;justify-content:center;
+ padding:45px 30px
+}
+.form-box{width:100%;max-width:455px}
+.back{display:inline-block;color:var(--green);font-size:13px;font-weight:800;margin-bottom:35px}
+.form-icon{width:65px;height:65px;border-radius:19px;background:#e6f6e8;display:grid;place-items:center;font-size:35px;margin-bottom:19px}
+.form-box h2{font-size:33px;color:var(--deep);margin:0 0 11px;letter-spacing:-.6px}
+.subtitle{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:32px}
+.field{margin-bottom:21px}
+.field label{font-size:13px;font-weight:800;display:block;margin-bottom:9px}
+.field input{
+ width:100%;padding:15px;border:1px solid #cbdacf;
+ border-radius:12px;outline:none;background:white
+}
+.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px #16a34a1c}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:80px}
+.show-pass{
+ position:absolute;right:8px;top:7px;border:0;
+ padding:9px 11px;border-radius:8px;background:#e9f6eb;
+ font-size:12px;color:var(--green);font-weight:900
+}
+.btn{
+ width:100%;padding:15px;border-radius:12px;border:0;
+ background:var(--green);color:white;font-weight:900;font-size:15px;
+ margin-top:9px
+}
+.btn:hover{background:var(--deep)}
+.btn:disabled{opacity:.7;cursor:not-allowed}
+.flash{background:#fff0e9;border:1px solid #f4d2bd;padding:13px;color:#984323;border-radius:11px;font-size:13px;margin-bottom:18px;line-height:1.6}
+.bottom{text-align:center;font-size:13px;color:var(--muted);margin-top:26px}
+.bottom a{color:var(--green);font-weight:900}
+.security-note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:25px;text-align:center}
+@media(max-width:900px){.visual{padding:35px}}
+@media(max-width:720px){.layout{grid-template-columns:1fr}.visual{min-height:250px;padding:28px}.visual-content h1{font-size:36px}.visual-points,.visual-footer{display:none}.form-section{padding:35px 20px}}
+</style>
 </head>
-
 <body>
+<div class="layout">
 
-<div class="box">
+<section class="visual">
+<a class="brand" href="{{ url_for('home') }}">🌱 FarmConnect</a>
 
-    <div class="logo">🌾</div>
-
-    <h1>Welcome Back</h1>
-
-    <p class="subtitle">
-        Login to your FarmConnect account
-    </p>
-
-    {% with messages = get_flashed_messages() %}
-
-        {% for message in messages %}
-
-            <div class="flash">
-                {{ message }}
-            </div>
-
-        {% endfor %}
-
-    {% endwith %}
-
-    <form method="POST" action="{{ url_for('login') }}">
-
-        <label>Email</label>
-
-        <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            required
-        >
-
-        <label>Password</label>
-
-        <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            required
-        >
-
-        <button type="submit">
-            Login →
-        </button>
-
-    </form>
-
-    <p class="bottom">
-
-        Don't have an account?
-
-        <a href="{{ url_for('register') }}">
-            Create Account
-        </a>
-
-    </p>
-
+<div class="visual-content">
+<span class="tag">🌾 FARMER–CUSTOMER COMMUNITY</span>
+<h1>Welcome back to <span>fresh connections.</span></h1>
+<p>Manage your farm, discover fresh products, and keep every order moving forward.</p>
+<div class="visual-points">
+<div class="visual-point">✓ Manage your farm products</div>
+<div class="visual-point">✓ Buy directly from farmers</div>
+<div class="visual-point">✓ Track customer orders</div>
+</div>
 </div>
 
+<div class="visual-footer">Connecting farmers and families.</div>
+</section>
+
+<main class="form-section">
+<div class="form-box">
+<a href="{{ url_for('home') }}" class="back">← Back to Home</a>
+
+<div class="form-icon">🌱</div>
+<h2>Welcome Back!</h2>
+<p class="subtitle">Sign in to continue to your FarmConnect dashboard.</p>
+
+{% with messages=get_flashed_messages() %}
+{% for message in messages %}
+<div class="flash" role="alert">{{ message }}</div>
+{% endfor %}
+{% endwith %}
+
+<form method="POST" action="{{ url_for('login') }}" id="loginForm">
+<div class="field">
+<label for="email">Email Address</label>
+<input id="email" name="email" type="email" autocomplete="username"
+placeholder="you@example.com" maxlength="120" required
+value="{{ request.form.get('email','') }}">
+</div>
+
+<div class="field">
+<label for="password">Password</label>
+<div class="password-wrap">
+<input type="password" name="password" id="password"
+placeholder="Enter your password"
+autocomplete="current-password" required>
+<button type="button" id="showPassword" class="show-pass"
+aria-label="Show password">Show</button>
+</div>
+</div>
+
+<button class="btn" id="loginButton" type="submit">
+Login to FarmConnect →
+</button>
+</form>
+
+<div class="bottom">
+New to FarmConnect?
+<a href="{{ url_for('register') }}">Create an Account</a>
+</div>
+
+<p class="security-note">
+🔒 Your password is checked by the FarmConnect server.
+Never share your account password with anyone.
+</p>
+</div>
+</main>
+</div>
+
+<script>
+"use strict";
+const password=document.getElementById("password");
+const toggle=document.getElementById("showPassword");
+toggle.addEventListener("click",()=>{
+const visible=password.type==="text";
+password.type=visible?"password":"text";
+toggle.textContent=visible?"Show":"Hide";
+toggle.setAttribute("aria-label",visible?"Show password":"Hide password");
+});
+
+const form=document.getElementById("loginForm");
+const button=document.getElementById("loginButton");
+form.addEventListener("submit",()=>{
+if(!form.checkValidity())return;
+button.disabled=true;
+button.textContent="Signing in...";
+});
+</script>
 </body>
 </html>

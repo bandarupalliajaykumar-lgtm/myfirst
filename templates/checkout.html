@@ -1,393 +1,219 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Checkout | FarmConnect</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f0fdf4;
-            color: #1e293b;
-        }
-
-        nav {
-            background: white;
-            padding: 18px 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #dcfce7;
-        }
-
-        .logo {
-            color: #15803d;
-            font-size: 24px;
-            font-weight: 900;
-            text-decoration: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #475569;
-            font-weight: 700;
-            margin-left: 15px;
-        }
-
-        .container {
-            width: 92%;
-            max-width: 1050px;
-            margin: 35px auto;
-        }
-
-        h1 {
-            color: #166534;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            gap: 25px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,.06);
-        }
-
-        label {
-            display: block;
-            font-weight: 800;
-            margin: 18px 0 7px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 130px;
-            padding: 13px;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            resize: vertical;
-        }
-
-        .payment {
-            display: grid;
-            gap: 10px;
-        }
-
-        .payment label {
-            border: 1px solid #e2e8f0;
-            padding: 13px;
-            border-radius: 10px;
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .place {
-            width: 100%;
-            margin-top: 22px;
-            padding: 15px;
-            border: 0;
-            border-radius: 10px;
-            background: #16a34a;
-            color: white;
-            font-size: 16px;
-            font-weight: 900;
-            cursor: pointer;
-        }
-
-        .back {
-            display: block;
-            text-align: center;
-            margin-top: 12px;
-            padding: 12px;
-            border: 1px solid #dcfce7;
-            border-radius: 10px;
-            color: #15803d;
-            text-decoration: none;
-            font-weight: 800;
-        }
-
-        .item {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 13px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-
-        .total {
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            font-size: 21px;
-            font-weight: 900;
-            color: #15803d;
-        }
-
-        @media(max-width:800px) {
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Secure Checkout | FarmConnect</title>
+<style>
+:root{--green:#168447;--dark:#103e29;--bg:#f6faf6;--border:#e0eae2;--muted:#738477}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#193528;font-family:"Segoe UI",Arial,sans-serif}
+a{text-decoration:none;color:inherit}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+nav{padding:17px 5%;background:white;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:15px}
+.logo{font-size:25px;font-weight:900;color:var(--green)}
+.links{display:flex;gap:15px;flex-wrap:wrap;font-size:13px;font-weight:800}
+.container{width:92%;max-width:1120px;margin:30px auto}
+.hero{background:linear-gradient(115deg,#103e29,#188748);padding:33px;border-radius:22px;color:white;margin-bottom:25px}
+.hero h1{margin:0 0 10px;font-size:33px}
+.hero p{margin:0;color:#d9f4e0;font-size:14px}
+.steps{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 25px}
+.step{background:white;border:1px solid var(--border);padding:11px 15px;border-radius:30px;font-size:12px;font-weight:800;color:var(--muted)}
+.step.active{background:#e4f7e9;color:var(--green);border-color:#b4e5c1}
+.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(290px,0.9fr);gap:24px;align-items:start}
+.card{background:white;border:1px solid var(--border);border-radius:20px;padding:25px;box-shadow:0 8px 30px #163f2010}
+.card h2{color:var(--dark);font-size:21px;margin:0 0 10px}
+.subtitle{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:20px}
+label{font-size:13px;font-weight:800;display:block;margin-bottom:9px}
+textarea{width:100%;min-height:140px;border:1px solid #cadacd;border-radius:12px;resize:vertical;padding:14px;outline:none;line-height:1.6}
+textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #16a34a1b}
+.counter{text-align:right;color:var(--muted);font-size:11px;margin-top:8px}
+.payment-choice{display:flex;align-items:center;gap:12px;border:2px solid #a4dab1;background:#f0faf0;border-radius:13px;padding:17px;margin:18px 0}
+.payment-choice input{accent-color:var(--green)}
+.payment-choice strong{display:block;font-size:14px}
+.payment-choice small{color:var(--muted);font-size:11px}
+.payment-note{background:#fff7e9;color:#925c12;padding:13px;border-radius:11px;font-size:12px;line-height:1.7;margin:14px 0}
+.btn{border:0;border-radius:11px;padding:14px 17px;font-weight:900;font-size:14px;text-align:center;display:block;width:100%}
+.btn-green{background:var(--green);color:white}
+.btn-green:hover{background:var(--dark)}
+.btn-green:disabled{opacity:.6;cursor:not-allowed}
+.btn-soft{background:#eef7ef;color:var(--green);margin-top:11px}
+.item{display:flex;align-items:center;justify-content:space-between;gap:13px;padding:15px 0;border-bottom:1px solid var(--border)}
+.item-name{font-weight:900;font-size:13px}
+.item-meta{font-size:11px;color:var(--muted);margin-top:6px}
+.item-total{font-size:13px;font-weight:900;white-space:nowrap}
+.summary-row{display:flex;justify-content:space-between;gap:10px;padding:13px 0;color:#5e7263;font-size:13px}
+.summary-row strong{color:var(--dark)}
+.total{display:flex;justify-content:space-between;padding-top:18px;margin-top:12px;border-top:1px solid var(--border);font-weight:900;font-size:22px;color:var(--green)}
+.trust{background:#edf8ee;border-radius:12px;padding:16px;margin-top:19px;color:#527158;font-size:12px;line-height:1.9}
+.flash{padding:13px;background:#fff2e9;color:#a14317;border-radius:12px;margin-bottom:20px;font-size:13px}
+footer{text-align:center;padding:28px;background:#102b1b;color:white;margin-top:50px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}}
+@media(max-width:500px){nav{flex-direction:column;align-items:flex-start}.container{width:94%}.hero{padding:24px}.card{padding:17px}}
+</style>
 </head>
-
 <body>
-
 <nav>
-
-    <a
-        class="logo"
-        href="{{ url_for('dashboard') }}"
-    >
-        🌱 FarmConnect
-    </a>
-
-    <div>
-
-        <a href="{{ url_for('marketplace') }}">
-            Marketplace
-        </a>
-
-        <a href="{{ url_for('cart') }}">
-            Cart
-        </a>
-
-        <a href="{{ url_for('my_orders') }}">
-            Orders
-        </a>
-
-        <a href="{{ url_for('logout') }}">
-            Logout
-        </a>
-
-    </div>
-
+<a href="{{ url_for('dashboard') }}" class="logo">🌱 FarmConnect</a>
+<div class="links">
+<a href="{{ url_for('marketplace') }}">Marketplace</a>
+<a href="{{ url_for('cart') }}">Cart</a>
+<a href="{{ url_for('my_orders') }}">My Orders</a>
+<a href="{{ url_for('logout') }}">Logout</a>
+</div>
 </nav>
 
-
-<div class="container">
-
-    <h1>
-        🚚 Checkout
-    </h1>
-
-    <p>
-        Confirm your delivery details and place your order.
-    </p>
-
-
-    <div class="grid">
-
-
-        <section class="card">
-
-            <h2>
-                Delivery & Payment
-            </h2>
-
-
-            <form method="POST">
-
-                <label>
-                    Delivery Address
-                </label>
-
-                <textarea
-                    name="address"
-                    placeholder="House / Hostel, Street, Village / City, District, PIN"
-                    required
-                ></textarea>
-
-
-                <label>
-                    Payment Method
-                </label>
-
-
-                <div class="payment">
-
-                    <label>
-                        <input
-                            type="radio"
-                            name="payment_method"
-                            value="Cash on Delivery"
-                            checked
-                        >
-                        💵 Cash on Delivery
-                    </label>
-
-                    <label>
-                        <input
-                            type="radio"
-                            name="payment_method"
-                            value="UPI"
-                        >
-                        📱 UPI — Demo Payment
-                    </label>
-
-                    <label>
-                        <input
-                            type="radio"
-                            name="payment_method"
-                            value="Demo Card"
-                        >
-                        💳 Card — Demo Payment
-                    </label>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="place"
-                >
-                    ✓ Place Order
-                </button>
-
-            </form>
-
-
-            <a
-                href="{{ url_for('cart') }}"
-                class="back"
-            >
-                ← Back to Cart
-            </a>
-
-        </section>
-
-
-        <aside class="card">
-
-            <h2>
-                Order Summary
-            </h2>
-
-
-            {% for item in cart_items %}
-
-                <div class="item">
-
-                    <div>
-
-                        <strong>
-                            {{ item.product.name }}
-                        </strong>
-
-                        <br>
-
-                        {{ item.quantity }}
-                        ×
-                        ₹{{ "%.2f"|format(
-                            item.product.price
-                        ) }}
-
-                    </div>
-
-
-                    <strong>
-
-                        ₹{{ "%.2f"|format(
-                            item.product.price *
-                            item.quantity
-                        ) }}
-
-                    </strong>
-
-                </div>
-
-            {% endfor %}
-
-
-            <div class="row">
-
-                <span>
-                    Subtotal
-                </span>
-
-                <strong>
-                    ₹{{ "%.2f"|format(subtotal) }}
-                </strong>
-
-            </div>
-
-
-            <div class="row">
-
-                <span>
-                    Delivery
-                </span>
-
-                <strong>
-
-                    {% if delivery == 0 %}
-
-                        FREE
-
-                    {% else %}
-
-                        ₹{{ "%.2f"|format(delivery) }}
-
-                    {% endif %}
-
-                </strong>
-
-            </div>
-
-
-            <div class="total">
-
-                <span>
-                    Total
-                </span>
-
-                <span>
-                    ₹{{ "%.2f"|format(total) }}
-                </span>
-
-            </div>
-
-        </aside>
-
-    </div>
-
+<main class="container">
+<section class="hero">
+<h1>🚚 Complete Your Order</h1>
+<p>Fresh farm products are one step away. Confirm your address and review your basket.</p>
+</section>
+
+<div class="steps">
+<span class="step">✓ Shopping Cart</span>
+<span class="step active">2. Delivery & Checkout</span>
+<span class="step">3. Order Confirmation</span>
 </div>
 
-</body>
+{% with messages=get_flashed_messages() %}
+{% for message in messages %}
+<div class="flash">{{ message }}</div>
+{% endfor %}
+{% endwith %}
 
+<div class="layout">
+<section class="card">
+<h2>📍 Delivery Information</h2>
+<p class="subtitle">Enter a complete address to help the farmer arrange delivery.</p>
+
+<form method="POST" id="checkoutForm">
+<label for="address">Full Delivery Address *</label>
+<textarea id="address" name="address" minlength="12"
+maxlength="500" required
+placeholder="House / Hostel, Street, Village or City, District, State, PIN code">{{ request.form.get('address','') }}</textarea>
+<div class="counter"><span id="addressCount">0</span> / 500 characters</div>
+
+<h2 style="margin-top:26px">💳 Payment Method</h2>
+<p class="subtitle">A real payment gateway has not been integrated yet.</p>
+
+<label class="payment-choice">
+<input type="radio" name="payment_method"
+value="Cash on Delivery" checked required>
+<span>
+<strong>💵 Cash on Delivery</strong>
+<small>Pay when you receive your products.</small>
+</span>
+</label>
+
+<div class="payment-note">
+ℹ️ Online UPI and card payments are not available yet.
+This demo does not collect or process payment details.
+</div>
+
+<button type="submit" class="btn btn-green" id="placeOrder">
+✅ Confirm & Place Order
+</button>
+
+<a href="{{ url_for('cart') }}" class="btn btn-soft">
+← Return to Cart
+</a>
+</form>
+</section>
+
+<aside class="card">
+<h2>🧺 Your Order Summary</h2>
+<p class="subtitle">Please verify your products and quantities.</p>
+
+{% for item in cart_items %}
+<div class="item">
+<div>
+<div class="item-name">{{ item.product.name }}</div>
+<div class="item-meta">
+{{ item.quantity }} kg ×
+₹{{ "%.2f"|format(item.product.price) }}/kg
+{% if item.product.farmer %}
+<br>👨‍🌾 {{ item.product.farmer.name }}
+{% endif %}
+</div>
+</div>
+<strong class="item-total">
+₹{{ "%.2f"|format(item.product.price*item.quantity) }}
+</strong>
+</div>
+{% endfor %}
+
+<div class="summary-row">
+<span>Subtotal</span>
+<strong>₹{{ "%.2f"|format(subtotal) }}</strong>
+</div>
+<div class="summary-row">
+<span>Delivery</span>
+<strong>
+{% if delivery == 0 %}
+FREE
+{% else %}
+₹{{ "%.2f"|format(delivery) }}
+{% endif %}
+</strong>
+</div>
+
+<div class="total">
+<span>Order Total</span>
+<span>₹{{ "%.2f"|format(total) }}</span>
+</div>
+
+<div class="trust">
+<strong>🌿 What happens next?</strong>
+<br>1. Your order is sent to the farmer.
+<br>2. The farmer confirms and prepares it.
+<br>3. You can check its status in My Orders.
+<br>4. Delivery is coordinated with the farmer.
+</div>
+
+<p class="subtitle" style="margin-top:15px">
+Delivery fees are displayed in this checkout summary.
+The backend must preserve the final amount in order records
+before real billing can be supported.
+</p>
+</aside>
+</div>
+</main>
+
+<footer>🌱 FarmConnect — Supporting farmers, serving families.</footer>
+
+<script>
+"use strict";
+const form=document.getElementById("checkoutForm");
+const address=document.getElementById("address");
+const counter=document.getElementById("addressCount");
+const submitButton=document.getElementById("placeOrder");
+
+function updateAddress(){
+counter.textContent=address.value.length;
+}
+address.addEventListener("input",updateAddress);
+updateAddress();
+
+form.addEventListener("submit",event=>{
+const clean=address.value.trim();
+if(clean.length<12){
+event.preventDefault();
+alert("Please enter a complete delivery address (at least 12 characters).");
+address.focus();
+return;
+}
+const confirmed=confirm(
+"Place your FarmConnect order using Cash on Delivery?"
+);
+if(!confirmed){
+event.preventDefault();
+return;
+}
+submitButton.disabled=true;
+submitButton.textContent="Placing Order...";
+});
+</script>
+</body>
 </html>

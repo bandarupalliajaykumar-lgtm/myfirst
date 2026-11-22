@@ -19,6 +19,10 @@ from werkzeug.security import (
 from datetime import datetime, timedelta
 
 import random
+import os
+import math
+import secrets
+from sqlalchemy import func
 
 
 # ============================================================
@@ -28,13 +32,17 @@ import random
 
 app = Flask(__name__)
 
+# Configure SECRET_KEY in Render > Environment. Locally, a temporary key is OK.
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = bool(os.environ.get("RENDER"))
 
-import os
-app.config["SECRET_KEY"] = os.environ.get(
-    "SECRET_KEY", "local-development-only-key"
-)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///farmconnect.db"
+# Render DATABASE_URL supports PostgreSQL; local development uses SQLite.
+database_url = os.environ.get("DATABASE_URL", "sqlite:///farmconnect.db")
+if database_url.startswith("postgres://"):
+    database_url = "postgresql://" + database_url[len("postgres://"):]
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -73,6 +81,10 @@ class User(db.Model):
     phone = db.Column(db.String(20))
 
     location = db.Column(db.String(200))
+
+    # Farmers opt in to sharing approximate farm coordinates.
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
 
     created_at = db.Column(
         db.DateTime,
@@ -611,9 +623,7 @@ def seed_demo_products():
 
             product.image = image
 
-            if product.quantity <= 0:
-
-                product.quantity = 1000
+            # Do not silently restock sold-out items during a restart.
 
             if not product.description:
 
@@ -1394,6 +1404,36 @@ def dashboard():
 # MARKETPLACE
 # ============================================================
 
+# ==================== DEMO FEATURE HELPERS ====================
+
+def distance_km(lat1, lon1, lat2, lon2):
+    """Great-circle distance in kilometres (not a driving distance)."""
+    r1, r2 = math.radians(lat1), math.radians(lat2)
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    value = math.sin(dlat / 2) ** 2 + math.cos(r1) * math.cos(r2) * math.sin(dlon / 2) ** 2
+    return round(6371.0088 * 2 * math.asin(min(1, math.sqrt(value))), 1)
+
+
+def parse_coordinates(latitude, longitude):
+    try:
+        lat, lon = float(latitude), float(longitude)
+    except (ValueError, TypeError):
+        return None
+    if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+        return None
+    return lat, lon
+
+
+# Market comparison uses only admin-provided reference prices.
+# Do not label sample prices as live mandi data.
+DEMO_MARKET_REFERENCES = {
+    "Fresh Tomatoes": 52, "Fresh Potatoes": 42,
+    "Fresh Carrots": 64, "Red Onions": 48,
+    "Fresh Bananas": 62, "Premium Rice": 85,
+}
+
+
 @app.route("/marketplace")
 def marketplace():
     user = get_current_user()
@@ -1403,38 +1443,102 @@ def marketplace():
         flash("Marketplace shopping is available for buyers.")
         return redirect(url_for("dashboard"))
 
-    search_value = request.args.get("search", "").strip()
-    category_value = request.args.get("category", "").strip()
+    search_value = request.args.get("search", "").strip()[:100]
+    category_value = request.args.get("category", "").strip()[:80]
+    near_coordinates = parse_coordinates(request.args.get("lat"), request.args.get("lon"))
+    radius_value = request.args.get("radius", "50")
+    try:
+        radius_km = max(1, min(500, float(radius_value)))
+    except (TypeError, ValueError):
+        radius_km = 50
 
-    official_names = {item[0] for item in DEMO_PRODUCTS}
-    official_order = {item[0]: index for index, item in enumerate(DEMO_PRODUCTS)}
-    category_order = {"Vegetables": 1, "Fruits": 2, "Grains": 3, "Spices": 4, "Dairy": 5}
-
-    query = Product.query.filter(Product.quantity > 0, Product.name.in_(official_names))
+    # Legacy project data has a second demo farmer with 25 older
+    # product listings. Hide those *only in the buyer marketplace*;
+    # never delete products or their related order history.
+    query = (Product.query
+             .join(User, Product.farmer_id == User.id)
+             .filter(Product.quantity > 0,
+                     User.email != "demo@farmconnect.local"))
     if search_value:
         query = query.filter(Product.name.ilike(f"%{search_value}%"))
     if category_value:
         query = query.filter(Product.category == category_value)
 
-    all_products = query.all()
-    demo_farmer = User.query.filter_by(email="demo_farmer@farmconnect.com").first()
-    demo_farmer_id = demo_farmer.id if demo_farmer else None
-    selected = {}
-
+    # Hide duplicate name listings from the same farmer in the marketplace.
+    # Keep separate farmer listings and leave database records untouched.
+    all_products = query.order_by(Product.created_at.desc()).all()
+    seen_listings = set()
+    products = []
     for product in all_products:
-        name = product.name
-        if name not in selected:
-            selected[name] = product
-            continue
-        current = selected[name]
-        if product.farmer_id == demo_farmer_id and current.farmer_id != demo_farmer_id:
-            selected[name] = product
+        listing_key = (product.farmer_id, (product.name or "").strip().casefold())
+        if listing_key not in seen_listings:
+            seen_listings.add(listing_key)
+            products.append(product)
 
-    products = list(selected.values())
-    products.sort(key=lambda p: (category_order.get(p.category, 99), official_order.get(p.name, 999)))
+    farmer_distances = {}
+    if near_coordinates:
+        eligible = []
+        for product in products:
+            farmer = product.farmer
+            if farmer.latitude is None or farmer.longitude is None:
+                continue  # Only opt-in farmers appear in nearby results.
+            km = distance_km(near_coordinates[0], near_coordinates[1], farmer.latitude, farmer.longitude)
+            if km <= radius_km:
+                eligible.append(product)
+                farmer_distances[farmer.id] = km
+        products = sorted(eligible, key=lambda item: farmer_distances[item.farmer_id])
+
     farmers = {product.farmer_id: product.farmer for product in products}
+    return render_template(
+        "marketplace.html", products=products, farmers=farmers,
+        search=search_value, category=category_value,
+        farmer_distances=farmer_distances, radius_km=radius_km,
+        near_lat=near_coordinates[0] if near_coordinates else "",
+        near_lon=near_coordinates[1] if near_coordinates else "",
+        market_references=DEMO_MARKET_REFERENCES,
+    )
 
-    return render_template("marketplace.html", products=products, farmers=farmers, search=search_value, category=category_value)
+
+@app.route("/farmer/location", methods=["POST"])
+def save_farmer_location():
+    """Save coordinates only after a farmer explicitly submits them."""
+    user = get_current_user()
+    if not user or user.role != "farmer":
+        flash("Only logged-in farmers can update their farm location.")
+        return redirect(url_for("login"))
+    coords = parse_coordinates(request.form.get("latitude"), request.form.get("longitude"))
+    if coords is None:
+        flash("Please enter valid latitude and longitude.")
+        return redirect(url_for("dashboard"))
+    user.latitude, user.longitude = coords
+    location_name = request.form.get("location", "").strip()[:200]
+    if location_name:
+        user.location = location_name
+    db.session.commit()
+    flash("Farm location saved. Customers can now find your nearby products.")
+    return redirect(url_for("dashboard"))
+
+
+@app.route("/farmer/analytics")
+def farmer_analytics():
+    user = get_current_user()
+    if not user or user.role != "farmer":
+        return redirect(url_for("login"))
+    orders = Order.query.join(Product).filter(Product.farmer_id == user.id).all()
+    valid = [order for order in orders if order.status != "Cancelled"]
+    delivered = [order for order in valid if order.status == "Delivered"]
+    revenue = round(sum(order.total_price for order in delivered), 2)
+    sales_by_product = {}
+    for order in delivered:
+        name = order.product.name
+        sales_by_product[name] = sales_by_product.get(name, 0) + order.quantity
+    top_products = sorted(sales_by_product.items(), key=lambda item: item[1], reverse=True)[:5]
+    return render_template(
+        "farmer_analytics.html", user=user, total_orders=len(orders),
+        delivered_orders=len(delivered), pending_orders=len(valid) - len(delivered),
+        revenue=revenue, top_products=top_products,
+    )
+
 
 # ============================================================
 # ADD PRODUCT
@@ -2561,6 +2665,11 @@ def update_order_status(order_id):
         )
 
 
+    # A delivered/cancelled order must not be reopened.
+    if order.status in ("Delivered", "Cancelled") and status != order.status:
+        flash("Completed or cancelled orders cannot be reopened.")
+        return redirect(url_for("farmer_orders"))
+
     order.status = status
 
     db.session.commit()
@@ -3114,23 +3223,21 @@ def internal_server_error(error):
 # ============================================================
 
 def migrate_order_delivery_address():
-
     inspector = inspect(db.engine)
-
-    columns = [
-        column["name"]
-        for column in inspector.get_columns("order")
-    ]
-
+    columns = {column["name"] for column in inspector.get_columns("order")}
     if "delivery_address" not in columns:
-
         with db.engine.begin() as connection:
+            connection.execute(text('ALTER TABLE "order" ADD COLUMN delivery_address TEXT'))
 
-            connection.execute(
-                text(
-                    'ALTER TABLE "order" ADD COLUMN delivery_address TEXT'
-                )
-            )
+
+def migrate_farmer_coordinates():
+    """Lightweight migration for existing SQLite or Postgres demo databases."""
+    columns = {column["name"] for column in inspect(db.engine).get_columns("user")}
+    with db.engine.begin() as connection:
+        if "latitude" not in columns:
+            connection.execute(text('ALTER TABLE "user" ADD COLUMN latitude FLOAT'))
+        if "longitude" not in columns:
+            connection.execute(text('ALTER TABLE "user" ADD COLUMN longitude FLOAT'))
 
 
 with app.app_context():
@@ -3138,6 +3245,7 @@ with app.app_context():
     db.create_all()
 
     migrate_order_delivery_address()
+    migrate_farmer_coordinates()
 
     seed_demo_products()
 
@@ -3150,8 +3258,6 @@ with app.app_context():
 
 if __name__ == "__main__":
 
-    app.run(
-        debug=True
-    )
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1")
 
 
